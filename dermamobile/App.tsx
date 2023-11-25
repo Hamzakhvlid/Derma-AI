@@ -5,8 +5,10 @@
  * @format
  */
 
+import { MyCounter } from 'dermacomponents';
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+import type { PropsWithChildren } from 'react';
+
 import {
   SafeAreaView,
   ScrollView,
@@ -24,6 +26,8 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -80,9 +84,11 @@ function App(): JSX.Element {
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
           </Section>
+         
           <Section title="See Your Changes">
             <ReloadInstructions />
           </Section>
+         <Text></Text>
           <Section title="Debug">
             <DebugInstructions />
           </Section>

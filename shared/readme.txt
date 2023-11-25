@@ -1,1 +1,0 @@
-derma AI shared components 
