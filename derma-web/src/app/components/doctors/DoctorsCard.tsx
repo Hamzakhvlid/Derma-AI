@@ -36,8 +36,8 @@ const DoctorsCard = (props: {
     return (
         <>
             <div className="w-full h-auto drop-shadow-md px-[2rem] bg-white py-5 rounded-lg">
-                <div className="flex sm:flex-row flex-col justify-between items-center">
-                    <div className="flex sm:flex-row flex-col">
+                <div className="flex md:flex-row flex-col justify-between items-center">
+                    <div className="flex xl:flex-row flex-col">
                         <img
                             className="rounded-full shadow-lg mb-6 mt-6 sm:mx-[6rem] mx-0 w-24 "
                             src="https://i.ibb.co/XVFPhWP/PSX-20230524-011601.jpg"
