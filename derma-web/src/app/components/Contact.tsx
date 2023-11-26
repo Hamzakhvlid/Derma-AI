@@ -60,20 +60,7 @@ const Contact = () => {
             to serve you.
           </p>
 
-          <p className="my-4 uppercase font-semibold border-b border-b-black pb-2">
-            Clinic Hours
-          </p>
-          <p className="font-normal">
-            Monday - Friday:{" "}
-            <span className="font-semibold">06:00 - 17:00</span>
-          </p>
-          <p className="font-normal">
-            Saturday: <span className="font-semibold">10:00 - 16:00</span>
-          </p>
-          <p className="mb-8">
-            {" "}
-            Sunday :<span className="font-semibold"> Closed</span>
-          </p>
+          
 
           <p className=" mt-3 flex items-center">
             <svg
@@ -96,7 +83,7 @@ const Contact = () => {
               <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
               <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
             </svg>
-            <span>dentrw@clinic.com</span>
+            <span>DermaAI@doc.com</span>
           </p>
 
           <p className="flex items-center">
@@ -112,7 +99,7 @@ const Contact = () => {
                 clipRule="evenodd"
               ></path>
             </svg>
-            <span>KG 14 Ave - Remera, Rwanda</span>
+            <span>GUJRAT - PAKISTAN</span>
           </p>
         </div>
 
