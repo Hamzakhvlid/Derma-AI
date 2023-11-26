@@ -32,7 +32,8 @@ const Navbar = () => {
     },
     {
       id: 3,
-      link: "insurance",
+      link: "doctors",
+
       label: "Doctors",
     },
     {
