@@ -10,6 +10,7 @@ import FAQs from "./components/FAQs";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Features from "./components/Features";
+import Doctors from './components/doctors/page';
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
       <FAQs />
       <Contact />
       < Footer />
+      <Doctors />
   </div>
   )
 }
