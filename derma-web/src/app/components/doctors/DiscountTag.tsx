@@ -1,6 +1,6 @@
 const DiscountTag = () => {
     return (
-        <span className="absolute right-1">
+        <span className="absolute right-1 sm:mt-0 -mt-3">
                                 <svg width="120" height="15" viewBox="0 0 120 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0 6L9.53451 0H12.1348V6H0Z" fill="black"></path>
                                     <path d="M11.0364 0.25H118C118.966 0.25 119.75 1.0335 119.75 2V13C119.75 13.9665 118.966 14.75 118 14.75H18.7864C14.5062 14.75 11.0364 11.2802 11.0364 7V0.25Z" fill="white" stroke="#029278" stroke-width="0.5"></path>

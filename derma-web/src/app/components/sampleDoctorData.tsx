@@ -13,6 +13,7 @@ const sampleDoctorData = {
             isMale: true,
             videoConsultation: {
                 isAvailable: true,
+                available: "12 Dec 2020",
                 price: 2000,
                 timeFrom: "03:00 PM",
                 timeTo: "05:00 PM",
@@ -25,9 +26,10 @@ const sampleDoctorData = {
                     area: "Chughtai Medical Centre, DHA Phase 4",
                     timeFrom: "10:00 AM",
                     timeTo: "01:00 PM",
+                    available: "12 Dec 2020",
                     price: 2000,
                     isAvailable: true,
-                }
+                },
             ]
         },
 
@@ -45,6 +47,7 @@ const sampleDoctorData = {
             videoConsultation: {
                 isAvailable: true,
                 price: 1000,
+                available: "12 Dec 2020",
                 timeFrom: "03:00 PM",
                 timeTo: "05:00 PM",
 
@@ -57,6 +60,7 @@ const sampleDoctorData = {
                     timeFrom: "10:00 AM",
                     timeTo: "01:00 PM",
                     price: 2000,
+                    available: "12 Dec 2020",
                     isAvailable: true,
                 }
             ]

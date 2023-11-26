@@ -16,7 +16,7 @@ const Doctors = () => {
             </div>
 
             {sampleDoctorData.doctors.map((id) => (
-                <div className="flex flex-col px-20 mt-10 ">
+                <div className="flex flex-col sm:px-20 px-3 mt-10 ">
                     <DoctorsCard
                         name={id.name}
                         experience={id.experience}
@@ -28,6 +28,8 @@ const Doctors = () => {
                         imgUrl={""}
                         study={id.degree}
                         isSergeon={id.isSurgeon}
+                        videoConsultation={id.videoConsultation}
+                        otherConsultations={id.otherConsultations}
                     />
                 </div>
             ))}
