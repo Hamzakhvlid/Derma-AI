@@ -33,7 +33,7 @@ const Navbar = () => {
     {
       id: 3,
       link: "insurance",
-      label: "Insurance",
+      label: "Doctors",
     },
     {
       id: 4,
@@ -44,6 +44,11 @@ const Navbar = () => {
       id: 5,
       link: "contact",
       label: "Book Now",
+    },
+    {
+      id: 5,
+      link: "Login/Signup",
+      label: "Login",
     },
   ];
 
@@ -129,8 +134,10 @@ const Navbar = () => {
                 </Link>
               </li>
             ))}
+           
           </ul>
         )}
+      
       </div>
     </header>
   );
