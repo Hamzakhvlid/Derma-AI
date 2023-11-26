@@ -45,6 +45,11 @@ const Navbar = () => {
       link: "contact",
       label: "Book Now",
     },
+    {
+      id: 5,
+      link: "Login/Signup",
+      label: "Login",
+    },
   ];
 
   const scrollToTop = () => {
@@ -129,8 +134,10 @@ const Navbar = () => {
                 </Link>
               </li>
             ))}
+           
           </ul>
         )}
+      
       </div>
     </header>
   );

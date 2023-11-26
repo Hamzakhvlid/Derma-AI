@@ -47,8 +47,8 @@ const Team = () => {
               </h2>
 
               <p className="max-w-[43rem] text-md mx-auto mt-4 text-gray-600">
-                Our dedicated team of dental professionals is committed to
-                providing you with the best dental care possible.{" "}
+                Our dedicated team of skin care professionals is committed to
+                providing you with the best skin care possible.{" "}
                 <span className=" hidden lg:inline">
                   Each member of our team is highly skilled and experienced in
                   their respective areas of expertise, ensuring that you receive
@@ -69,7 +69,7 @@ const Team = () => {
 
             <div className="mt-2">
               <h3 className="text-md font-bold text-gray-700">GATEME Gaby </h3>
-              <span className="mt-1 font-medium text-gray-600 ">Orthodontist</span>
+              <span className="mt-1 font-medium text-gray-600 ">Skin Specialist</span>
             </div>
           </div>
 
@@ -82,7 +82,7 @@ const Team = () => {
 
             <div className="mt-2">
               <h3 className="text-md font-bold text-gray-700 ">MAHORO Eunice</h3>
-              <span className="mt-1 font-medium text-gray-600 ">Therapist</span>
+              <span className="mt-1 font-medium text-gray-600 ">Cosmetic Dermatologists</span>
             </div>
           </div>
 
@@ -96,7 +96,7 @@ const Team = () => {
             <div className="mt-2">
               <h3 className="text-md font-bold text-gray-700 ">IBAKA M. Theodat</h3>
               <span className="mt-1 font-medium text-gray-600 ">
-                Dental Surgeon
+              Medical Dermatologists
               </span>
             </div>
           </div>
@@ -110,7 +110,7 @@ const Team = () => {
 
             <div className="mt-2">
               <h3 className="text-md font-bold text-gray-700 ">DUKUNDE Arriana</h3>
-              <span className="mt-1 font-medium text-gray-600 ">Assistant</span>
+              <span className="mt-1 font-medium text-gray-600 ">Dermatopathologists</span>
             </div>
           </div>
         </div>

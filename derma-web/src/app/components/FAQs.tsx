@@ -16,17 +16,13 @@ const FAQs = () => {
             <details>
               <summary className="py-2 outline-none cursor-pointer focus:font-semibold">
                 {" "}
-                What Services does DentRw offer?
+                What Services does Derma AI offer?
               </summary>
 
               <div className="px-4 pb-4">
                 <p>
                   {" "}
-                  DentRw offers a wide range of dental services, including
-                  preventative care, virtual consultation, cleanings, fillings,
-                  root canals, extractions and more. Our Experienced team is
-                  dedicated to providing exceptional oral health care to our
-                  patients
+                  Derma AI offers a comprehensive range of virtual dermatological services, leveraging advanced artificial intelligence to provide personalized skincare solutions
                 </p>
               </div>
             </details>
@@ -35,23 +31,15 @@ const FAQs = () => {
             <details>
               <summary className="py-2 outline-none cursor-pointer focus:font-semibold">
                 {" "}
-                What are the effects of taditional habit known as Gukura
-                Ibyinyo/Tooth bud extraction?{" "}
+              
+             How does Derma AI analyze my skin?{" "}
               </summary>
               <div>
                 <p className="px-4 pb-4">
-                  It's important to note that tooth bud extraction can have
-                  serious and detrimental effects on oral health. The tooth buds
-                  are the immature teeth that are still developing beneath the
-                  gums in children. Removing these tooth buds interferes with
-                  the natural eruption and alignment of permanent teeth, leading
-                  to various dental issues.
+                Derma AI employs advanced algorithms to analyze the information provided, including skin type, concerns, and historical data. The system processes this data to generate a detailed analysis, offering insights into your skin's unique characteristics and needs.
                 </p>
                 <p className="px-4 pb-4">
-                  Some potential effects of tooth bud extraction include:
-                  Misalignment of Teeth, Impacted Teeth, Bite Problems
-                  ,Psychological Impact. It's essential to prioritize
-                  evidence-based dental care practices.
+                  
                 </p>
               </div>
             </details>
@@ -60,19 +48,16 @@ const FAQs = () => {
             <details>
               <summary className="py-2 outline-none cursor-pointer focus:font-semibold">
                 {" "}
-                How do I schedule an appointment at DentRw ?{" "}
+                How do virtual consultations work on Derma AI?
               </summary>
               <div>
                 <p className="px-4 pb-4">
                   {" "}
-                  To schedule appointment at DentRw simpy fill below form and
-                  submit.
+                  Virtual consultations on Derma AI enable you to connect with our virtual dermatologist in real-time. You can discuss your skin concerns, share images if needed, and receive expert advice. It's a convenient way to access professional dermatological insights from the comfort of your home, fostering a seamless and personalized skincare experience
                 </p>
                 <p className="px-4 pb-4">
                   {" "}
-                  Besides our online booking system, you can also give us a
-                  call. We offer flexible scheduling options to ensure that you
-                  can receive the care you need at a time that works for you.
+                
                 </p>
               </div>
             </details>

@@ -37,12 +37,12 @@ const Features = () => {
               </svg>
               <span className="relative">Your </span>
             </span>{" "}
-            Comprehensive Dental Care Solution
+            Comprehensive Skin Care Solution
           </h2>
         </Fade>
         <Fade>
           <p className="text-base text-gray-700 md:text-lg">
-            we are dedicated to delivering exceptional dental care with a focus
+            we are dedicated to delivering exceptional skin care with a focus
             on convenience, prevention, and effective treatments.
           </p>
         </Fade>
@@ -102,10 +102,10 @@ const Features = () => {
                   />
                 </svg>
               </div>
-              <h6 className="mb-2 font-semibold leading-5">Online Booking</h6>
+              <h6 className="mb-2 font-semibold leading-5">Online Booking & AI Diagnosis</h6>
               <p className="mb-3 text-sm text-gray-900">
-                Streamlining your dental experience. We come to believe dental
-                care should be easily accessible everytime and hassle-free.
+                Streamlining your skin care experience. We come to believe skin
+                care should be easily accessible everytime and hassle-free.We use AI to diagnose your skin condition and suggest the best treatment for you.
               </p>
             </div>
             <a
@@ -137,9 +137,9 @@ const Features = () => {
               </div>
               <h6 className="mb-2 font-semibold leading-5">Preventive Care</h6>
               <p className="mb-3 text-sm text-gray-900">
-                Foundation for Lifelong Dental Wellness. We prioritize
-                preventive care as cornerstone of mantaining optimal oral
-                health.
+                Foundation for Lifelong Skin Wellness. We prioritize
+                preventive care as cornerstone of mantaining optimal skin
+                health using AI suggestions .
               </p>
             </div>
             <a
@@ -173,8 +173,7 @@ const Features = () => {
                 Physical Treatment
               </h6>
               <p className="mb-3 text-sm text-gray-900">
-                Whether your require cosmetic, restorative, pediatric,
-                orthodontic procedures and more. Our team awaits you.
+              Revitalize your skin with our dermatologist's expert care, offering personalized solutions for acne, anti-aging, and various skin conditions.
               </p>
             </div>
             <a

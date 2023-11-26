@@ -115,11 +115,7 @@ export default function App() {
                         d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z"
                       ></path>
                     </svg>
-                    I had an outstanding experience at Dentrw dental clinic.
-                    Their staff is very friendly and their facilities are
-                    state-of-the-art. They took great care of me, the dental
-                    care was done with precision and expertise. Thank you DentRw
-                    !
+                    Derma AI is a game-changer! The personalized skincare recommendations from this AI-based platform have transformed my routine. It understands my skin's needs better than I do. The results speak for themselves – clearer, healthier skin. Five stars
                   </p>
                   <ul className="flex justify-center mb-6">
                     <li>
@@ -243,10 +239,7 @@ export default function App() {
                         d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z"
                       ></path>
                     </svg>
-                    I've been a patient of DentRw dental clinic for several
-                    years and I highly recommend them to everyone looking for a
-                    reliable and professional dental service. Their staff is
-                    knowledgeable,caring and always make me feel comfortable.
+                    Impressed by the precision of Derma AI! It accurately diagnosed my skin concern and provided tailored advice that I could understand. The convenience of having a virtual dermatologist is unmatched. I've recommended it to all my friends looking for smart skincare solutions
                   </p>
                   <ul className="flex justify-center mb-6">
                     <li>
@@ -371,10 +364,7 @@ export default function App() {
                         d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z"
                       ></path>
                     </svg>
-                    I recently had a dental emergency and DentRw dental clinic
-                    came to my rescue. I was impressed by their efficient
-                    service and the quality of their work in such short moment.
-                    They are definitey best dental clinic in Kigali!
+                    Derma AI is like having a skincare expert in my pocket. The intuitive interface makes it easy to input information, and the AI's recommendations are spot-on. It's the future of dermatology – accessible, reliable, and surprisingly personal. My skin has never been happier
                   </p>
                   <ul className="flex justify-center mb-6">
                     <li>
