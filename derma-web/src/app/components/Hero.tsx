@@ -2,12 +2,14 @@
 import homepicture from "./Images/home.png" ;
 import { Fade } from "react-awesome-reveal";
 import Link  from "next/link";
+import Cena from "./imageMoving";
+import Login from "./imageMoving";
 
 const Hero = () => {
   return (
     <main>
       <div className="" id="home">
-        <div className="mx-auto h-full px-4 py-10 sm:max-w-xl md:max-w-full md:px-24 md:py-36 lg:px-8">
+        <div className="mx-auto h-full px-10 py-10 sm:max-w-xl md:max-w-full md:px-24 md:py-36 lg:px-8">
           <div className="flex flex-col items-center justify-between lg:flex-row">
             <div className="">
               <div className="lg:max-w-xl lg:pr-5">
@@ -20,7 +22,7 @@ const Hero = () => {
                 </h2>
 
                 <p className="text-base text-gray-700">
-                Elevating Skin Wellness, Crafting Confidence – Derma AI, Your Path to Radiant Beauty and Vibrant Living!
+                Elevating Skin Wellness, Crafting Confidence ,AI based Diagnosis & Preventive measures – Derma AI, Your Skin's Best Friend
                 </p>
               </div>
               <div className="mt-10 flex flex-col items-center md:flex-row">
@@ -121,8 +123,8 @@ const Hero = () => {
                     clip-rule="evenodd"
                   />
                 </svg>
-                <Fade>
-                  <img className="-mb-20" src={homepicture.src} alt="hero portrait" />
+                <Fade className="w-[500px] h-[400px]">
+                 {Login()}
                 </Fade>
               </div>
             </div>

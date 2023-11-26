@@ -47,100 +47,74 @@ const Services = () => {
                   </svg>
                   <span className="relative"> The </span>
                 </span>{" "}
-                Suite of dental <span className="text-blue-500">Services</span>{" "}
+                Suite of Skin-care <span className="text-blue-500">Services</span>{" "}
                 we offers
               </h2>
 
               <p className="max-w-[40rem] text-md mx-auto mt-4 text-gray-500">
-                DentRw provide a comprehensive suite of dental services
-                including General, Cosmetic, Restorative, Pediatric and
-                Emergency Dentistry.
+              Derma AI provides a comprehensive suite of dermatological services, including general dermatology, cosmetic dermatology, pediatric dermatology, and emergency dermatology. Our cutting-edge AI technology can help you detect and diagnose skin diseases with unparalleled accuracy and efficiency.
               </p>
             </div>
           </Fade>
         </header>
 
-        <ul className="grid gap-4 h-30 mt-6 sm:grid-cols-2   lg:grid-cols-4 ">
+        <ul className="grid gap-4 h-30 mt-6 sm:grid-cols-2   lg:grid-cols-4 mr-2 ">
           <Fade>
-            <li className="bg-slate-200 ">
-              <img src={Service1.src} alt="" className="" />
+            <li className="bg-slate-200  ">
+              <div className="h-[250px]">  <img src={'AIface.jpg'} alt="" className="object-cover h-full w-full" /></div>
+            
 
               <div className="relative py-2">
                 <h3 className="text-m text-center text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                  Cleaning & Teeth whitening
+                  AI diseases Diagnosis & Prevention
                 </h3>
               </div>
             </li>
           </Fade>
 
-          <Fade>
-            <li className="bg-slate-200 ">
-              <img src={Xray.src} alt="" className="" />
-
-              <div className="relative py-2">
-                <h3 className="text-m text-center text-gray-700 ">X-ray</h3>
-              </div>
-            </li>
-          </Fade>
-
+        
           <Fade>
             <li className="bg-slate-200">
-              <img src={Ortho.src} alt="" className="" />
+              <div className="h-[250px]"> <img src={'cosmeticderma.jpg'}   alt="" className="object-cover h-full w-full" /></div>
+             
 
               <div className="relative py-2">
                 <h3 className="text-m text-center text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                  Orthodontic Treatment
+                  Cosmetic Dermatology
                 </h3>
               </div>
             </li>
           </Fade>
           <Fade>
             <li className="bg-slate-200 ">
-              <img src={Bridge.src} alt="" className="" />
-
+            <div className="h-[250px]"> <img src={'skintest.jpg'}  alt="" className="object-cover h-full w-full" />
+</div>
+             
               <div className="relative py-2">
                 <h3 className="text-m text-center text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                  Dental Bridge
+                  Skin Allergy Test
                 </h3>
               </div>
             </li>
           </Fade>
           <Fade>
             <li className="bg-slate-200">
-              <img src={Toothache.src} alt="" className="" />
-
+            <div className="h-[250px]"> <img src={'medicines.jpg'} alt="" className="object-cover h-full w-full" />
+</div>
+             
               <div className="relative py-2">
                 <h3 className="text-m text-center text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                  Toothache relief
+                   Skin Care prodcuts & Medicines
                 </h3>
               </div>
             </li>
           </Fade>
-          <Fade>
-            <li className="bg-slate-200">
-              <img src={Extraction.src} alt="" className="" />
-
-              <div className="relative py-2">
-                <h3 className="text-m text-center text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                  Extraction
-                </h3>
-              </div>
-            </li>
-          </Fade>
-          <Fade>
-            <li className="bg-slate-200">
-              <img src={RootCanal.src} alt="" className="" />
-
-              <div className="relative py-2">
-                <h3 className="text-m text-center text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                  Root Canal Treatment
-                </h3>
-              </div>
-            </li>
-          </Fade>
+         
+         
           <Fade>
             <li className="bg-slate-200 rounded-[4px]">
-              <img src={Consultation.src} alt="" className=" " />
+            <div className="h-[250px]"><img src={Consultation.src} alt="" className="object-cover h-full w-full"/></div>
+              
 
               <div className="relative py-2 ">
                 <h3 className="text-m text-center text-gray-700 group-hover:underline group-hover:underline-offset-4">
@@ -149,6 +123,18 @@ const Services = () => {
               </div>
             </li>
           </Fade>
+          <Fade  >
+            <li className="bg-slate-200 ">
+              <div className="h-[250px] "
+              > <img src={'acne.jpg'}   alt="" className="object-cover h-full w-full" />
+              </div>
+             
+              <div className="relative py-2">
+                <h3 className="text-m text-center text-gray-700 ">Acne Treatment</h3>
+              </div>
+            </li>
+          </Fade>
+
         </ul>
       </div>
     </section>

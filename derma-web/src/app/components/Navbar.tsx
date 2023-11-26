@@ -72,7 +72,7 @@ const Navbar = () => {
         <span className="mr-1 text-xl text-blue-500">
         <img src="dermalogo.jpeg" width={'38px'} height='28px' alt="" />
         </span>
-       Derma Ai
+       Derma AI
       </Link>
 
       <nav className="hidden md:block">
