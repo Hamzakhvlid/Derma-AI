@@ -2,7 +2,7 @@
 
 import { Fade } from "react-awesome-reveal";
 import Doctors from "./doctors/page";
-import doctorsData from "./data/dataprovider/doctordata";
+import doctorsData from "../../data/dataprovider/doctordata";
 
 
 const Team = () => {

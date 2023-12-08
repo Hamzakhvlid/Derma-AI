@@ -1,7 +1,7 @@
 //@ts-ignore
 import WatchingYou from 'react-watching-you';
 import styled from 'styled-components';
-import GitHubLinkIcon from './githublink';
+import GitHubLinkIcon from './homePage/components/githublink';
 
 
 const Container = styled.div`

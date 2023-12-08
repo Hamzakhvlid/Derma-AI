@@ -134,7 +134,7 @@ const Footer = () => {
             className="flex justify-center space-x-2 lg:justify-start"
           >
             <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100">
-              <img src="dermalogo.jpeg" className="object-cover rounded-xl"/>
+              <img src="dermalogo.png" className="object-cover rounded-xl"/>
             </div>
             <Fade>
               <span className="self-center text-2xl font-bold">Derma AI</span>

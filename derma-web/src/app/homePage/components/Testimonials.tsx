@@ -5,9 +5,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Fade } from "react-awesome-reveal";
-import reviews from "./data/dataprovider/reviewData";
+import reviews from "../../data/dataprovider/reviewData";
 
-import Review from "./data/datatypes/reviews";
+import Review from "../../data/datatypes/reviews";
 
 
 

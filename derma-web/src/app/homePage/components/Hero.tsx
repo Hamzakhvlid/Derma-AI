@@ -1,9 +1,10 @@
 
 import homepicture from "./Images/home.png" ;
-import { Fade } from "react-awesome-reveal";
+
 import Link  from "next/link";
-import Cena from "./imageMoving";
-import Login from "./imageMoving";
+import Cena from "../../imageMoving";
+import Login from "../../imageMoving";
+import { Fade } from "react-awesome-reveal";
 
 const Hero = () => {
   return (
@@ -40,7 +41,7 @@ const Hero = () => {
                  
                   className="underline-offset-2 inline-flex items-center text-xl font-bold text-blue-600 underline transition-colors duration-200 hover:underline"
                 >
-                  Get Started
+                  Scan Now
                 </Link>
               </div>
               <div className="mt-12 flex flex-col space-y-3 divide-gray-300 text-sm text-gray-700 sm:flex-row sm:space-y-0 sm:divide-x">

@@ -63,6 +63,7 @@ const Navbar = () => {
 
   return (
     <header
+    id="navbar"
       className={`fixed w-full flex items-center  justify-between px-4 py-3 text-blue-900 transition-all ${
         showNavbar ? "bg-white/50 shadow-md backdrop-blur-lg " : ""
       }`}
@@ -70,14 +71,15 @@ const Navbar = () => {
     >
       <Link
         href="home"
-        className="flex items-center whitespace-nowrap   cursor-pointer text-2xl font-bold text-blue-900"
+        className={`flex items-center whitespace-nowrap   cursor-pointer text-2xl font-bold  ${showNavbar?"text-blue-600" :"text-blue-900 "}` }
        
         onClick={scrollToTop}
       >
         {" "}
         <span className="mr-1 text-xl text-blue-500">
-        <img src="dermalogo.jpeg" width={'38px'} height='28px' alt="" />
+        <img src="dermalogo.png" width={'38px'} height='28px' alt="" />
         </span>
+        
        Derma AI
       </Link>
 

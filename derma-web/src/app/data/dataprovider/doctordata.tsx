@@ -8,14 +8,14 @@ const doctorsData: Doctor[] = [
     {
       id: 1,
       name: 'Dr. Smith',
-      specialization: 'Cardiology',
+      specialization: 'Skin specialist',
       email: 'drsmith@example.com',
       phoneNumber: '123-456-7890',
       imgUrl : Arriana.src  },
     {
       id: 2,
       name: 'Dr. Johnson',
-      specialization: 'Neurology',
+      specialization: 'dermatologist',
       email: 'drjohnson@example.com',
       phoneNumber: '234-567-8901',
       imgUrl : Chance.src
@@ -23,7 +23,7 @@ const doctorsData: Doctor[] = [
     {
       id: 3,
       name: 'Dr. Williams',
-      specialization: 'Orthopedics',
+      specialization: 'dermatologist',
       email: 'drwilliams@example.com',
       phoneNumber: '345-678-9012',
       imgUrl : Gateme.src
@@ -31,7 +31,7 @@ const doctorsData: Doctor[] = [
     {
       id: 4,
       name: 'Dr. Jones',
-      specialization: 'Pediatrics',
+      specialization: 'dermatologist',
       email: 'drjones@example.com',
       phoneNumber: '456-789-0123',
       imgUrl : Theodat.src

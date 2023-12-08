@@ -1,0 +1,32 @@
+"use client";
+import Image from 'next/image'
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import Services from './components/Services';
+import Features from './components/Features';
+import Team from './components/Team';
+import FAQs from './components/FAQs';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import Testimonials from './components/Testimonials';
+
+
+export default function HomePage() {
+  return (
+   <div className='bg-white'>
+   
+    
+     <Hero />
+      <Services />
+      <Features  /> 
+      <Team />
+      <Testimonials />
+      <FAQs/>
+      <Contact />
+      < Footer />  
+     
+     
+      
+  </div>
+  )
+}
