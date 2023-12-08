@@ -6,7 +6,7 @@
 
 .filter-drawer {
     position: fixed;
-    bottom: -300px; /* initially off-screen */
+    bottom: -500px; /* initially off-screen */
     left: 0;
     background-color: white;
     transition: bottom 0.3s ease-in-out;
