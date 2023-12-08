@@ -1,11 +1,12 @@
 
-import Arriana from "./Images/arriana.png";
-import Chance from "./Images/chance.png";
-import Gateme from "./Images/gateme.png";
-import Theodat from "./Images/theodat.png";
+
 import { Fade } from "react-awesome-reveal";
+import Doctors from "./doctors/page";
+import doctorsData from "./data/dataprovider/doctordata";
+
 
 const Team = () => {
+  var doctors=doctorsData;
   return (
     <section className="mt-16  bg-slate-100 " id="team">
       <div className="container px-6 py-12 mx-auto">
@@ -60,59 +61,23 @@ const Team = () => {
         </Fade>
 
         <div className="grid gap-8 mt-12  md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
-          <div className="w-full max-w-xs text-center">
+         
+         {doctors.map((doctor) => <div className="w-full max-w-xs text-center">
             <img
               className="object-cover object-center w-full h-60 mx-auto rounded-lg"
-              src={Gateme.src}
+              src={doctor.imgUrl}
               alt="avatar"
             />
 
             <div className="mt-2">
-              <h3 className="text-md font-bold text-gray-700">GATEME Gaby </h3>
-              <span className="mt-1 font-medium text-gray-600 ">Skin Specialist</span>
+              <h3 className="text-md font-bold text-gray-700">{doctor.name} </h3>
+              <span className="mt-1 font-medium text-gray-600 ">{doctor.specialization}</span>
             </div>
           </div>
-
-          <div className="w-full max-w-xs text-center">
-            <img
-              className="object-cover object-center w-full h-60 mx-auto rounded-lg"
-              src={Chance.src}
-              alt="avatar"
-            />
-
-            <div className="mt-2">
-              <h3 className="text-md font-bold text-gray-700 ">MAHORO Eunice</h3>
-              <span className="mt-1 font-medium text-gray-600 ">Cosmetic Dermatologists</span>
-            </div>
-          </div>
-
-          <div className="w-full max-w-xs text-center">
-            <img
-              className="object-cover object-center w-full  h-60 mx-auto rounded-lg"
-              src={Theodat.src}
-              alt="avatar"
-            />
-
-            <div className="mt-2">
-              <h3 className="text-md font-bold text-gray-700 ">IBAKA M. Theodat</h3>
-              <span className="mt-1 font-medium text-gray-600 ">
-              Medical Dermatologists
-              </span>
-            </div>
-          </div>
-
-          <div className="w-full max-w-xs text-center">
-            <img
-              className="object-cover object-center w-full h-60 mx-auto rounded-lg"
-              src={Arriana.src}
-              alt="Arriana avatar"
-            />
-
-            <div className="mt-2">
-              <h3 className="text-md font-bold text-gray-700 ">DUKUNDE Arriana</h3>
-              <span className="mt-1 font-medium text-gray-600 ">Dermatopathologists</span>
-            </div>
-          </div>
+)}
+          
+        
+         
         </div>
       </div>
     </section>

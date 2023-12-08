@@ -1,15 +1,14 @@
 
 import Consultation from "./Images/consultation.jpg";
-import Extraction from "./Images/extraction.jpg";
-import Service1 from "./Images/beautiful-smile.jpg";
-import Xray from "./Images/xray.jpeg";
-import RootCanal from "./Images/rootcanal.jpeg";
-import Ortho from "./Images/braces.jpeg";
-import Bridge from "./Images/crown.jpeg";
-import Toothache from "./Images/inflamation.jpg";
+
 import { Fade } from "react-awesome-reveal";
 
+
 const Services = () => {
+ 
+
+ 
+ 
   return (
     <section className="px-5 " id="service">
       <div className=" ">

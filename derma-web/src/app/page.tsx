@@ -16,15 +16,15 @@ export default function Home() {
   return (
   <div className='bg-white'>
     <Navbar/>
-    {/* <Hero />
+     <Hero />
       <Services />
       <Features  /> 
       <Team />
       <Testimonials />
       <FAQs />
       <Contact />
-      < Footer /> */}
-      <Doctors />
+      < Footer /> 
+      
   </div>
   )
 }

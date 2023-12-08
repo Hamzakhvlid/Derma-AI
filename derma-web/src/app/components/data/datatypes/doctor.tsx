@@ -5,6 +5,7 @@
   specialization: string;
   email: string;
   phoneNumber: string;
+  imgUrl: string;
 }
 
 export default Doctor;
