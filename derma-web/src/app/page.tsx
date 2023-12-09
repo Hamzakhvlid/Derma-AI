@@ -11,8 +11,10 @@ import Contact from "./homePage/components/Contact";
 import Footer from "./homePage/components/Footer";
 import Features from "./homePage/components/Features";
 import Doctors from './homePage/components/doctors/page';
-import HomePage from './homePage/homepage';
-import LoginPage from './login/login';
+import HomePage from './homePage/page';
+import LoginPage from './login/page';
+import SignupPage from './signup/page';
+
 
 
 
@@ -20,7 +22,7 @@ export default function Home() {
   return (
    <div className='bg-white'>
    
-  <LoginPage/>
+  <HomePage/>
      
      
       

@@ -19,11 +19,16 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  function login() {
+    
+  }
+
   const links = [
     {
       id: 1,
       link: "home",
       label: "Home",
+      
     },
     {
       id: 2,
@@ -48,8 +53,9 @@ const Navbar = () => {
     },
     {
       id: 5,
-      link: "Login/Signup",
+      link: "/login",
       label: "Login",
+      callback: login,
     },
   ];
 
@@ -70,7 +76,7 @@ const Navbar = () => {
       style={{ zIndex: showMenu ? 999 : "10" }}
     >
       <Link
-        href="home"
+        href="/"
         className={`flex items-center whitespace-nowrap   cursor-pointer text-2xl font-bold  ${showNavbar?"text-blue-600" :"text-blue-900 "}` }
        
         onClick={scrollToTop}
@@ -85,16 +91,17 @@ const Navbar = () => {
 
       <nav className="hidden md:block">
         <ul className="flex items-center space-x-6">
-          {links.map(({ id, link, label }) => (
+          {links.map(({ id, link, label,callback }) => (
             <li key={id}>
               <Link
                 href={link}
                 className={`cursor-pointer font-semibold hover:text-blue-400 ${
                   showNavbar ? "text-blue-600" : "text-blue-900"
-                }`}
+                }   ${label=='Login'?" text-white rounded-[15px] pr-4 pl-4 pt-2 pb-2 bg-blue-900" :"text-blue-900" } "}`}
                
               
               >
+                
                 {label}
               </Link>
             </li>
@@ -125,11 +132,11 @@ const Navbar = () => {
         </button>
         {showMenu && (
           <ul className="absolute top-14 right-0 z-50 w-48 py-2 bg-white border border-gray-300 rounded shadow-md">
-            {links.map(({ id, link, label }) => (
+            {links.map(({ id, link, label, }) => (
               <li key={id}>
                 <Link
                   href={link}
-                  className="block px-4 py-2 font-semibold mt-1 text-blue-900 hover:text-blue-500"
+                  className= {`block px-4 py-2 font-semibold mt-1 text-blue-900 hover:text-blue-500 `}
                 
                   onClick={toggleMenu}
                 >
