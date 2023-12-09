@@ -29,6 +29,7 @@ const sampleDoctorData = {
                     available: "12 Dec 2020",
                     price: 2000,
                     isAvailable: true,
+                    phone: "+923493022"
                 },
             ]
         },
@@ -62,6 +63,7 @@ const sampleDoctorData = {
                     price: 2000,
                     available: "12 Dec 2020",
                     isAvailable: true,
+                    phone: "+923493022"
                 }
             ]
         }

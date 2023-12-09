@@ -1,4 +1,4 @@
-import locatios from "../../../../../../data/dataprovider/locationsData";
+import locatios from "../../../../data/dataprovider/locationsData";
 
 interface FilterDrawerProps {
     isOpen: boolean;

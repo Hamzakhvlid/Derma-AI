@@ -2,10 +2,12 @@ import Button from "./Button";
 import DiscountTag from "./DiscountTag";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import  Link  from "next/link";
+import sampleDoctorData from "../homePage/components/sampleDoctorData";
 
 const DoctorsCard = (props: {
     imgUrl: String;
-    name: String;
+    name: string;
     isVerfied: Boolean;
     isSergeon: Boolean;
     speciality: String;
@@ -22,13 +24,14 @@ const DoctorsCard = (props: {
     };
     otherConsultations: Array<{
         id: Number;
-        place: String;
-        area: String;
-        timeFrom: String;
+        place: string;
+        area: string;
+        timeFrom: string;
         timeTo: String;
-        available: String;
+        available: string;
         price: Number;
         isAvailable: Boolean;
+        phone: string
     }>;
 }) => {
     const { isAvailable, available, price, timeFrom, timeTo } =
@@ -152,7 +155,25 @@ const DoctorsCard = (props: {
                         </div>
                     </SwiperSlide>
                     {props.otherConsultations.map((id) => (
+                        
                         <SwiperSlide className="rounded-md border-gray-300 border-solid border-2 w-[30rem]">
+                            <Link 
+                            
+                            href={{
+                                pathname: "/appointmentdone",
+                                query: {
+                                    id: id.id.toString(),
+                                    doctorname: props.name,
+                                    appointmentTime: id.timeFrom,
+                                    hospitalPhone: id.phone,
+                                    hospital: id.area,
+                                    place: id.place,
+                                    date: id.available,
+                                }
+                            }}
+                            
+                            
+                            className="cursor-pointer">
                             <div className="px-4 sm:space-y-0 space-y-3 py-2">
                                 <div className="flex text-sm font-bold">
                                     
@@ -170,7 +191,9 @@ const DoctorsCard = (props: {
                                     <div>Rs. {`${id.price}`}</div>
                                 </div>
                             </div>
+                            </Link>
                         </SwiperSlide>
+                        
                     ))}
                 </Swiper>
             </div>

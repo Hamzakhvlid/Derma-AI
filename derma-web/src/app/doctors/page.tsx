@@ -1,8 +1,7 @@
+"use client";
 import DoctorsCard from "./DoctorsCard";
-import sampleDoctorData from "../sampleDoctorData";
+import sampleDoctorData from "../homePage/components/sampleDoctorData";
 import React, { useState } from "react";
-import Button from "./Button";
-import locatios from "../../../../../data/dataprovider/locationsData";
 import FilterDrawer from "./Filter/filter";
 
 const Doctors = () => {

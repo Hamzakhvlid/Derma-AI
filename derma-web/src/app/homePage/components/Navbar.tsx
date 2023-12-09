@@ -37,7 +37,7 @@ const Navbar = () => {
     },
     {
       id: 3,
-      link: "doctors",
+      link: "/doctors",
 
       label: "Doctors",
     },
