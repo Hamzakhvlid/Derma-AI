@@ -5,6 +5,8 @@ export default function AppointmentDone({
 }: {
     searchParams: {
         id: string;
+        patientName: string,
+        patientPhone: string,
         doctorname: string;
         appointmentTime: string;
         hospitalPhone: string;

@@ -2,8 +2,10 @@ import Button from "./Button";
 import DiscountTag from "./DiscountTag";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import  Link  from "next/link";
+import Link from "next/link";
 import sampleDoctorData from "../homePage/components/sampleDoctorData";
+import Drawer from "../Drawer/drawer";
+import React, { useState } from "react";
 
 const DoctorsCard = (props: {
     imgUrl: String;
@@ -36,6 +38,19 @@ const DoctorsCard = (props: {
 }) => {
     const { isAvailable, available, price, timeFrom, timeTo } =
         props.videoConsultation;
+    const users = sampleDoctorData.users[0];
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const handleDrawerOpen = () => {
+        setIsDrawerOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setIsDrawerOpen(false);
+    };
+
+    const handleApplyDrawer = () => {
+        setIsDrawerOpen(false);
+    };
     return (
         <>
             <div className="w-full h-auto drop-shadow-md px-[2rem] bg-white py-5 rounded-lg">
@@ -97,10 +112,17 @@ const DoctorsCard = (props: {
                             color={"bg-red-800"}
                             imgUrl={"/videocam.svg"}
                         />
-                        <Button
-                            title={"Book Appointment"}
-                            color={"bg-blue-900"}
-                            imgUrl={"/booking.svg"}
+                        <button onClick={handleDrawerOpen} className={`bg-blue-900 rounded-lg sm:w-auto w-[7rem] sm:h-auto h-[3rem] sm:py-2 py-[0.2] sm:px-[5rem] px-[0.5rem] flex text-sm  text-white `}>
+                            <img src={`/booking.svg`} alt="" />
+                            Book Appointment
+                        </button>
+                        <Drawer
+                            isOpen={isDrawerOpen}
+                            onClose={handleDrawerClose}
+                            onApply={handleApplyDrawer}
+                            otherConsultant={props.otherConsultations}
+                            user = {users}
+                            name={props.name}
                         />
                         {props.isSergeon && (
                             <div className="relative mt-3">
@@ -131,7 +153,7 @@ const DoctorsCard = (props: {
                             width: 1700,
                             slidesPerView: 3,
                         }
-                        
+
                     }}
 
                 >
@@ -155,45 +177,47 @@ const DoctorsCard = (props: {
                         </div>
                     </SwiperSlide>
                     {props.otherConsultations.map((id) => (
-                        
+
                         <SwiperSlide className="rounded-md border-gray-300 border-solid border-2 w-[30rem]">
-                            <Link 
-                            
-                            href={{
-                                pathname: "/appointmentdone",
-                                query: {
-                                    id: id.id.toString(),
-                                    doctorname: props.name,
-                                    appointmentTime: id.timeFrom,
-                                    hospitalPhone: id.phone,
-                                    hospital: id.area,
-                                    place: id.place,
-                                    date: id.available,
-                                }
-                            }}
-                            
-                            
-                            className="cursor-pointer">
-                            <div className="px-4 sm:space-y-0 space-y-3 py-2">
-                                <div className="flex text-sm font-bold">
-                                    
-                                    {`${id.area}, ${id.place}`}
-                                </div>
-                                <div className="flex text-sm ">
-                                    <img src="/clock.svg" alt="" />
-                                    {`${id.timeFrom} - ${id.timeTo}`}
-                                </div>
-                                <div className="flex sm:flex-row flex-col sm:items-center sm:justify-between w-[28rem]">
-                                    <div className="flex">
-                                        <img src="/greendot.svg" alt="" />
-                                        <h1 className="text-sm text-green-800">{id.available}</h1>
+                            <Link
+
+                                href={{
+                                    pathname: "/checkpaymentType",
+                                    query: {
+                                        id: id.id.toString(),
+                                        patientName: users.name,
+                                        patientPhoneNo: users.phoneNo,
+                                        doctorname: props.name,
+                                        appointmentTime: id.timeFrom,
+                                        hospitalPhone: id.phone,
+                                        hospital: id.area,
+                                        place: id.place,
+                                        date: id.available,
+                                    }
+                                }}
+
+
+                                className="cursor-pointer">
+                                <div className="px-4 sm:space-y-0 space-y-3 py-2">
+                                    <div className="flex text-sm font-bold">
+
+                                        {`${id.area}, ${id.place}`}
                                     </div>
-                                    <div>Rs. {`${id.price}`}</div>
+                                    <div className="flex text-sm ">
+                                        <img src="/clock.svg" alt="" />
+                                        {`${id.timeFrom} - ${id.timeTo}`}
+                                    </div>
+                                    <div className="flex sm:flex-row flex-col sm:items-center sm:justify-between w-[28rem]">
+                                        <div className="flex">
+                                            <img src="/greendot.svg" alt="" />
+                                            <h1 className="text-sm text-green-800">{id.available}</h1>
+                                        </div>
+                                        <div>Rs. {`${id.price}`}</div>
+                                    </div>
                                 </div>
-                            </div>
                             </Link>
                         </SwiperSlide>
-                        
+
                     ))}
                 </Swiper>
             </div>

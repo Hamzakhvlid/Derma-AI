@@ -1,4 +1,16 @@
 const sampleDoctorData = {
+    'users':[
+        {
+            id: 1,
+            name: "John Smith",
+            phoneNo: "+92 333 3333333",
+        },
+        {
+            id: 2,
+            name: "Any One",
+            phoneNo: "+92 333 3333333",
+        }
+    ],
     'doctors': [
         {
             id: 1,
