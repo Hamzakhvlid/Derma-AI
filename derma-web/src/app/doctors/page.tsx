@@ -21,7 +21,7 @@ const Doctors = () => {
     };
     return (
         <div>
-            <div className="relative">
+            <div className="relative pt-[4rem]">
                 <img
                     className="w-full bg-cover h-[25rem]"
                     src="https://doctorshospital.com.pk/wp-content/uploads/2019/12/page-title-about-1.jpg"

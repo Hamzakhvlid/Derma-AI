@@ -37,7 +37,7 @@ const Hero = () => {
                   Book Appointment
                 </Link>
                 <Link
-                  href="service"
+                  href="scannow"
                  
                   className="underline-offset-2 inline-flex items-center text-xl font-bold text-blue-600 underline transition-colors duration-200 hover:underline"
                 >
