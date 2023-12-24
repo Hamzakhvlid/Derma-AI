@@ -5,6 +5,8 @@ import axios from "axios";
 import path from "path";
 import Link from "next/link";
 import Modal from "./modal";
+import SymptomSelector from "./sysmptoms";
+import Button from "../doctors/Button";
 
 
 
@@ -13,7 +15,7 @@ const FileUploadComponent= () => {
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedFile, setSelectedFile] = useState<File>();
   const [open, setOpen] = useState(false)
-
+  const [result, setResult] = useState<string>("");
   const handleUpload = async () => {
     setUploading(true);
     try {
@@ -26,7 +28,18 @@ const FileUploadComponent= () => {
       console.log(error.response?.data);
     }
     setUploading(false);
+   
   };
+
+  const handleDiagnose = async () => {
+
+    setResult("You  are diagnosed with Chickenpox")
+    
+  }
+  const handleClose=()=>{
+    setOpen(false)
+    setResult("")
+  }
 
   return (
     <div className="absolute md:ml-[44%] md:mt-[-4rem] mt-[15rem]  ml-[33%] ">
@@ -59,25 +72,34 @@ const FileUploadComponent= () => {
       >
         {uploading ? "Uploading.." : "Upload"}
       </button>
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <div className="text-center md:w-[80rem] md:h-[40rem]">
+      <Modal open={open} onClose={() => handleClose()}>
+       {result==""?<div className="text-center md:w-[80rem] md:h-[40rem]">
        
-          <div className="mx-auto my-4 ">
-            <h3 className="text-lg font-black text-gray-800">Confirm Delete</h3>
-            <p className="text-sm text-gray-500">
-              Are you sure you want to delete this item?
-            </p>
-          </div>
-          <div className="flex gap-4">
-            <button className="btn btn-danger w-full">Delete</button>
-            <button
-              className="btn btn-light w-full"
-              onClick={() => setOpen(false)}
-            >
-              Cancel
-            </button>
-          </div>
+       <div className="mx-auto my-4 ">
+         <h3 className="text-lg font-black text-gray-800 pt-[10%]">Symptoms</h3>
+         <p className="text-sm text-gray-500 ">
+           Select from below how many symptoms you are getting
+         </p>
+       </div>
+       <div className="flex-col gap-4">
+       
+        <SymptomSelector></SymptomSelector>
+        <button
+
+  onClick={handleDiagnose}
+     
+     className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4"
+   >Diagnose</button>
+
+         
+       </div>
+     </div>:<div>
+        <h1 className="text-center text-2xl font-black text-gray-800 pt-[10%]">Diagnosis</h1>
+        <p className="text-1xl text-gray-700 text-center pt-2">{result}</p>
+        <div className="flex justify-center">
+        <button  className="bg-blue-900 p-1 w-32 text-center rounded text-white  ml-4 mt-8">Book Appointment</button>
         </div>
+      </div>}  
       </Modal>
 
     
