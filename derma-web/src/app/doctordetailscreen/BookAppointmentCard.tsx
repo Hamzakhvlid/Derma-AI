@@ -1,4 +1,6 @@
 export default function BookAppointmentCard() {
+
+    
     return (
         <div className="w-auto flex flex-col items-start justify-start h-auto drop-shadow-md px-[2rem] bg-[#eef4f6] py-5 rounded-lg mt-20">
             <h1 className="font-bold text-lg">Book Appointment Now</h1>

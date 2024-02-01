@@ -6,6 +6,7 @@ import DiscountTag from "../doctors/DiscountTag";
 import ProfesionalStatement from "./ProfessionalStatement";
 import BookAppointmentCard from "./BookAppointmentCard";
 
+
 const sampleReviews = {
   reviews: [
     {

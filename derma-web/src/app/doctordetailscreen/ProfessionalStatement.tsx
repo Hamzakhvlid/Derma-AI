@@ -7,6 +7,7 @@ export default function ProfesionalStatement(props: {
     satisfaction: string;
     services: string;
     interest: string;
+    
 }) {
     return (
         <div className="text-sm">
