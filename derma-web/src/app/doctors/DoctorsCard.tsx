@@ -4,7 +4,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Link from "next/link";
 import sampleDoctorData from "../homePage/components/sampleDoctorData";
-import Drawer from "../Drawer/drawer";
 import React, { useState } from "react";
 
 const DoctorsCard = (props: {
@@ -39,18 +38,7 @@ const DoctorsCard = (props: {
     const { isAvailable, available, price, timeFrom, timeTo } =
         props.videoConsultation;
     const users = sampleDoctorData.users[0];
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const handleDrawerOpen = () => {
-        setIsDrawerOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setIsDrawerOpen(false);
-    };
-
-    const handleApplyDrawer = () => {
-        setIsDrawerOpen(false);
-    };
+    
     return (
         <>
             <div className="w-full h-auto drop-shadow-md px-[2rem] bg-white py-5 rounded-lg">
@@ -64,9 +52,9 @@ const DoctorsCard = (props: {
                         <div className="sm:pb-0 pb-4">
                             <div className="space-y-2">
                                 <div className="flex">
-                                    <h1 className="text-blue-900 underline font-bold ">
+                                    <Link href={'/doctordetailscreen'} className="text-blue-900 underline font-bold ">
                                         {props.name}
-                                    </h1>
+                                    </Link>
                                     {props.isVerfied && (
                                         <img
                                             className="h-6 w-6"
@@ -112,18 +100,11 @@ const DoctorsCard = (props: {
                             color={"bg-red-800"}
                             imgUrl={"/videocam.svg"}
                         />
-                        <button onClick={handleDrawerOpen} className={`bg-blue-900 rounded-lg sm:w-auto w-[7rem] sm:h-auto h-[3rem] sm:py-2 py-[0.2] sm:px-[5rem] px-[0.5rem] flex text-sm  text-white `}>
+                        <button className={`bg-blue-900 rounded-lg sm:w-auto w-[7rem] sm:h-auto h-[3rem] sm:py-2 py-[0.2] sm:px-[5rem] px-[0.5rem] flex text-sm  text-white `}>
                             <img src={`/booking.svg`} alt="" />
                             Book Appointment
                         </button>
-                        <Drawer
-                            isOpen={isDrawerOpen}
-                            onClose={handleDrawerClose}
-                            onApply={handleApplyDrawer}
-                            otherConsultant={props.otherConsultations}
-                            user = {users}
-                            name={props.name}
-                        />
+
                         {props.isSergeon && (
                             <div className="relative mt-3">
                                 <DiscountTag />
