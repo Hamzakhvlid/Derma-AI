@@ -3,8 +3,8 @@ import Link from "next/link";
 import Button from "../doctors/Button";
 import { Fade } from "react-awesome-reveal";
 import DiscountTag from "../doctors/DiscountTag";
-import ProfesionalStatement from "./ProfessionalStatement";
-import BookAppointmentCard from "./BookAppointmentCard";
+import ProfesionalStatement from "./components/ProfessionalStatement";
+import BookAppointmentCard from "./components/BookAppointmentCard";
 
 
 const sampleReviews = {
@@ -123,10 +123,10 @@ export default function DoctorDetailScreen() {
       {/* bottom */}
 
       <div className="flex lg:flex-row flex-col-reverse space-x-4">
-        <div className="">
-          <div className="max-w-6xl h-auto drop-shadow-md px-[2rem] bg-white py-5 rounded-lg mt-20">
+        <div className="left">
+          <div className="max-w-6xl space-y-5 h-auto drop-shadow-md px-[2rem] bg-white py-5 rounded-lg mt-20">
             <h1 className="font-bold text-lg">10 Community Reviews</h1>
-            <div className="mt-5  text-sm  sm:divide-x divide:y divide-gray-300 flex sm:flex-row flex-col  sm:space-x-24 ">
+            <div className=" text-sm  sm:divide-x divide:y divide-gray-300 flex sm:flex-row flex-col  sm:space-x-24 ">
               <div>
                 <h1>Wait Time</h1>
                 <h1 className="font-bold">{`5 Mints`}</h1>
@@ -141,7 +141,7 @@ export default function DoctorDetailScreen() {
               </div>
             </div>
             {sampleReviews.reviews.map((index) => (
-              <div className="w-auto text-sm h-auto px-[2rem] bg-white py-5 rounded-lg mt-20 border-2">
+              <div className="w-auto text-sm h-auto px-[2rem] bg-white py-5 rounded-lg  border-2">
                 <div className="flex">
                   <img
                     className="rounded-full sm:mr-[1rem] w-6 "
@@ -248,7 +248,9 @@ export default function DoctorDetailScreen() {
             ))}
           </div>
         </div>
+        <div className="right">
         <BookAppointmentCard />
+        </div>
       </div>
 
       <ProfesionalStatement
