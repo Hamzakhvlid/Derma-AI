@@ -1,10 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import  Link  from "next/link";
+import Link from "next/link";
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const [showDropDown, setDropDown] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,16 +20,20 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  function login() {
-    
-  }
+  function login() {}
 
+  const dropdownmenu = [
+    {
+      id: 0,
+      link: "settings",
+      label: "Settings",
+    }
+  ]
   const links = [
     {
       id: 1,
       link: "home",
       label: "Home",
-      
     },
     {
       id: 2,
@@ -51,25 +56,31 @@ const Navbar = () => {
       link: "contact",
       label: "Book Now",
     },
-    {
-      id: 5,
-      link: "/login",
-      label: "Login",
-      callback: login,
-    },
   ];
 
-  const scrollToTop = () => {
-   
+  const loginLink = {
+    id: 0,
+    link: "/login",
+    label: "Login",
+    callback: login,
   };
+
+  const scrollToTop = () => {};
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
 
+  const toogleDropDown = () => {
+    setDropDown(!showDropDown);
+  }
+
+  const isLoggedIn = false;
+  const isuser = true;
+
   return (
     <header
-    id="navbar"
+      id="navbar"
       className={`fixed w-full flex items-center  justify-between px-4 py-3 text-blue-900 transition-all ${
         showNavbar ? "bg-white/50 shadow-md backdrop-blur-lg " : ""
       }`}
@@ -77,35 +88,80 @@ const Navbar = () => {
     >
       <Link
         href="/"
-        className={`flex items-center whitespace-nowrap   cursor-pointer text-2xl font-bold  ${showNavbar?"text-blue-600" :"text-blue-900 "}` }
-       
+        className={`flex items-center whitespace-nowrap   cursor-pointer text-2xl font-bold  ${
+          showNavbar ? "text-blue-600" : "text-blue-900 "
+        }`}
         onClick={scrollToTop}
       >
         {" "}
         <span className="mr-1 text-xl text-blue-500">
-        <img src="dermalogo.png" width={'38px'} height='28px' alt="" />
+          <img src="dermalogo.png" width={"38px"} height="28px" alt="" />
         </span>
-        
-       Derma AI
+        Derma AI
       </Link>
 
       <nav className="hidden md:block">
         <ul className="flex items-center space-x-6">
-          {links.map(({ id, link, label,callback }) => (
+          {links.map(({ id, link, label }) => (
             <li key={id}>
               <Link
                 href={link}
                 className={`cursor-pointer font-semibold hover:text-blue-400 ${
                   showNavbar ? "text-blue-600" : "text-blue-900"
-                }   ${label=='Login'?" text-white rounded-[15px] pr-4 pl-4 pt-2 pb-2 bg-blue-900" :"text-blue-900" } "}`}
-               
-              
+                }   ${
+                  label == "Login"
+                    ? " text-white rounded-[15px] pr-4 pl-4 pt-2 pb-2 bg-blue-900"
+                    : "text-blue-900"
+                } "}`}
               >
-                
                 {label}
               </Link>
             </li>
           ))}
+          {isLoggedIn ? (
+            <li key={loginLink.id}>
+              <Link
+                href={loginLink.link}
+                className={`cursor-pointer font-semibold hover:text-blue-400 text-white rounded-[15px] pr-4 pl-4 pt-2 pb-2 bg-blue-900 ${
+                  showNavbar ? "text-blue-600" : "text-blue-900"
+                }`}
+              >
+                {loginLink.label}
+              </Link>
+            </li>
+          ) : (
+            <div onClick={() => toogleDropDown()} className="bg-black w-[50px] h-[50px] rounded-full cursor-pointer text-white flex justify-center items-center font-bold">MA</div>
+            
+          )}
+          {showDropDown && (
+          <ul className="absolute top-14 right-0 z-50 w-48 py-2 bg-white border border-gray-300 rounded shadow-md">
+            {isuser ? (
+              <li>
+                <Link href={"user"} className="block px-4 py-2 font-semibold mt-1 text-blue-900 hover:text-blue-500" onClick={toggleMenu}>
+                  User
+                </Link>
+              </li>
+            ) : (
+              <li>
+                <Link href={"dashboard"} className="block px-4 py-2 font-semibold mt-1 text-blue-900 hover:text-blue-500" onClick={toggleMenu}>
+                  See Dashboard
+                </Link>
+              </li>
+            )}
+            {dropdownmenu.map(({ id, link, label }) => (
+              <li key={id}>
+                <Link
+                  href={link}
+                  className={`block px-4 py-2 font-semibold mt-1 text-blue-900 hover:text-blue-500 `}
+                  onClick={toggleMenu}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+            
+          </ul>
+        )}
         </ul>
       </nav>
 
@@ -132,22 +188,19 @@ const Navbar = () => {
         </button>
         {showMenu && (
           <ul className="absolute top-14 right-0 z-50 w-48 py-2 bg-white border border-gray-300 rounded shadow-md">
-            {links.map(({ id, link, label, }) => (
+            {links.map(({ id, link, label }) => (
               <li key={id}>
                 <Link
                   href={link}
-                  className= {`block px-4 py-2 font-semibold mt-1 text-blue-900 hover:text-blue-500 `}
-                
+                  className={`block px-4 py-2 font-semibold mt-1 text-blue-900 hover:text-blue-500 `}
                   onClick={toggleMenu}
                 >
                   {label}
                 </Link>
               </li>
             ))}
-           
           </ul>
         )}
-      
       </div>
     </header>
   );
