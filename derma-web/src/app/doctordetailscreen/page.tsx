@@ -5,7 +5,7 @@ import { Fade } from "react-awesome-reveal";
 import DiscountTag from "../doctors/DiscountTag";
 import ProfesionalStatement from "./components/ProfessionalStatement";
 import BookAppointmentCard from "./components/BookAppointmentCard";
-
+import { Badge } from "@radix-ui/themes";
 
 const sampleReviews = {
   reviews: [
@@ -84,9 +84,7 @@ export default function DoctorDetailScreen() {
                     Dermatologist
                   </p>
                   {true && (
-                    <div className="bg-green-900 text-white text-xs rounded-sm px-1 py-1">
-                      Surgeon
-                    </div>
+                    <Badge variant="solid" color="green">Surgeon</Badge>
                   )}
                 </div>
                 <p className="sm:text-sm text-xs text-gray-600">
@@ -249,7 +247,7 @@ export default function DoctorDetailScreen() {
           </div>
         </div>
         <div className="right">
-        <BookAppointmentCard />
+          <BookAppointmentCard />
         </div>
       </div>
 

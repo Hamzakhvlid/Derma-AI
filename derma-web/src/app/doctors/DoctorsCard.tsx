@@ -5,6 +5,7 @@ import "swiper/css";
 import Link from "next/link";
 import sampleDoctorData from "../homePage/components/sampleDoctorData";
 import React, { useState } from "react";
+import { Badge } from "@radix-ui/themes";
 
 const DoctorsCard = (props: {
     imgUrl: String;
@@ -68,9 +69,7 @@ const DoctorsCard = (props: {
                                         {props.speciality}
                                     </p>
                                     {props.isSergeon && (
-                                        <div className="bg-green-900 text-white text-xs rounded-sm px-1 py-1">
-                                            Surgeon
-                                        </div>
+                                        <Badge variant="solid" color="green">Surgeon</Badge>
                                     )}
                                 </div>
                                 <p className="sm:text-sm text-xs text-gray-600">

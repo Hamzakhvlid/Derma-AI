@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { Avatar, DropdownMenu } from "@radix-ui/themes";
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
@@ -27,8 +28,8 @@ const Navbar = () => {
       id: 0,
       link: "settings",
       label: "Settings",
-    }
-  ]
+    },
+  ];
   const links = [
     {
       id: 1,
@@ -73,7 +74,7 @@ const Navbar = () => {
 
   const toogleDropDown = () => {
     setDropDown(!showDropDown);
-  }
+  };
 
   const isLoggedIn = false;
   const isuser = true;
@@ -130,38 +131,43 @@ const Navbar = () => {
               </Link>
             </li>
           ) : (
-            <div onClick={() => toogleDropDown()} className="bg-black w-[50px] h-[50px] rounded-full cursor-pointer text-white flex justify-center items-center font-bold">MA</div>
-            
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger>
+                <Avatar
+                  radius="full"
+                  size="4"
+                  className="cursor-pointer"
+                  src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
+                  fallback="MA"
+                />
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content>
+                <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
+                <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
+                <DropdownMenu.Separator />
+                <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
+
+                <DropdownMenu.Sub>
+                  <DropdownMenu.SubTrigger>More</DropdownMenu.SubTrigger>
+                  <DropdownMenu.SubContent>
+                    <DropdownMenu.Item>Move to project…</DropdownMenu.Item>
+                    <DropdownMenu.Item>Move to folder…</DropdownMenu.Item>
+
+                    <DropdownMenu.Separator />
+                    <DropdownMenu.Item>Advanced options…</DropdownMenu.Item>
+                  </DropdownMenu.SubContent>
+                </DropdownMenu.Sub>
+
+                <DropdownMenu.Separator />
+                <DropdownMenu.Item>Share</DropdownMenu.Item>
+                <DropdownMenu.Item>Add to favorites</DropdownMenu.Item>
+                <DropdownMenu.Separator />
+                <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
+                  Delete
+                </DropdownMenu.Item>
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
           )}
-          {showDropDown && (
-          <ul className="absolute top-14 right-0 z-50 w-48 py-2 bg-white border border-gray-300 rounded shadow-md">
-            {isuser ? (
-              <li>
-                <Link href={"user"} className="block px-4 py-2 font-semibold mt-1 text-blue-900 hover:text-blue-500" onClick={toggleMenu}>
-                  User
-                </Link>
-              </li>
-            ) : (
-              <li>
-                <Link href={"dashboard"} className="block px-4 py-2 font-semibold mt-1 text-blue-900 hover:text-blue-500" onClick={toggleMenu}>
-                  See Dashboard
-                </Link>
-              </li>
-            )}
-            {dropdownmenu.map(({ id, link, label }) => (
-              <li key={id}>
-                <Link
-                  href={link}
-                  className={`block px-4 py-2 font-semibold mt-1 text-blue-900 hover:text-blue-500 `}
-                  onClick={toggleMenu}
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-            
-          </ul>
-        )}
         </ul>
       </nav>
 

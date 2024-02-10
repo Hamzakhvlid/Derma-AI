@@ -1,24 +1,29 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import Navbar from './homePage/components/Navbar'
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import Navbar from "./homePage/components/Navbar";
+import "@radix-ui/themes/styles.css";
+import { Theme } from "@radix-ui/themes";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'DERMA AI',
-  description: 'DERMA AI - Dermatology AI',
-}
+  title: "DERMA AI",
+  description: "DERMA AI - Dermatology AI",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <Navbar/>
-      <body className={inter.className}>{children}</body>
+      <Theme>
+        <Navbar />
+        
+        <body className={inter.className}>{children}</body>
+      </Theme>
     </html>
-  )
+  );
 }
