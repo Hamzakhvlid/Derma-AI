@@ -15,7 +15,10 @@
   .filter-drawer.open {
     bottom: 0;
   }
-
+.wrapper{
+  max-width:1440px;
+  margin:auto;
+}
 
 * {
   scroll-behavior: smooth;

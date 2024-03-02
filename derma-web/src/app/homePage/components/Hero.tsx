@@ -9,7 +9,7 @@ import { Fade } from "react-awesome-reveal";
 const Hero = () => {
   return (
     <main>
-      <div className="" id="home">
+      <div className=" wrapper " id="home">
         <div className="mx-auto h-full px-10 py-10 sm:max-w-xl md:max-w-full md:px-24 md:py-36 lg:px-8">
           <div className="flex flex-col items-center justify-between lg:flex-row">
             <div className="">

@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "framer-motion": "^10.16.16",
-    "react-file-picker": "^0.0.6",
-    "react-shuffle-text": "^1.0.6",
-    "styled-components": "^6.1.1"
-  }
-}

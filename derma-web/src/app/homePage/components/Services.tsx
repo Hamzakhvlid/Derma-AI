@@ -10,7 +10,7 @@ const Services = () => {
  
  
   return (
-    <section className="px-5 " id="service">
+    <section className="px-5 wrapper " id="service">
       <div className=" ">
         <header className="">
           <Fade>
