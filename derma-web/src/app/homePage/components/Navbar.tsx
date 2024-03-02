@@ -33,12 +33,12 @@ const Navbar = () => {
   const links = [
     {
       id: 1,
-      link: "home",
+      link: "/",
       label: "Home",
     },
     {
       id: 2,
-      link: "service",
+      link: "#service",
       label: "Services",
     },
     {
@@ -49,12 +49,12 @@ const Navbar = () => {
     },
     {
       id: 4,
-      link: "team",
+      link: "#team",
       label: "Team",
     },
     {
       id: 5,
-      link: "contact",
+      link: "#contact",
       label: "Book Now",
     },
   ];
@@ -76,7 +76,7 @@ const Navbar = () => {
     setDropDown(!showDropDown);
   };
 
-  const isLoggedIn = false;
+  const isLoggedIn = true;
   const isuser = true;
 
   return (
