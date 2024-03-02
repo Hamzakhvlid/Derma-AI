@@ -1,7 +1,30 @@
+"use client";
+import React from "react";
 import Link from "next/link";
 import { Fade } from "react-awesome-reveal";
 import Login from "../imageMoving";
 import Image from "next/image";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
+const SignupSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+  lastName: Yup.string()
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+  email: Yup.string().email("Invalid email").required("Required"),
+  password: Yup.string()
+    .min(8, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"),""], "Passwords must match")
+    .required("Required"),
+});
 
 export default function SignUpPage() {
   return (
@@ -14,72 +37,65 @@ export default function SignUpPage() {
         </h1>
         <hr className="border-[#f4581c] border-width-1px height-2px mt-[3%] w-[70%] md:w-[60%] md:ml-[20%] ml-[15%]" />
 
-        <form className="ml-[15%] md:ml-[20%]">
-          <input
-            type="name"
-            id="fname"
-            placeholder=" First Name"
-            className="border-2 border-rgba(0, 0, 0, 0.24) rounded-lg w-[80%] md:w-[40%] h-12 mt-[5%]"
-          />
-          <input
-            type="name"
-            id="lname"
-            placeholder=" Second Name"
-            className="border-2 border-rgba(0, 0, 0, 0.24) rounded-lg w-[80%] md:w-[40%] h-12 mt-[3%] md:ml-3"
-          />
-          <input
-            type="email"
-            id="email"
-            placeholder=" Email "
-            className="border-2 border-rgba(0, 0, 0, 0.24) rounded-lg w-[80%] md:w-[60%] h-12 mt-[3%]"
-          />
-          <input
-            type="password"
-            id="password"
-            placeholder=" Password "
-            className="border-2 border-rgba(0, 0, 0, 0.24) rounded-lg w-[80%] md:w-[60%] h-12 mt-[3%] "
-          />
-          <input
-            type="password"
-            id="cpassword"
-            placeholder=" Confirm Password"
-            className="border-2 border-rgba(0, 0, 0, 0.24) rounded-lg w-[80%] md:w-[60%] h-12 mt-[3%]"
-          />
-        </form>
+        <Formik
+          initialValues={{
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          }}
+          validationSchema={SignupSchema}
+          onSubmit={(values) => {
+            // Handle form submission here
+            console.log(values);
+          }}
+        >
+          {({ errors, touched }) => (
+            <Form className="ml-[15%] md:ml-[20%]">
+              <Field
+                type="name"
+                id="firstName"
+                name="firstName"
+                placeholder="First Name"
+                className={`border-2 border-rgba(0, 0, 0, 0.24) rounded-lg w-[80%] md:w-[40%] h-12 mt-[5%] ${
+                  errors.firstName && touched.firstName ? "border-red-500" : ""
+                }`}
+              />
+              <ErrorMessage
+                name="firstName"
+                component="div"
+                className="text-red-500"
+              />
 
-        <button className="mt-[4%] bg-[#f4581c] rounded-[25px]  hover:bg-opacity-90  h-[35px] w-[70px] text-white font-sans ml-[40%] md:ml-[45%]">
-          Sign up
-        </button>
-        <h1 className="text-center pt-[2%] mt-2 text-md text-blue-900 md:text-white">
-          Or login with
-        </h1>
-        <div className="flex pl-[45%]">
-          <img
-            className=" w-[20%] h-[20%] md:w-[10%] md:h-[10%] "
-            src="googleLogo.png"
-            alt=""
-          />
-          <img
-            className="w-[20%] h-[20%] md:w-[9%] md:h-[9%] "
-            src="appleLogo.png"
-            alt=""
-          />
-        </div>
-        <h1 className="text-center pt-[2%] pr-[4rem] text-md text-blue-900 md:text-white">
-          if you don't have any account?{" "}
-          <a className="text-[#f4581c] underline hover:underline-offset-4 absolute">
-            <Link href="/Signup">Signup</Link>
-          </a>
-        </h1>
-      </div>
+              <Field
+                type="name"
+                id="lastName"
+                name="lastName"
+                placeholder="Second Name"
+                className={`border-2 border-rgba(0, 0, 0, 0.24) rounded-lg w-[80%] md:w-[40%] h-12 mt-[3%] md:ml-3 ${
+                  errors.lastName && touched.lastName ? "border-red-500" : ""
+                }`}
+              />
+              <ErrorMessage
+                name="lastName"
+                component="div"
+                className="text-red-500"
+              />
 
-      <div className="">
-        <img
-          src="blob.svg"
-          alt="Blob SVG"
-          className="absolute filter  hidden md:block w-[60rem]  drop-shadow-s md:top-[-7%] md:left-[21%]   "
-        />
-        <div className=" "></div>
+              {/* ... other fields and error messages ... */}
+
+              <button
+                type="submit"
+                className="mt-[4%] bg-[#f4581c] rounded-[25px] hover:bg-opacity-90 h-[35px] w-[70px] text-white font-sans ml-[40%] md:ml-[45%]"
+              >
+                Sign up
+              </button>
+            </Form>
+          )}
+        </Formik>
+
+        {/* ... rest of your component ... */}
       </div>
     </div>
   );
