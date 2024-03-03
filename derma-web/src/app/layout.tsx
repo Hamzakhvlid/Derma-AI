@@ -4,15 +4,14 @@ import "./globals.css";
 import Navbar from "./homePage/components/Navbar";
 import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
+import Providers from "./lib/provider";
 
 const inter = Inter({ subsets: ["latin"] });
-
-
 
 export const metadata: Metadata = {
   title: "DERMA AI",
   description: "DERMA AI - Dermatology AI",
-  manifest: "/manifest.json"
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
@@ -22,10 +21,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Theme>
-        <Navbar />
-        <body className={inter.className}>{children}</body>
-      </Theme>
+      <Providers>
+        <Theme>
+          <Navbar />
+          <body className={inter.className}>{children}</body>
+        </Theme>
+      </Providers>
     </html>
   );
 }

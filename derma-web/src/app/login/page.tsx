@@ -1,45 +1,41 @@
-'use client';
+"use client";
 import Link from "next/link";
-import { useAppSelector } from "../lib/store";
-import { useState } from "react";
 import { useFormik } from "formik";
 import { loginSchema } from "../schemas";
+import axios from "axios";
+import { loginApi } from "../Api/baseUrl";
+import { actions } from "../lib/authSlice";
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from "../lib/store";
 
 //initial values for form
 const initialValues = {
-  email: "",
+  identifier: "",
   password: "",
 };
 export default function LoginPage() {
-  // const authState = useAppSelector((state) => state.auth);
-
-  // const [formData, setFormData] = useState({ name: '', email: '' });
-
-  // const handleSubmit = async (event: any) => {
-  //   event.preventDefault();
-  //   try {
-  //     const response = await fetch('/api/submit', {
-  //       method: 'POST',
-  //       body: JSON.stringify(formData),
-  //     });
-  //     const data = await response.json();
-  //     // Handle response data
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const auth = useSelector((state: RootState) => state.auth.isLogin);
+  const dispatch = useDispatch();
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
-      initialValues: initialValues,
+      initialValues,
       validationSchema: loginSchema,
-      onSubmit: (values, action) => {
-        alert(JSON.stringify(values))
+      onSubmit: async (values, action) => {
+        try {
+          const response = await axios.post(loginApi, values);
+          const res_data = response.data.data;
+          localStorage.setItem('auth_token', res_data.accessToken)
+          dispatch(actions.login(true));
+
+          console.log(res_data);
+        } catch (error) {
+          console.log(error);
+        }
         action.resetForm();
       },
     });
   return (
- 
     <div className="pt-[2%] min-h-screen signupbg flex justify-center items-center">
       <div className="flex justify-center items-center flex-col rounded-md drop-shadow-lg md:drop-shadow bg-[#49407596] md:bg-transparent w-[80%] md:w-full">
         <h1 className="mt-[8%] lg:mt-[2%] font-bold text-xl text-blue-900 md:text-white">
@@ -51,26 +47,20 @@ export default function LoginPage() {
           className="flex mt-2  flex-col justify-center w-[90%] md:w-[35%] lg:w-[25%]"
           onSubmit={handleSubmit}
         >
-          
-          <label className="text-white" htmlFor="email">
-            Email
-          </label>
+          <label className="text-white" htmlFor="identifier">Email/Username</label>
           <input
             className="border-2 border-rgba(0, 0, 0, 0.24) rounded-lg  h-12 mt-[1%] mr-[1%]"
-            type="email"
-            name="email"
-            id="email"
-            placeholder="john@gmail.com"
-            value={values.email}
+            type="text"
+            name="identifier"
+            id="identifier"
+            value={values.identifier}
             onChange={handleChange}
             onBlur={handleBlur}
           />
-          {errors.email && touched.email ? (
-            <p className="text-white text-sm">{errors.email}*</p>
-          ) : null}
-          <br className="hidden md:flex"/>
+          {errors.identifier && touched.identifier ? (<p className="text-white text-sm">{errors.identifier}*</p>) : null}
           
-          
+          <br className="hidden md:flex" />
+
           <label className="text-white" htmlFor="password">
             Password
           </label>
@@ -86,8 +76,7 @@ export default function LoginPage() {
           {errors.password && touched.password ? (
             <p className="text-white text-sm">{errors.password}*</p>
           ) : null}
-          <br className="hidden md:flex"/>
-          
+          <br className="hidden md:flex" />
 
           <div className="flex justify-between items-center">
             <h1 className="text-white underline hover:underline-offset-4 mt-[2%]">
@@ -125,6 +114,5 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
-   
   );
 }
