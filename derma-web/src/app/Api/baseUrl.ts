@@ -1,3 +1,3 @@
-const baseUrl= "http://127.0.0.1:8000";
+const baseUrl = "https://dermai-dd2f29260512.herokuapp.com/api/v1";
 
-const Login= baseUrl + "/login";
+export const signup = baseUrl + "/users/register";

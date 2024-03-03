@@ -1,13 +1,10 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { Fade } from "react-awesome-reveal";
-import Login from "../imageMoving";
-import Image from "next/image";
 import { useFormik } from "formik";
-
 import { signupSchema } from "../schemas";
-import { CgPassword } from "react-icons/cg";
+import { signup } from "../Api/baseUrl";
+import axios from "axios";
 
 interface Values {
   firstName: string;
@@ -19,8 +16,8 @@ interface Values {
 }
 //initial values for form
 const initialValues = {
-  firstName: "",
-  lastName: "",
+  first_name: "",
+  last_name: "",
   email: "",
   username: "",
   password: "",
@@ -32,8 +29,14 @@ export default function SignUpPage() {
     useFormik({
       initialValues: initialValues,
       validationSchema: signupSchema,
-      onSubmit: (values, action) => {
-        console.log("User Registration Values", values);
+      onSubmit: async (values, action) => {
+        try{
+          const response = await axios.post(signup, values);
+          console.log(response);
+          alert(JSON.stringify(response));
+        }catch (error){
+          alert(JSON.stringify(error));
+        }
         action.resetForm();
       },
     });
@@ -52,39 +55,39 @@ export default function SignUpPage() {
         >
           <div className="flex flex-col xl:flex-row xl:justify-between">
             <div className="flex flex-col">
-              <label className="text-white" htmlFor="firstName">
+              <label className="text-white" htmlFor="first_name">
                 First Name
               </label>
               <input
                 className="border-2 border-rgba(0, 0, 0, 0.24) rounded-lg  h-12 mt-[1%] "
                 type="text"
-                id="firstName"
-                name="firstName"
+                id="first_name"
+                name="first_name"
                 placeholder="John"
-                value={values.firstName}
+                value={values.first_name}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              {errors.firstName && touched.firstName ? (
-                <p className="text-white text-sm">{errors.firstName}*</p>
+              {errors.first_name && touched.first_name ? (
+                <p className="text-white text-sm">{errors.first_name}*</p>
               ) : null}
             </div>
             <div className="flex flex-col">
-              <label className="text-white" htmlFor="lastName">
+              <label className="text-white" htmlFor="last_name">
                 Last Name
               </label>
               <input
                 className="border-2 border-rgba(0, 0, 0, 0.24) rounded-lg h-12 mt-[1%] "
                 type="text"
-                id="lastName"
-                name="lastName"
+                id="last_name"
+                name="last_name"
                 placeholder="Doe"
-                value={values.lastName}
+                value={values.last_name}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              {errors.lastName && touched.lastName ? (
-                <p className="text-white text-sm">{errors.lastName}*</p>
+              {errors.last_name && touched.last_name ? (
+                <p className="text-white text-sm">{errors.last_name}*</p>
               ) : null}
             </div>
           </div>
@@ -173,7 +176,7 @@ export default function SignUpPage() {
             <Link href="/login">Login</Link>
           </a>
         </h1>
-        <h1 className="text-center mt-[1%] mt-2 text-md text-blue-900 md:text-white">
+        <h1 className="text-center mt-[1%] text-md text-blue-900 md:text-white">
           Or login with
         </h1>
 
