@@ -20,12 +20,7 @@
   margin:auto;
 }
 
-.signupbg{
-  background-image: url('../../public/blob.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 120% 120%;
-}
+
 
 * {
   scroll-behavior: smooth;

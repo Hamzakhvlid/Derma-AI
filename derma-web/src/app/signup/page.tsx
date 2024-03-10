@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import { signupSchema } from "../schemas";
 import { signup } from "../Api/baseUrl";
 import axios from "axios";
-
+import "./style.css";
 interface Values {
   firstName: string;
   lastName: string;
@@ -42,24 +42,24 @@ export default function SignUpPage() {
     });
 
   return (
-    <div className="pt-[2%] min-h-screen signupbg flex justify-center items-center">
-      <div className="flex justify-center items-center flex-col rounded-md drop-shadow-lg md:drop-shadow bg-[#49407596] md:bg-transparent w-[80%] md:w-full">
-        <h1 className="mt-[8%] lg:mt-[2%] font-bold text-xl text-blue-900 md:text-white">
+    <div className="mt-[6vh] flex justify-center signupbg  items-center">
+      <div className="flex justify-center  items-center flex-col rounded-md drop-shadow-lg md:drop-shadow  md:bg-transparent w-[80%] md:w-full">
+        <h1 className="mt-[8%] lg:mt-[2%] font-bold text-sm lg:text-lg text-blue-900 md:text-white">
           Signup
         </h1>
 
-        <hr className="border-[#f4581c] border-width-1px height-2px mt-[1%] w-[30%]" />
+        <hr className="border-[#f4581c] border-width-1px height-1px mt-[1%] w-[30%]" />
         <form
-          className="flex mt-2  flex-col justify-center w-[90%] md:w-[35%] lg:w-[25%]"
+          className="flex mt-2 gap-1  flex-col justify-center "
           onSubmit={handleSubmit}
         >
-          <div className="flex flex-col xl:flex-row xl:justify-between">
+          <div className="flex flex-col gap-2 xl:flex-row xl:justify-between">
             <div className="flex flex-col">
               <label className="text-white" htmlFor="first_name">
                 First Name
               </label>
               <input
-                className="border-2 border-rgba(0, 0, 0, 0.24) rounded-lg  h-12 mt-[1%] "
+                className=""
                 type="text"
                 id="first_name"
                 name="first_name"
@@ -69,7 +69,7 @@ export default function SignUpPage() {
                 onBlur={handleBlur}
               />
               {errors.first_name && touched.first_name ? (
-                <p className="text-white text-sm">{errors.first_name}*</p>
+                <p className="">{errors.first_name}*</p>
               ) : null}
             </div>
             <div className="flex flex-col">
@@ -77,7 +77,7 @@ export default function SignUpPage() {
                 Last Name
               </label>
               <input
-                className="border-2 border-rgba(0, 0, 0, 0.24) rounded-lg h-12 mt-[1%] "
+                className=""
                 type="text"
                 id="last_name"
                 name="last_name"
@@ -87,16 +87,16 @@ export default function SignUpPage() {
                 onBlur={handleBlur}
               />
               {errors.last_name && touched.last_name ? (
-                <p className="text-white text-sm">{errors.last_name}*</p>
+                <p className="">{errors.last_name}*</p>
               ) : null}
             </div>
           </div>
-          <br className="hidden md:flex"/>
-          <label className="text-white" htmlFor="email">
+        
+          <label className="" htmlFor="email">
             Email
           </label>
           <input
-            className="border-2 border-rgba(0, 0, 0, 0.24) rounded-lg  h-12 mt-[1%] mr-[1%]"
+            className=""
             type="email"
             name="email"
             id="email"
@@ -106,14 +106,14 @@ export default function SignUpPage() {
             onBlur={handleBlur}
           />
           {errors.email && touched.email ? (
-            <p className="text-white text-sm">{errors.email}*</p>
+            <p className="">{errors.email}*</p>
           ) : null}
-          <br className="hidden md:flex"/>
+         
           <label className="text-white" htmlFor="username">
             Username
           </label>
           <input
-            className="border-2 border-rgba(0, 0, 0, 0.24) rounded-lg  h-12 mt-[1%] mr-[1%]"
+            className=""
             type="text"
             name="username"
             id="username"
@@ -123,14 +123,14 @@ export default function SignUpPage() {
             onBlur={handleBlur}
           />
           {errors.username && touched.username ? (
-            <p className="text-white text-sm">{errors.username}*</p>
+            <p className="">{errors.username}*</p>
           ) : null}
-          <br className="hidden md:flex"/>
-          <label className="text-white" htmlFor="password">
+        
+          <label className="" htmlFor="password">
             Password
           </label>
           <input
-            className="border-2 border-rgba(0, 0, 0, 0.24) rounded-lg  h-12 mt-[1%] mr-[1%]"
+            className=""
             type="password"
             name="password"
             id="password"
@@ -139,14 +139,14 @@ export default function SignUpPage() {
             onBlur={handleBlur}
           />
           {errors.password && touched.password ? (
-            <p className="text-white text-sm">{errors.password}*</p>
+            <p className="">{errors.password}*</p>
           ) : null}
-          <br className="hidden md:flex"/>
+         
           <label className="text-white" htmlFor="confirm_password">
             Confirm Password
           </label>
           <input
-            className="border-2 border-rgba(0, 0, 0, 0.24) rounded-lg h-12 mt-[1%] mr-[1%]"
+            className=""
             type="password"
             name="confirm_password"
             id="confirm_password"
@@ -155,7 +155,7 @@ export default function SignUpPage() {
             onBlur={handleBlur}
           />
           {errors.confirm_password && touched.confirm_password ? (
-            <p className="text-white text-sm">{errors.confirm_password}*</p>
+            <p className="">{errors.confirm_password}*</p>
           ) : null}
 
           <div className="flex justify-between items-center">
