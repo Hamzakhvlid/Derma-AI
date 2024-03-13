@@ -42,24 +42,25 @@ export default function SignUpPage() {
     });
 
   return (
-    <div className="mt-[6vh] flex justify-center signupbg  items-center">
-      <div className="flex justify-center  items-center flex-col rounded-md drop-shadow-lg md:drop-shadow  md:bg-transparent w-[80%] md:w-full">
-        <h1 className="mt-[8%] lg:mt-[2%] font-bold text-sm lg:text-lg text-blue-900 md:text-white">
+    <div className=" fancybackground h-[100vh]">
+    <div className=" p-2  md:pt-0 flex justify-center ">
+      <div className="shadow w-[90%] flex-col flex pt-3 pb-3 pr-4 pl-4 bg-[#f1f5f9] mt-[5rem] rounded-md drop-shadow-lg  md:w-[60%] lg-[50%] xl:w-[60%]">
+        <h1 className="font-bold text-sm lg:text-lg text-blue-900 self-center ">
           Signup
         </h1>
 
-        <hr className="border-[#f4581c] border-width-1px height-1px mt-[1%] w-[30%]" />
+        <hr className="border-[#f4581c] border-width-3px height-1px mt-[1%] w-[20%] self-center" />
         <form
           className="flex mt-2 gap-1  flex-col justify-center "
           onSubmit={handleSubmit}
         >
-          <div className="flex flex-col gap-2 xl:flex-row xl:justify-between">
-            <div className="flex flex-col">
-              <label className="text-white" htmlFor="first_name">
+          <div className="flex flex-col  md:flex-row gap-1">
+            <div className=" flex-col w-[100%]">
+              <label  className="label" htmlFor="first_name">
                 First Name
               </label>
               <input
-                className=""
+                  className="input"
                 type="text"
                 id="first_name"
                 name="first_name"
@@ -72,12 +73,12 @@ export default function SignUpPage() {
                 <p className="">{errors.first_name}*</p>
               ) : null}
             </div>
-            <div className="flex flex-col">
-              <label className="text-white" htmlFor="last_name">
+            <div className=" flex-col w-[100%]">
+              <label className="label"  htmlFor="last_name">
                 Last Name
               </label>
               <input
-                className=""
+                    className="input"
                 type="text"
                 id="last_name"
                 name="last_name"
@@ -92,11 +93,11 @@ export default function SignUpPage() {
             </div>
           </div>
         
-          <label className="" htmlFor="email">
+          <label className="label" htmlFor="email">
             Email
           </label>
           <input
-            className=""
+            className="input"
             type="email"
             name="email"
             id="email"
@@ -109,11 +110,11 @@ export default function SignUpPage() {
             <p className="">{errors.email}*</p>
           ) : null}
          
-          <label className="text-white" htmlFor="username">
+          <label className="label"  htmlFor="username">
             Username
           </label>
           <input
-            className=""
+                  className="input"
             type="text"
             name="username"
             id="username"
@@ -126,11 +127,11 @@ export default function SignUpPage() {
             <p className="">{errors.username}*</p>
           ) : null}
         
-          <label className="" htmlFor="password">
+          <label className="label" htmlFor="password">
             Password
           </label>
           <input
-            className=""
+                  className="input"
             type="password"
             name="password"
             id="password"
@@ -142,13 +143,13 @@ export default function SignUpPage() {
             <p className="">{errors.password}*</p>
           ) : null}
          
-          <label className="text-white" htmlFor="confirm_password">
+          <label className="label" htmlFor="confirm_password">
             Confirm Password
           </label>
           <input
-            className=""
+                  className="input"
             type="password"
-            name="confirm_password"
+            name="password"
             id="confirm_password"
             value={values.confirm_password}
             onChange={handleChange}
@@ -158,41 +159,38 @@ export default function SignUpPage() {
             <p className="">{errors.confirm_password}*</p>
           ) : null}
 
-          <div className="flex justify-between items-center">
-            <h1 className="text-white underline hover:underline-offset-4 mt-[2%]">
-              <Link href={"forgotpassword"}>Forgot Password?</Link>
-            </h1>
-          </div>
+    
           <button
             type="submit"
-            className="mt-[4%]  bg-[#f4581c] rounded-lg hover:bg-opacity-90  h-[3rem]  text-white font-sans "
+            className="mt-[4%] w-[100%] md:w-[30%] lg:-[20%] self-center  bg-[#f4581c] rounded-lg hover:bg-opacity-90  h-[3rem]  text-white font-sans "
           >
             Signup
           </button>
         </form>
-        <h1 className="text-center pt-[1rem] pr-[4rem] text-md text-blue-900 md:text-white">
+        <h1 className="text-center pt-[1rem] pr-[4rem] text-md text-blue-900 ">
           if you don't have any account?{" "}
           <a className="text-[#f4581c] underline hover:underline-offset-4 absolute">
             <Link href="/login">Login</Link>
           </a>
         </h1>
-        <h1 className="text-center mt-[1%] text-md text-blue-900 md:text-white">
+        <h1 className="text-center mt-[1%] text-md text-blue-900 ">
           Or login with
         </h1>
 
-        <div className="flex w-full justify-center">
+        <div className="flex mt-2 gap-2 w-full justify-center">
           <img
-            className="inline w-[5%] h-[5%] md:w-[3%] md:h-[3%] "
+            className="inlinew-[2.3rem] h-[2.3rem]  "
             src="googleLogo.png"
             alt=""
           />
           <img
-            className="inline w-[5%] h-[5%] md:w-[3%] md:h-[3%] "
+            className="inline w-[2rem] h-[2rem]  "
             src="appleLogo.png"
             alt=""
           />
         </div>
       </div>
+    </div>
     </div>
 
     
