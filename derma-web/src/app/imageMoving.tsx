@@ -1,7 +1,8 @@
-//@ts-ignore
-import WatchingYou from 'react-watching-you';
+
+
+import React, { memo } from 'react';
 import styled from 'styled-components';
-import GitHubLinkIcon from './homePage/components/githublink';
+
 
 
 const Container = styled.div`
@@ -104,20 +105,20 @@ const RightEyeball = styled(Eyeball)`
 function Cena() {
   return (
     <Container>
-      <GitHubLinkIcon />
+ 
       <CenaWrapper>
        
-        <WatchingYou rotatable={false} power={eyesPower}>
+     
           <LeftEyeball ></LeftEyeball>
          
-        </WatchingYou>
-        <WatchingYou rotatable={false} power={eyesPower}>
+       
           <RightEyeball />
-        </WatchingYou>
+ 
         <CenaImage />
       </CenaWrapper>
-    </Container>
-  );
+    </Container>)
 }
 
-export default Cena;
+const MemoizedCena = memo(Cena);
+
+export default MemoizedCena;

@@ -42,7 +42,7 @@ export default function SignUpPage() {
     });
 
   return (
-    <div className=" fancybackground h-[100vh]">
+    <div className="fancybackground wrapper  h-[100vh]">
     <div className=" p-2  md:pt-0 flex justify-center ">
       <div className="shadow w-[90%] flex-col flex pt-3 pb-3 pr-4 pl-4 bg-[#f1f5f9] mt-[5rem] rounded-md drop-shadow-lg  md:w-[60%] lg-[50%] xl:w-[60%]">
         <h1 className="font-bold text-sm lg:text-lg text-blue-900 self-center ">

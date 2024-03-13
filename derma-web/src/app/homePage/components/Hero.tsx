@@ -1,10 +1,11 @@
-
+"use client";
 import homepicture from "./Images/home.png" ;
 
 import Link  from "next/link";
-import Cena from "../../imageMoving";
-import Login from "../../imageMoving";
-import { Fade } from "react-awesome-reveal";
+
+import MemoizedCena from "../../imageMoving";
+
+import Image from "next/image";
 
 const Hero = () => {
   return (
@@ -124,9 +125,9 @@ const Hero = () => {
                     clip-rule="evenodd"
                   />
                 </svg>
-                <Fade className="w-[500px] h-[400px]">
-                 {Login()}
-                </Fade>
+                <div className="w-[500px] h-[400px]">
+                <MemoizedCena/>
+                </div>
               </div>
             </div>
           </div>

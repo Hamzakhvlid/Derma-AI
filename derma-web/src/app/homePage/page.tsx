@@ -13,7 +13,7 @@ import Testimonials from './components/Testimonials';
 
 export default function HomePage() {
   return (
-   <div className='bg-white'>
+   <div className='bg-white fancybackground'>
    
     
      <Hero />
