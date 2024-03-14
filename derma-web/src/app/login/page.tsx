@@ -7,7 +7,7 @@ import { loginApi } from "../Api/baseUrl";
 import { actions } from "../lib/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../lib/store";
-
+import "./style.css";
 //initial values for form
 const initialValues = {
   identifier: "",
@@ -36,20 +36,22 @@ export default function LoginPage() {
       },
     });
   return (
-    <div className="pt-[2%] min-h-screen signupbg flex justify-center items-center">
-      <div className="flex justify-center items-center flex-col rounded-md drop-shadow-lg md:drop-shadow bg-[#49407596] md:bg-transparent w-[80%] md:w-full">
-        <h1 className="mt-[8%] lg:mt-[2%] font-bold text-xl text-blue-900 md:text-white">
+    <div className="fancybackground wrapper h-[100vh]">
+    <div className=" p-2  md:pt-0 flex justify-center ">
+    
+      <div className="flex  items-center flex-col p-4 mt-[4rem] bg-[#f1f5f9]  shadow  rounded-md  w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] ">
+        <h1 className="mt-[8%] lg:mt-[2%] font-bold text-xl text-blue-900">
           Login
         </h1>
 
         <hr className="border-[#f4581c] border-width-1px height-2px mt-[1%] w-[30%]" />
         <form
-          className="flex mt-2  flex-col justify-center w-[90%] md:w-[35%] lg:w-[25%]"
+          className="flex mt-2  flex-col w-full justify-center "
           onSubmit={handleSubmit}
         >
-          <label className="text-white" htmlFor="identifier">Email/Username</label>
+          <label className="label" htmlFor="identifier">Email/Username</label>
           <input
-            className="border-2 border-rgba(0, 0, 0, 0.24) rounded-lg  h-12 mt-[1%] mr-[1%]"
+            className="border-2 border-rgba(0, 0, 0, 0.24) rounded-lg p-2 "
             type="text"
             name="identifier"
             id="identifier"
@@ -57,15 +59,15 @@ export default function LoginPage() {
             onChange={handleChange}
             onBlur={handleBlur}
           />
-          {errors.identifier && touched.identifier ? (<p className="text-white text-sm">{errors.identifier}*</p>) : null}
+          {errors.identifier && touched.identifier ? (<p className="error-message text-sm">{errors.identifier}*</p>) : null}
           
           <br className="hidden md:flex" />
 
-          <label className="text-white" htmlFor="password">
+          <label className="label" htmlFor="password">
             Password
           </label>
           <input
-            className="border-2 border-rgba(0, 0, 0, 0.24) rounded-lg  h-12 mt-[1%] mr-[1%]"
+            className=" p-2 border-2 border-rgba(0, 0, 0, 0.24) rounded-lg  "
             type="password"
             name="password"
             id="password"
@@ -74,45 +76,46 @@ export default function LoginPage() {
             onBlur={handleBlur}
           />
           {errors.password && touched.password ? (
-            <p className="text-white text-sm">{errors.password}*</p>
+            <p className="error-message text-sm">{errors.password}*</p>
           ) : null}
           <br className="hidden md:flex" />
 
           <div className="flex justify-between items-center">
-            <h1 className="text-white underline hover:underline-offset-4 mt-[2%]">
+            <h1 className="text-[#f4581c] underline hover:underline-offset-4 ">
               <Link href={"forgotpassword"}>Forgot Password?</Link>
             </h1>
           </div>
           <button
             type="submit"
-            className="mt-[4%]  bg-[#f4581c] rounded-lg hover:bg-opacity-90  h-[3rem]  text-white font-sans "
+            className="mt-[4%] w-[100%] md:w-[30%] lg:-[20%] self-center  bg-[#f4581c] rounded-lg hover:bg-opacity-90  h-[3rem]  text-white font-sans "
           >
             Login
           </button>
         </form>
-        <h1 className="text-center pt-[1rem] pr-[4rem] text-md text-blue-900 md:text-white">
+        <h1 className="text-center pt-[1rem] pr-[4rem] text-md text-blue-900 ">
           if you don't have any account?{" "}
-          <a className="text-[#f4581c] underline hover:underline-offset-4 absolute">
+          <a className="text-[#f4581c] underline hover:underline-offset-4 pl-[.1rem] text-[1rem]">
             <Link href="/signup">Signup</Link>
           </a>
         </h1>
-        <h1 className="text-center mt-[1%] text-md text-blue-900 md:text-white">
+        <h1 className="text-center mt-[1%] text-md text-blue-900 ">
           Or login with
         </h1>
 
-        <div className="flex w-full items-center justify-center">
+        <div className="flex w-full  justify-center">
           <img
-            className="inline w-[10%] h-[10%] md:w-[3%] md:h-[3%] "
+            className="inline w-[2.4rem] h-[2.4rem] "
             src="googleLogo.png"
             alt=""
           />
           <img
-            className="inline w-[10%] h-[10%] md:w-[3%] md:h-[3%] "
+            className="inline w-[2rem] h-[2rem] "
             src="appleLogo.png"
             alt=""
           />
         </div>
       </div>
+    </div>
     </div>
   );
 }

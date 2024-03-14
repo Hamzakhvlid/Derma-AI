@@ -44,7 +44,7 @@ export default function SignUpPage() {
   return (
     <div className="fancybackground wrapper  h-[100vh]">
     <div className=" p-2  md:pt-0 flex justify-center ">
-      <div className="shadow w-[90%] flex-col flex pt-3 pb-3 pr-4 pl-4 bg-[#f1f5f9] mt-[5rem] rounded-md drop-shadow-lg  md:w-[60%] lg-[50%] xl:w-[60%]">
+      <div className="shadow w-[90%] flex-col flex pt-3 pb-3 pr-4 pl-4 bg-[#f1f5f9] mt-[5rem] rounded-md drop-shadow-lg  md:w-[60%] lg-[50%] xl:w-[40%]">
         <h1 className="font-bold text-sm lg:text-lg text-blue-900 self-center ">
           Signup
         </h1>
@@ -70,7 +70,7 @@ export default function SignUpPage() {
                 onBlur={handleBlur}
               />
               {errors.first_name && touched.first_name ? (
-                <p className="">{errors.first_name}*</p>
+                <p className="error-message text-sm">{errors.first_name}*</p>
               ) : null}
             </div>
             <div className=" flex-col w-[100%]">
@@ -88,7 +88,7 @@ export default function SignUpPage() {
                 onBlur={handleBlur}
               />
               {errors.last_name && touched.last_name ? (
-                <p className="">{errors.last_name}*</p>
+                <p className="error-message text-sm">{errors.last_name}*</p>
               ) : null}
             </div>
           </div>
@@ -107,7 +107,7 @@ export default function SignUpPage() {
             onBlur={handleBlur}
           />
           {errors.email && touched.email ? (
-            <p className="">{errors.email}*</p>
+            <p className="error-message text-sm">{errors.email}*</p>
           ) : null}
          
           <label className="label"  htmlFor="username">
@@ -124,7 +124,7 @@ export default function SignUpPage() {
             onBlur={handleBlur}
           />
           {errors.username && touched.username ? (
-            <p className="">{errors.username}*</p>
+            <p className="error-message text-sm">{errors.username}*</p>
           ) : null}
         
           <label className="label" htmlFor="password">
@@ -140,7 +140,7 @@ export default function SignUpPage() {
             onBlur={handleBlur}
           />
           {errors.password && touched.password ? (
-            <p className="">{errors.password}*</p>
+            <p className="error-message text-sm">{errors.password}*</p>
           ) : null}
          
           <label className="label" htmlFor="confirm_password">
@@ -149,14 +149,14 @@ export default function SignUpPage() {
           <input
                   className="input"
             type="password"
-            name="password"
+            name="confirm_password"
             id="confirm_password"
             value={values.confirm_password}
             onChange={handleChange}
             onBlur={handleBlur}
           />
           {errors.confirm_password && touched.confirm_password ? (
-            <p className="">{errors.confirm_password}*</p>
+            <p className="error-message text-sm">{errors.confirm_password}*</p>
           ) : null}
 
     
@@ -169,7 +169,7 @@ export default function SignUpPage() {
         </form>
         <h1 className="text-center pt-[1rem] pr-[4rem] text-md text-blue-900 ">
           if you don't have any account?{" "}
-          <a className="text-[#f4581c] underline hover:underline-offset-4 absolute">
+          <a className="text-[#f4581c] underline hover:underline-offset-4 pl-[.1rem] text-[1rem]">
             <Link href="/login">Login</Link>
           </a>
         </h1>
