@@ -82,7 +82,7 @@ export default function LoginPage() {
 
           <div className="flex justify-between items-center">
             <h1 className="text-[#f4581c] underline hover:underline-offset-4 ">
-              <Link href={"forgotpassword"}>Forgot Password?</Link>
+              <Link href={"/forgotPassword"}>Forgot Password?</Link>
             </h1>
           </div>
           <button
