@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import { signupSchema } from "../schemas";
 import { signup } from "../Api/baseUrl";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import "./style.css";
 interface Values {
   firstName: string;
@@ -24,13 +25,29 @@ const initialValues = {
   confirm_password: "",
 };
 
-export default function SignUpPage() {
+export default function ResetPasswordPage() {
+  const [showPasswordFields, setShowPasswordFields] = useState(false);
+ 
+  useEffect(() => {
+   
+    const urlParams = new URLSearchParams(window.location.search);
+  const resetToken = urlParams.get('token');
+   
+    console.log(resetToken);
+    if (resetToken) {
+      // Set state to show password fields (See Step 2)
+      setShowPasswordFields(true); 
+    }
+  }, [initialValues]);
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: initialValues,
       validationSchema: signupSchema,
       onSubmit: async (values, action) => {
+     
+       
         try{
+
           const response = await axios.post(signup, values);
           console.log(response);
           alert(JSON.stringify(response));
@@ -57,24 +74,7 @@ export default function SignUpPage() {
          
            
         
-          <label className="label" htmlFor="email">
-            Email
-          </label>
-          <input
-            className="input"
-            type="email"
-            name="email"
-            id="email"
-            placeholder="john@gmail.com"
-            value={values.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.email && touched.email ? (
-            <p className="error-message text-sm">{errors.email}*</p>
-          ) : null}
          
-        
     
           <button
             type="submit"

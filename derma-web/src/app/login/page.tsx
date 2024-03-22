@@ -14,7 +14,7 @@ const initialValues = {
   password: "",
 };
 export default function LoginPage() {
-  const auth = useSelector((state: RootState) => state.auth.isLogin);
+
   const dispatch = useDispatch();
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
