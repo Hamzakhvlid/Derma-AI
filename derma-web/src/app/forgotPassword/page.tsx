@@ -20,7 +20,7 @@ const initialValues = {
 };
 
 export default function ResetPasswordPage() {
-  const [showPasswordFields, setShowPasswordFields] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
  const [isLoading, setIsLoading] = useState(false);
   
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
@@ -28,13 +28,18 @@ export default function ResetPasswordPage() {
       initialValues: initialValues,
       validationSchema: forgotPasswordSchema,
       onSubmit: async (values, action) => {
-     
+        setIsLoading(true);
        
         try{
          
           const response = await axios.post(forgotPassword, values);
-          console.log(response);
-          alert(JSON.stringify(response));
+         
+          setIsLoading(false);
+
+          if(response.status==200){
+            setShowSuccess(true);
+          }
+         
         }catch (error){
           alert(JSON.stringify(error));
         }
@@ -46,9 +51,14 @@ export default function ResetPasswordPage() {
     <div className="fancybackground wrapper  h-[100vh]">
     <div className=" p-2  md:pt-0 flex justify-center ">
       <div className="shadow w-[90%] flex-col flex pt-3 pb-3 pr-4 pl-4 bg-[#f1f5f9] mt-[5rem] rounded-md drop-shadow-lg  md:w-[60%] lg-[50%] xl:w-[40%]">
-        <h1 className="font-bold text-sm lg:text-lg text-blue-900 self-center ">
+      {showSuccess?<><div className="success-message flex flex-col justify-center">
+      <img src="tick.svg" alt="Checkmark" className="success-icon w-[4rem] self-center" />
+          <p className="text-[#1f3a8a] text-[.8rem] self-center">Password reset email has been sent to your mail. Check your inbox.</p>
+        </div></>:<> <h1 className="font-bold text-sm lg:text-lg text-blue-900 self-center ">
           Forgot Password
         </h1>
+
+      
 
         <hr className="border-[#f4581c] border-width-3px height-1px mt-[1%] w-[20%] self-center" />
         <form
@@ -79,10 +89,11 @@ export default function ResetPasswordPage() {
             type="submit"
             className="mt-[4%] w-[100%] md:w-[30%] lg:-[20%] self-center  bg-[#f4581c] rounded-lg hover:bg-opacity-90  h-[3rem]  text-white font-sans "
           >
-           {isLoading?<>Send Email</>:<div className="flex flex-row  justify-center  p-0 w-[100%] "><img className="w-[70px]   " src="loader.gif"></img></div>}
+           {isLoading?<div className="flex flex-row  justify-center   w-[100%] "><img className="w-[70px]   " src="loader.gif"></img></div>:<>Send Email</>}
           </button>
         </form>
 
+       </>}
        
       </div>
     </div>
