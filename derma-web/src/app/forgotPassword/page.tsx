@@ -1,54 +1,38 @@
 "use client";
 import React from "react";
-import Link from "next/link";
 import { useFormik } from "formik";
-import { signupSchema } from "../schemas";
-import { signup } from "../Api/baseUrl";
+import { forgotPasswordSchema, signupSchema } from "../schemas";
+import { forgotPassword } from "../Api/baseUrl";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import "./style.css";
 interface Values {
-  firstName: string;
-  lastName: string;
+ 
   email: string;
-  username: string;
-  password: string;
-  confirm_password: string;
+
+ 
 }
 //initial values for form
 const initialValues = {
-  first_name: "",
-  last_name: "",
+ 
   email: "",
-  username: "",
-  password: "",
-  confirm_password: "",
+  
 };
 
 export default function ResetPasswordPage() {
   const [showPasswordFields, setShowPasswordFields] = useState(false);
- 
-  useEffect(() => {
-   
-    const urlParams = new URLSearchParams(window.location.search);
-  const resetToken = urlParams.get('token');
-   
-    console.log(resetToken);
-    if (resetToken) {
-      // Set state to show password fields (See Step 2)
-      setShowPasswordFields(true); 
-    }
-  }, [initialValues]);
+ const [isLoading, setIsLoading] = useState(false);
+  
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: initialValues,
-      validationSchema: signupSchema,
+      validationSchema: forgotPasswordSchema,
       onSubmit: async (values, action) => {
      
        
         try{
-
-          const response = await axios.post(signup, values);
+         
+          const response = await axios.post(forgotPassword, values);
           console.log(response);
           alert(JSON.stringify(response));
         }catch (error){
@@ -71,7 +55,22 @@ export default function ResetPasswordPage() {
           className="flex mt-2 gap-1  flex-col justify-center "
           onSubmit={handleSubmit}
         >
-         
+          <label className="label" htmlFor="email">
+            Email
+          </label>
+          <input
+            className="input"
+            type="email"
+            name="email"
+            id="email"
+            placeholder="john@gmail.com"
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+          {errors.email && touched.email ? (
+            <p className="error-message text-sm">{errors.email}*</p>
+          ) : null}
            
         
          
@@ -80,7 +79,7 @@ export default function ResetPasswordPage() {
             type="submit"
             className="mt-[4%] w-[100%] md:w-[30%] lg:-[20%] self-center  bg-[#f4581c] rounded-lg hover:bg-opacity-90  h-[3rem]  text-white font-sans "
           >
-            Reset Password
+           {isLoading?<>Send Email</>:<div className="flex flex-row  justify-center  p-0 w-[100%] "><img className="w-[70px]   " src="loader.gif"></img></div>}
           </button>
         </form>
 

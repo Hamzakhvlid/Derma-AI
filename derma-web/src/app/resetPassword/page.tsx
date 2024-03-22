@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { useFormik } from "formik";
 import { signupSchema } from "../schemas";
-import { baseUrl, forgotPassword, signup } from "../Api/baseUrl";
+import { baseUrl, forgotPassword, resetForgotPassword, signup } from "../Api/baseUrl";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./style.css";
@@ -22,32 +22,7 @@ export default function ResetPasswordPage() {
   const [showPasswordFields, setShowPasswordFields] = useState(false);
   const [token, setToken] = useState("");
   const [password, setPassword] = useState("");
-  const submitForm = async () => {
-    console.log("form submitted")
-    try{
-    const url=baseUrl+forgotPassword;
-
-let config = {
-method: 'post',
-maxBodyLength: Infinity,
-url: url,
-headers: { 
-'authorization': `bearer ${token}` ,
-
-
-},
-data : {password: password}
-};
-console.log(config);
-      const response = await axios.request(config);
-      console.log(response);
-      alert(JSON.stringify(response));
-      
-    }catch (error){
-      alert(JSON.stringify(error));
-    }
-
-  };
+  
   useEffect(() => {
    
     const urlParams = new URLSearchParams(window.location.search);
@@ -63,15 +38,15 @@ console.log(config);
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: initialValues,
-      validationSchema: signupSchema,
+      validationSchema: resetForgotPassword,
       onSubmit: async (values, action) => {
-        setPassword(values.password);
+      
        console.log("form submitted")
        console.log(token);
 
         try{
-          let data = new FormData();
-data.append('password', values.password);
+
+
 
 let config = {
   method: 'post',
@@ -82,7 +57,7 @@ let config = {
     'Content-Type': 'application/json',
 
   },
-  data : data
+  data : values
 };
           const response = await axios.request(config);
           console.log(response);
@@ -146,7 +121,7 @@ let config = {
          
         
     
-          <button onClick={submitForm}
+          <button 
             type="submit"
             className="mt-[4%] w-[100%] md:w-[30%] lg:-[20%] self-center  bg-[#f4581c] rounded-lg hover:bg-opacity-90  h-[3rem]  text-white font-sans "
           >

@@ -19,7 +19,15 @@ export const signupSchema = Yup.object().shape({
     .required("Required"),
 });
 
-
+export const resetPasswordSchema = Yup.object().shape({  password: Yup.string()
+  .min(8, "Too Short!")
+  .required(),
+confirm_password: Yup.string()
+  .oneOf([Yup.ref("password"), ""], "Passwords must match")
+  .required("Required"),})
+  export const forgotPasswordSchema = Yup.object().shape({
+    email: Yup.string().email("Invalid email").required(),
+  })
 export const loginSchema = Yup.object().shape({
   identifier: Yup.string().min(5, "Too Short!").required("Required"),
   password: Yup.string().min(8, "Too Short!").required(),
