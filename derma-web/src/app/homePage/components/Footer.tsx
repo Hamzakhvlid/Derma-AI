@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Fade } from "react-awesome-reveal";
+import { Yesteryear } from "next/font/google";
 // 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
 
 const Footer = () => {
@@ -9,6 +10,7 @@ const Footer = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const year = new Date().getFullYear();
 
   const handleEmailChange = (event:any) => {
     setEmail(event.target.value);
@@ -342,10 +344,11 @@ const Footer = () => {
         <div className="py-2 border-t text-sm px-1 flex justify-between">
 
         <div className="text-left dark:text-gray-400">
-          ©2023 - Derma AI
+          ©{year} - Derma AI
         </div>
         <div>
-          Developed by <a className="text-blue-600 text-xs sm:text-sm mr-0 sm:mr-14" target="_blank" rel="noreferrer noopener" href="https://hbapte.me"> Hamza & Ansar </a>
+          Developed by <a className="text-blue-600 text-xs sm:text-sm" target="_blank" rel="noreferrer noopener" href="https://hvmzack.com/"> Hamza &</a>
+          <a className="text-blue-600 text-xs sm:text-sm mr-0 sm:mr-14" target="_blank" rel="noreferrer noopener" href="https://muhammad-ansar-portfolio.vercel.app"> Ansar</a>
         </div>
         </div>
 

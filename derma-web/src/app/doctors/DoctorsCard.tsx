@@ -42,7 +42,7 @@ const DoctorsCard = (props: {
     
     return (
         <>
-            <div className="w-full h-auto drop-shadow-md px-[2rem] bg-white py-5 rounded-lg">
+            <div className="w-full drop-shadow-md px-[2rem] bg-white py-5 rounded-lg">
                 <div className="flex md:flex-row flex-col justify-between items-center">
                     <div className="flex xl:flex-row flex-col">
                         <img
@@ -92,28 +92,17 @@ const DoctorsCard = (props: {
                             </div>
                         </div>
                     </div>
-                    <div className="flex sm:flex-col flex-row  space-x-3 space-y-2">
-                        <p></p>
+                    <div className="flex sm:flex-col flex-row space-x-2 sm:space-x-0 sm:space-y-2">
+                        
                         <Button
-                            title={"Video Consultant"}
-                            color={"bg-red-800"}
-                            imgUrl={"/videocam.svg"}
+                            title={"Video Call"}
+                            color={"bg-[#4CA585]"}
+                            href={"/doctordetailscreen#bookappointment"}
                         />
-                        <button className={`bg-blue-900 rounded-lg sm:w-auto w-[7rem] sm:h-auto h-[3rem] sm:py-2 py-[0.2] sm:px-[5rem] px-[0.5rem] flex text-sm  text-white `}>
-                            <img src={`/booking.svg`} alt="" />
+                        <Link href="/doctordetailscreen#bookappointment" className={`bg-[#004D71] rounded-lg px-4 py-2 text-center text-sm  text-white `}>
                             Book Appointment
-                        </button>
+                        </Link>
 
-                        {props.isSergeon && (
-                            <div className="relative mt-3">
-                                <DiscountTag />
-                                <Button
-                                    title={"Pre-Surgery Appointment"}
-                                    color={"bg-green-800"}
-                                    imgUrl={"/surgeory.svg"}
-                                />
-                            </div>
-                        )}
                     </div>
                 </div>
                 <Swiper
@@ -137,63 +126,35 @@ const DoctorsCard = (props: {
                     }}
 
                 >
-                    <SwiperSlide className="rounded-md border-blue-900 border-solid border-2 w-[30rem]">
-                        <div className="px-4  sm:space-y-0 space-y-3 py-2">
+                    <SwiperSlide className="rounded-md border-blue-900 border-solid border-2">
+                        <Link href= "/doctordetailscreen#bookappointment" className="px-4 block sm:space-y-0 space-y-3 py-2">
                             <div className="flex text-sm font-bold">
-                                <img src="/videocamB.svg" alt="" />
                                 Video Consultant
                             </div>
-                            <div className="flex text-sm ">
-                                <img src="/clock.svg" alt="" />
-                                {`${timeFrom} - ${timeTo}`}
-                            </div>
-                            <div className="flex sm:flex-row flex-col sm:items-center sm:justify-between w-[28rem]">
-                                <div className="flex">
+                            <div className="flex">
                                     <img src="/greendot.svg" alt="" />
                                     <h1 className="text-sm text-green-800">Available Tomorrow</h1>
                                 </div>
                                 <div>Rs. {`${price}`}</div>
-                            </div>
-                        </div>
+                            
+                        </Link>
                     </SwiperSlide>
                     {props.otherConsultations.map((id) => (
 
-                        <SwiperSlide className="rounded-md border-gray-300 border-solid border-2 w-[30rem]">
+                        <SwiperSlide className="rounded-md border-gray-300 border-solid border-2 ">
                             <Link
-
-                                href={{
-                                    pathname: "/checkpaymentType",
-                                    query: {
-                                        id: id.id.toString(),
-                                        patientName: users.name,
-                                        patientPhoneNo: users.phoneNo,
-                                        doctorname: props.name,
-                                        appointmentTime: id.timeFrom,
-                                        hospitalPhone: id.phone,
-                                        hospital: id.area,
-                                        place: id.place,
-                                        date: id.available,
-                                    }
-                                }}
-
-
+                            href={"/doctordetailscreen#bookappointment"}
                                 className="cursor-pointer">
                                 <div className="px-4 sm:space-y-0 space-y-3 py-2">
                                     <div className="flex text-sm font-bold">
 
                                         {`${id.area}, ${id.place}`}
                                     </div>
-                                    <div className="flex text-sm ">
-                                        <img src="/clock.svg" alt="" />
-                                        {`${id.timeFrom} - ${id.timeTo}`}
-                                    </div>
-                                    <div className="flex sm:flex-row flex-col sm:items-center sm:justify-between w-[28rem]">
-                                        <div className="flex">
+                                    <div className="flex">
                                             <img src="/greendot.svg" alt="" />
                                             <h1 className="text-sm text-green-800">{id.available}</h1>
                                         </div>
                                         <div>Rs. {`${id.price}`}</div>
-                                    </div>
                                 </div>
                             </Link>
                         </SwiperSlide>

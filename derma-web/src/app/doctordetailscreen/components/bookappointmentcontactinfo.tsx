@@ -1,13 +1,16 @@
 import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import Fade from "react-awesome-reveal";
+import sampleDoctorData from "@/app/homePage/components/sampleDoctorData";
+import Link from "next/link";
 
 const BookAppointmentCardContactInfo = () => {
+  const doctor = sampleDoctorData.doctors[0];
   const form = useRef();
   const [isSent, setIsSent] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+console.log(form);
   useEffect(() => {
     let timeout: any;
     if (error) {
@@ -22,26 +25,26 @@ const BookAppointmentCardContactInfo = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    emailjs
-      .sendForm(
-        "service_xisoyix",
-        "template_o8b8bzr",
-        form.current as any,
-        "y5LmTUdhgknXetKeT"
-      )
-      .then((result) => {
-        var form = form.current as any;
-        setIsSent(true);
-        setIsLoading(false);
-        form.reset();
-        setTimeout(() => {
-          setIsSent(false);
-        }, 5000);
-      })
-      .catch((error) => {
-        setError("An error occurred. Please try again later.");
-        setIsLoading(false);
-      });
+    // emailjs
+    //   .sendForm(
+    //     "service_xisoyix",
+    //     "template_o8b8bzr",
+    //     form.current as any,
+    //     "y5LmTUdhgknXetKeT"
+    //   )
+    //   .then((result) => {
+    //     var form = form.current as any;
+    //     setIsSent(true);
+    //     setIsLoading(false);
+    //     form.reset();
+    //     setTimeout(() => {
+    //       setIsSent(false);
+    //     }, 5000);
+    //   })
+    //   .catch((error) => {
+    //     setError("An error occurred. Please try again later.");
+    //     setIsLoading(false);
+    //   });
   };
 
   return (
@@ -161,14 +164,26 @@ const BookAppointmentCardContactInfo = () => {
 
           <div className="mt-4">
             <Fade>
-              <button
+              <Link
+              href={{pathname:"/appointmentdone", query:{
+                id: doctor.id,
+                patientName: "Muhammad Ansar",
+                patientPhoneNo: "03214613759",
+                doctorname: doctor.name,
+                appointmentTime: doctor.otherConsultations[0].id,
+                hospitalPhone: doctor.otherConsultations[0].phone,
+                hospital: doctor.otherConsultations[0].area,
+                place: doctor.otherConsultations[0].place,
+                date: doctor.otherConsultations[0].timeFrom,
+              }}}
+            
                 type="submit"
-                value="Send"
+                // value="Send"
                 className="hover:shadow-form hover:opacity-90 w-full rounded-md bg-blue-600 py-3 px-8 text-center text-base font-semibold text-white outline-none"
-                disabled={isLoading}
+                // disabled={isLoading}
               >
                 {isLoading ? "Booking..." : "Book Appointment"}
-              </button>
+              </Link>
             </Fade>
             {isSent && (
               <p className="text-green-500 mt-1 text-center">

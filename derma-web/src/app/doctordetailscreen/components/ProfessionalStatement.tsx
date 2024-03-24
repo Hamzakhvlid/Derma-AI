@@ -10,7 +10,7 @@ export default function ProfesionalStatement(props: {
     
 }) {
     return (
-        <div className="text-sm">
+        <div className="text-sm m-3">
             <h1 className="font-bold my-5">Professional Statement By {props.name}</h1>
             <h1 className="font-semibold my-5">Appointment Details:</h1>
             <h1>{props.appointmentdetails}</h1>

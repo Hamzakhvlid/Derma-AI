@@ -16,46 +16,41 @@ export default function BookAppointmentCard() {
   };
 
   return (
-    <div className="drop-shadow-md px-[2rem] bg-[#eef4f6] py-5 rounded-lg mt-20">
-      <h1 className="font-bold text-lg">Book Appointment Now</h1>
-
-      <div className="flex">
+    <div className="drop-shadow-md p-4 bg-[#eef4f6] rounded-lg">
+      <h1 className="font-bold text-lg mb-1">Book Appointment Now</h1>
+      <div className="flex mb-1">
         <img src={"/1.svg"} alt="" />
         Select Hospital/Clinic
       </div>
 
       {/* Video Consultant */}
       <div
-        className={`rounded-md border-solid border-2 cursor-pointer ${
+        className={`rounded-md border-solid mb-2 border-2 cursor-pointer ${
           selectedConsultant === "videoConsultant"
             ? "border-blue-900"
             : "border-gray-300"
         }`}
         onClick={() => handleConsultantSelect("videoConsultant")}
       >
-        <div className="px-4 space-y-1 py-2">
-          <div className="flex text-sm font-bold">
-            <img src="/videocamB.svg" alt="" />
+        <div className="px-4 bg-white space-y-1 py-2 text-sm">
+          <div className=" text-sm font-semibold underline">
             Video Consultant
           </div>
-          <div className="flex text-sm">
-            <img src="/clock.svg" alt="" />
+          <div>Rs. {`${doctor.videoConsultation.price}`}</div>
+          <div className="flex">
+            <img src="/greendot.svg" alt="" />
+            <h1> Available Today, </h1>
+
             {`${doctor.videoConsultation.timeFrom} - ${doctor.videoConsultation.timeTo}`}
           </div>
-          <div className="flex md:flex-row flex-col sm:items-center sm:justify-between">
-            <div className="flex">
-              <img src="/greendot.svg" alt="" />
-              <h1 className="text-sm text-green-800">Available Tomorrow</h1>
-            </div>
-            <div>Rs. {`${doctor.videoConsultation.price}`}</div>
-          </div>
+          Online
         </div>
       </div>
 
       {/* Other Consultants */}
       {doctor.otherConsultations.map((id) => (
         <div
-          className={`rounded-md border-solid cursor-pointer border-2 ${
+          className={`rounded-md bg-white text-sm mb-2 border-solid cursor-pointer border-2 ${
             selectedConsultant === `otherConsultant-${id}`
               ? "border-blue-900"
               : "border-gray-300"
@@ -63,21 +58,14 @@ export default function BookAppointmentCard() {
           onClick={() => handleConsultantSelect(`otherConsultant-${id}`)}
         >
           <div className="px-4 sm:space-y-1 py-2">
-            <div className="text-sm font-bold">
-              {`${id.area}, ${id.place}`}
-            </div>
-
-            <div className="flex text-sm ">
-              <img src="/clock.svg" alt="" />
+            <div className="text-sm font-semibold underline">{`${id.area}`}</div>
+            <div>{`Rs. ${id.price}`}</div>
+            <div className="flex">
+              <img src="/greendot.svg" alt="" />
+              <h1>{id.available},</h1>
               {`${id.timeFrom} - ${id.timeTo}`}
             </div>
-            <div className="flex sm:flex-row flex-col sm:items-center sm:justify-between">
-              <div className="flex">
-                <img src="/greendot.svg" alt="" />
-                <h1 className="text-sm text-green-800">{id.available}</h1>
-              </div>
-              <div>Rs. {`${id.price}`}</div>
-            </div>
+            <div>{`${id.place}`}</div>
           </div>
         </div>
       ))}

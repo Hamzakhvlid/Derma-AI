@@ -20,7 +20,7 @@ const Doctors = () => {
         setIsDrawerOpen(false);
     };
     return (
-        <div>
+        <div className="wrapper">
             <div className="relative pt-[4rem]">
                 <img
                     className="w-full bg-cover h-[25rem]"

@@ -56,12 +56,13 @@ export default function DoctorDetailScreen() {
     "Hospital / Clinic environment was well-maintained",
   ];
   return (
-    <div className="xl:mx-60 md:mx-20 sm:mx-14 mx-10">
-      <div className="w-full h-auto drop-shadow-md px-[2rem] bg-white py-5 rounded-lg mt-20">
+    <div className="wrapper">
+      <div className="drop-shadow-md p-4 bg-white  m-3 rounded-lg mt-20">
+        
         <div className="flex md:flex-row flex-col justify-between items-center">
           <div className="flex xl:flex-row flex-col">
             <img
-              className="rounded-full shadow-lg mb-6 mt-6 sm:mx-[6rem] mx-0 w-36 "
+              className="rounded-full shadow-lg mb-6 mt-6 sm:mx-[6rem] mx-0 w-28"
               src="https://i.ibb.co/XVFPhWP/PSX-20230524-011601.jpg"
               alt="avatar"
             />
@@ -79,13 +80,10 @@ export default function DoctorDetailScreen() {
                     />
                   )}
                 </div>
-                <div className="flex sm:space-x-10 space-x-3">
+                <div className="flex ">
                   <p className="sm:text-sm text-xs text-gray-600">
                     Dermatologist
                   </p>
-                  {true && (
-                    <Badge variant="solid" color="green">Surgeon</Badge>
-                  )}
                 </div>
                 <p className="sm:text-sm text-xs text-gray-600">
                   MBBS, FCPS (Dermatology), CAAAM (USA)
@@ -101,28 +99,27 @@ export default function DoctorDetailScreen() {
               </div>
             </div>
           </div>
-          <div className="flex sm:flex-col flex-row  space-x-3 space-y-2">
+          <div className="flex sm:flex-col flex-row space-x-3 sm:space-x-0 sm:space-y-2">
             <p></p>
             <Button
               title={"Consult Online"}
               color={"bg-[#004D71]"}
-              imgUrl={"/videocam.svg"}
+              href= {"#bookappointment"}
             />
-            <button
-              className={`bg-[#4CA585] rounded-lg sm:w-auto w-[7rem] sm:h-auto h-[3rem] sm:py-2 py-[0.2] sm:px-[5rem] px-[0.5rem] flex text-sm  text-white `}
+            <Link  href="#bookappointment"
+              className={`bg-[#4CA585] rounded-lg px-4 py-2 text-center text-sm  text-white `}
             >
-              <img src={`/booking.svg`} alt="" />
               Visit in Clinic
-            </button>
+            </Link>
           </div>
         </div>
       </div>
 
       {/* bottom */}
 
-      <div className="flex lg:flex-row flex-col-reverse space-x-4">
+      <div className="flex m-3 lg:flex-row flex-col-reverse space-x-4 mt-20">
         <div className="left">
-          <div className="max-w-6xl space-y-5 h-auto drop-shadow-md px-[2rem] bg-white py-5 rounded-lg mt-20">
+          <div className="space-y-5 drop-shadow-md p-6 bg-white rounded-lg">
             <h1 className="font-bold text-lg">10 Community Reviews</h1>
             <div className=" text-sm  sm:divide-x divide:y divide-gray-300 flex sm:flex-row flex-col  sm:space-x-24 ">
               <div>
@@ -139,7 +136,7 @@ export default function DoctorDetailScreen() {
               </div>
             </div>
             {sampleReviews.reviews.map((index) => (
-              <div className="w-auto text-sm h-auto px-[2rem] bg-white py-5 rounded-lg  border-2">
+              <div className="text-sm bg-white p-4 rounded-lg  border-2">
                 <div className="flex">
                   <img
                     className="rounded-full sm:mr-[1rem] w-6 "
@@ -155,7 +152,7 @@ export default function DoctorDetailScreen() {
                   <div className="flex mt-2">
                     {index.satisfied && (
                       <img
-                        className="w-4 h-4 items-center"
+                        className="w-6 h-4 items-center"
                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Red_check.svg/1024px-Red_check.svg.png"
                         alt=""
                       />
@@ -170,7 +167,7 @@ export default function DoctorDetailScreen() {
             ))}
           </div>
           {/* Qualifications */}
-          <div className="w-auto h-auto drop-shadow-md px-[2rem] bg-white py-5 rounded-lg mt-20">
+          <div className="drop-shadow-md p-4 bg-white rounded-lg mt-10">
             <h1 className="font-bold text-lg">Qualifications</h1>
             <table className="w-full text-sm border-collapse text-left ">
               <thead>
@@ -199,7 +196,7 @@ export default function DoctorDetailScreen() {
           </div>
 
           {/* Experience */}
-          <div className="w-auto h-auto drop-shadow-md px-[2rem] bg-white py-5 rounded-lg mt-20">
+          <div className="drop-shadow-md p-4 bg-white rounded-lg mt-10">
             <h1 className="font-bold text-lg">Experience</h1>
             <table className="w-full text-sm border-collapse text-left">
               <thead>
@@ -227,7 +224,7 @@ export default function DoctorDetailScreen() {
             </table>
           </div>
           {/* FAQs */}
-          <div className="w-auto h-auto drop-shadow-md px-[2rem] bg-white py-5 rounded-lg mt-20">
+          <div className="drop-shadow-md bg-white p-4 rounded-lg mt-10">
             <h1 className="font-bold text-lg">FAQs </h1>
 
             {faqs.faqs.map((index) => (
@@ -246,7 +243,7 @@ export default function DoctorDetailScreen() {
             ))}
           </div>
         </div>
-        <div className="right">
+        <div id="bookappointment" className="right">
           <BookAppointmentCard />
         </div>
       </div>
