@@ -46,7 +46,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="max-w-screen-lg mx-auto p-2">
+    <div id="contact-us" className="max-w-screen-lg mx-auto p-2">
       <div className="grid grid-cols-1 md:grid-cols-12 border rounded-md">
         <div className="bg-slate-100 md:col-span-4 p-7 text-gray-900">
           <p className="mt-4 text-sm leading-7 font-regular uppercase">

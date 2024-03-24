@@ -152,7 +152,7 @@ const Footer = () => {
                 <a
                   rel="noreferrer noopener"
                   className="hover:underline hover:text-gray-300"
-                  href="/"
+                  href="#service"
                 >
                   AI Diagnosis & Prevention
                 </a>
@@ -161,7 +161,7 @@ const Footer = () => {
                 <a
                   rel="noreferrer noopener"
                   className="hover:underline hover:text-gray-300"
-                  href="/"
+                  href="#service"
                 >
                   Cosmetic Dermatology
                 </a>
@@ -170,7 +170,7 @@ const Footer = () => {
                 <a
                   rel="noreferrer noopener"
                   className="hover:underline hover:text-gray-300"
-                  href="/"
+                  href="#service"
                 >
                   Skin Allergy Test
                 </a>
@@ -179,7 +179,7 @@ const Footer = () => {
                 <a
                   rel="noreferrer noopener"
                   className="hover:underline hover:text-gray-300"
-                  href="/"
+                  href="#service"
                 >
                   Skin care products & medicines
                 </a>
@@ -188,7 +188,7 @@ const Footer = () => {
                 <a
                   rel="noreferrer noopener"
                   className="hover:underline hover:text-gray-300"
-                  href="/"
+                  href="#service"
                 >
                   Check-ups and Consulation
                 </a>
@@ -198,7 +198,7 @@ const Footer = () => {
                 <a
                   rel="noreferrer noopener"
                   className="hover:underline hover:text-gray-300"
-                  href="/"
+                  href="#service"
                 >
                   Acne Treatment
                 </a>
@@ -212,7 +212,7 @@ const Footer = () => {
                 <a
                   rel="noreferrer noopener"
                   className="hover:underline hover:text-gray-300"
-                  href="/"
+                  href="#team"
                 >
                   Team
                 </a>
@@ -221,7 +221,7 @@ const Footer = () => {
                 <a
                   rel="noreferrer noopener"
                   className="hover:underline hover:text-gray-300"
-                  href="/"
+                  href="/privacy-policy"
                 >
                   Privacy
                 </a>
@@ -230,7 +230,7 @@ const Footer = () => {
                 <a
                   rel="noreferrer noopener"
                   className="hover:underline hover:text-gray-300"
-                  href="/"
+                  href="/about-us"
                 >
                   About us
                 </a>
@@ -253,7 +253,7 @@ const Footer = () => {
                 <a
                   rel="noreferrer noopener"
                   className="hover:underline hover:text-gray-300"
-                  href="/"
+                  href="#faqs"
                 >
                   FAQS
                 </a>
@@ -280,7 +280,7 @@ const Footer = () => {
                 <a
                   rel="noreferrer noopener"
                   className="hover:underline hover:text-gray-300"
-                  href="/"
+                  href="#contact-us"
                 >
               Contact us
                 </a>
