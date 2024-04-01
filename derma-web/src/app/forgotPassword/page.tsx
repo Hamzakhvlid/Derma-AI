@@ -6,6 +6,7 @@ import { forgotPassword } from "../Api/baseUrl";
 import axios from "axios";
 import {  useState } from "react";
 import "./style.css";
+import SucessMessage from "./sucessMessage";
 interface Values {
  
   email: string;
@@ -32,7 +33,7 @@ export default function ResetPasswordPage() {
        
         try{
          
-          const response = await axios.post(forgotPassword, values);
+          const response = await axios.post(forgotPassword, values,);
          
           setIsLoading(false);
 
@@ -51,10 +52,7 @@ export default function ResetPasswordPage() {
     <div className="fancybackground wrapper  h-[100vh]">
     <div className=" p-2  md:pt-0 flex justify-center ">
       <div className="shadow w-[90%] flex-col flex pt-3 pb-3 pr-4 pl-4 bg-[#f1f5f9] mt-[5rem] rounded-md drop-shadow-lg  md:w-[60%] lg-[50%] xl:w-[40%]">
-      {showSuccess?<><div className="success-message flex flex-col justify-center">
-      <img src="tick.svg" alt="Checkmark" className="success-icon w-[4rem] self-center" />
-          <p className="text-[#1f3a8a] text-[.8rem] self-center">Password reset email has been sent to your mail. Check your inbox.</p>
-        </div></>:<> <h1 className="font-bold text-sm lg:text-lg text-blue-900 self-center ">
+      {showSuccess?<SucessMessage message="Password reset email has been sent to your mail. Check your inbox." />:<> <h1 className="font-bold text-sm lg:text-lg text-blue-900 self-center ">
           Forgot Password
         </h1>
 

@@ -13,6 +13,8 @@ import Features from "./homePage/components/Features";
 import HomePage from './homePage/page';
 import LoginPage from './login/page';
 import SignupPage from './signup/page';
+import Providers from './lib/provider';
+
 
 
 
@@ -20,9 +22,11 @@ import SignupPage from './signup/page';
 export default function Home() {
   return (
    <div className='bg-black'>
-   
+
+
   <HomePage/>
-     
+
+
      
 
      

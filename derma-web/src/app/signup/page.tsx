@@ -1,11 +1,15 @@
 "use client";
 import React from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useFormik } from "formik";
 import { signupSchema } from "../schemas";
 import { signup } from "../Api/baseUrl";
+import { useEffect } from "react";
 import axios from "axios";
+
 import "./style.css";
+import SucessMessage from "../forgotPassword/sucessMessage";
 interface Values {
   firstName: string;
   lastName: string;
@@ -24,7 +28,33 @@ const initialValues = {
   confirm_password: "",
 };
 
+
+
+
+
+
+
+// Render the Counter component inside the SignUpPage component
+
 export default function SignUpPage() {
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [count, setCount] = useState(1);
+
+   
+  
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setCount((prevCount) => prevCount + 1);
+      }, 1000);
+  
+      return () => {
+        clearInterval(interval);
+      };
+    }, []);
+  
+   
+  
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: initialValues,
@@ -33,7 +63,12 @@ export default function SignUpPage() {
         try{
           const response = await axios.post(signup, values);
           console.log(response);
-          alert(JSON.stringify(response));
+          setIsLoading(false);
+
+          if(response.status==201){
+            setShowSuccess(true);
+            setCount(1);
+          }
         }catch (error){
           alert(JSON.stringify(error));
         }
@@ -41,11 +76,16 @@ export default function SignUpPage() {
       },
     });
 
+    if (showSuccess&&count > 4) {
+      window.location.href = "/login";
+    }
+
   return (
     <div className="fancybackground wrapper  h-[100vh]">
     <div className=" p-2  md:pt-0 flex justify-center ">
+     
       <div className="shadow w-[90%] flex-col flex pt-3 pb-3 pr-4 pl-4 bg-[#f1f5f9] mt-[5rem] rounded-md drop-shadow-lg  md:w-[60%] lg-[50%] xl:w-[40%]">
-        <h1 className="font-bold text-sm lg:text-lg text-blue-900 self-center ">
+      {showSuccess?<><SucessMessage message="Your Account has been Setup Re-directing to Sign-In Page" /></>:<><h1 className="font-bold text-[1.3rem]  text-blue-900 self-center ">
           Signup
         </h1>
 
@@ -159,12 +199,11 @@ export default function SignUpPage() {
             <p className="error-message text-sm">{errors.confirm_password}*</p>
           ) : null}
 
-    
-          <button
+<button
             type="submit"
             className="mt-[4%] w-[100%] md:w-[30%] lg:-[20%] self-center  bg-[#f4581c] rounded-lg hover:bg-opacity-90  h-[3rem]  text-white font-sans "
           >
-            Signup
+           {isLoading?<div className="flex flex-row  justify-center   w-[100%] "><img className="w-[70px]   " src="loader.gif"></img></div>:<>Sign Up</>}
           </button>
         </form>
         <h1 className="text-center pt-[1rem] pr-[4rem] text-md text-blue-900 ">
@@ -187,8 +226,9 @@ export default function SignUpPage() {
             className="inline w-[2rem] h-[2rem]  "
             src="appleLogo.png"
             alt=""
-          />
-        </div>
+          />  </div></>}
+        
+      
       </div>
     </div>
     </div>

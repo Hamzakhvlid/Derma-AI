@@ -2,11 +2,24 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Avatar, DropdownMenu } from "@radix-ui/themes";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/lib/store";
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showDropDown, setDropDown] = useState(false);
+
+   // Access the user state
+   const userState = useSelector((state: RootState) => state.user);
+   const isLoggedIn = useSelector((state: RootState) => state.auth.isLogin);
+   console.log(isLoggedIn);
+   const { user, profile, roles, isAdmin } = userState;
+
+     // Access specific properties from the user state
+     console.log(profile);
+  
+  const loggedInUser = useSelector((state: RootState) => state.user.user);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,7 +90,7 @@ const Navbar = () => {
     setDropDown(!showDropDown);
   };
 
-  const isLoggedIn = true;
+
   const isuser = true;
 
   return (
@@ -120,7 +133,7 @@ const Navbar = () => {
               </Link>
             </li>
           ))}
-          {isLoggedIn ? (
+          {!isLoggedIn ? (
             <li key={loginLink.id}>
               <Link
                 href={loginLink.link}
@@ -133,13 +146,14 @@ const Navbar = () => {
             </li>
           ) : (
             <DropdownMenu.Root>
+              
               <DropdownMenu.Trigger>
                 <Avatar
                   radius="full"
                   size="4"
                   className="cursor-pointer"
-                  src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-                  fallback="MA"
+                  src={profile?.image??""}
+                  fallback={(profile.firstname ?? "")[0] + (profile.lastname ?? "")[0]}
                 />
               </DropdownMenu.Trigger>
               <DropdownMenu.Content>

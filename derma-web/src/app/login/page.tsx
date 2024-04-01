@@ -2,11 +2,15 @@
 import Link from "next/link";
 import { useFormik } from "formik";
 import { loginSchema } from "../schemas";
+import { useState } from "react";
 import axios from "axios";
 import { loginApi } from "../Api/baseUrl";
 import { actions } from "../lib/authSlice";
+import { setProfile } from "../lib/reducers/loggedinUser";
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";  
 import type { RootState } from "../lib/store";
+import {  useRouter } from 'next/navigation';
 import "./style.css";
 //initial values for form
 const initialValues = {
@@ -14,8 +18,14 @@ const initialValues = {
   password: "",
 };
 export default function LoginPage() {
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const dispatch = useDispatch();
+
+const router=useRouter();
+
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -24,13 +34,29 @@ export default function LoginPage() {
       onSubmit: async (values, action) => {
         try {
           const response = await axios.post(loginApi, values);
-          const res_data = response.data.data;
-          localStorage.setItem('auth_token', res_data.accessToken)
-          dispatch(actions.login(true));
+          const res_data = response.data;
+         
+        
+          setError("");
+          setIsLoading(false);
 
-          console.log(res_data);
-        } catch (error) {
-          console.log(error);
+          if(response.status==200){
+            localStorage.setItem('auth_token', res_data.accessToken)
+            setShowSuccess(true);
+            dispatch(actions.login(true));
+            console.log(response);
+            console.log(res_data.data);
+            router.push("/homePage");
+            dispatch(setProfile(res_data.data));
+           }
+            
+
+          else{
+            setError(response.data.message);
+          }
+        } catch (error: any) {
+          console.log(error.message);
+          setError("Invalid Credentials either username or password is incorrect");
         }
         action.resetForm();
       },
@@ -43,8 +69,9 @@ export default function LoginPage() {
         <h1 className="mt-[8%] lg:mt-[2%] font-bold text-xl text-blue-900">
           Login
         </h1>
-
+        
         <hr className="border-[#f4581c] border-width-1px height-2px mt-[1%] w-[30%]" />
+        {error.length>0?<div className="bg-[#f3d8d9] m-1"> <p className="error-message text-sm ">{error}*</p></div>:<></>}
         <form
           className="flex mt-2  flex-col w-full justify-center "
           onSubmit={handleSubmit}
@@ -85,6 +112,8 @@ export default function LoginPage() {
               <Link href={"/forgotPassword"}>Forgot Password?</Link>
             </h1>
           </div>
+        
+         
           <button
             type="submit"
             className="mt-[4%] w-[100%] md:w-[30%] lg:-[20%] self-center  bg-[#f4581c] rounded-lg hover:bg-opacity-90  h-[3rem]  text-white font-sans "

@@ -1,12 +1,14 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import * as Yup from "yup";
 import { useFormik } from "formik";
-import { signupSchema } from "../schemas";
+import {resetPasswordSchema } from "../schemas";
 import { baseUrl, forgotPassword, resetForgotPassword, signup } from "../Api/baseUrl";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./style.css";
+import SucessMessage from "../forgotPassword/sucessMessage";
 interface Values {
 
   password: string;
@@ -19,9 +21,9 @@ const initialValues = {
 };
 
 export default function ResetPasswordPage() {
-  const [showPasswordFields, setShowPasswordFields] = useState(false);
+  const [message, setMessage] = useState("");
   const [token, setToken] = useState("");
-  const [password, setPassword] = useState("");
+  
   
   useEffect(() => {
    
@@ -32,39 +34,39 @@ export default function ResetPasswordPage() {
     if (resetToken) {
       // Set state to show password fields (See Step 2)
       setToken(resetToken);
-      setShowPasswordFields(true); 
+    
     }
   }, [initialValues]);
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: initialValues,
-      validationSchema: resetForgotPassword,
+      validationSchema: resetPasswordSchema,
       onSubmit: async (values, action) => {
       
        console.log("form submitted")
        console.log(token);
+       
 
         try{
 
+          const response = await axios.post(resetForgotPassword, values,  {
+            headers: {
+              'Authorization': `bearer ${token}`
 
+            },
+            
+          
+          });
 
-let config = {
-  method: 'post',
-  maxBodyLength: Infinity,
-  url: 'localhost:4001/api/v1/users/resetForgotPassword',
-  headers: { 
-    'authorization': `bearer ${token}` ,
-    'Content-Type': 'application/json',
-
-  },
-  data : values
-};
-          const response = await axios.request(config);
-          console.log(response);
-          alert(JSON.stringify(response));
+          if(response.status==200){}
+            setMessage("Password reset successfully");
+        
+         
           
         }catch (error){
-          alert(JSON.stringify(error));
+          console.log(error);
+          setMessage("Password reset failed please try again later");
+          
         }
         action.resetForm();
       },
@@ -74,6 +76,8 @@ let config = {
     <div className="fancybackground wrapper  h-[100vh]">
     <div className=" p-2  md:pt-0 flex justify-center ">
       <div className="shadow w-[90%] flex-col flex pt-3 pb-3 pr-4 pl-4 bg-[#f1f5f9] mt-[5rem] rounded-md drop-shadow-lg  md:w-[60%] lg-[50%] xl:w-[40%]">
+       {message==""?
+        <>
         <h1 className="font-bold text-sm lg:text-lg text-blue-900 self-center ">
           Reset Password
         </h1>
@@ -129,7 +133,7 @@ let config = {
           </button>
         </form>
 
-       
+        </>:<SucessMessage message={message} />}
       </div>
     </div>
     </div>
