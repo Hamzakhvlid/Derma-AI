@@ -1,6 +1,6 @@
 "use client";
 
-import { API_ROUTES } from "@/utils/routes/api-routes";
+// import { API_ROUTES } from "@/utils/routes/api-routes";
 import { createSlice } from "@reduxjs/toolkit";
 
 type PaginationType = {

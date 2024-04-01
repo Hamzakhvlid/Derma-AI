@@ -148,6 +148,7 @@ const Navbar = () => {
             <DropdownMenu.Root>
               
               <DropdownMenu.Trigger>
+                <div>
                 <Avatar
                   radius="full"
                   size="4"
@@ -155,6 +156,7 @@ const Navbar = () => {
                   src={profile?.image??""}
                   fallback={(profile.firstname ?? "")[0] + (profile.lastname ?? "")[0]}
                 />
+                </div>
               </DropdownMenu.Trigger>
               <DropdownMenu.Content>
                 <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
