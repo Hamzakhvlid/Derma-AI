@@ -46,7 +46,7 @@ const router=useRouter();
             dispatch(actions.login(true));
             console.log(response);
             console.log(res_data.data);
-            router.push("/homePage");
+            router.push("/");
             dispatch(setProfile(res_data.data));
            }
             

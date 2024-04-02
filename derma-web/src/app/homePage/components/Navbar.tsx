@@ -4,12 +4,13 @@ import Link from "next/link";
 import { Avatar, DropdownMenu } from "@radix-ui/themes";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/lib/store";
+import {  useRouter } from 'next/navigation';
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showDropDown, setDropDown] = useState(false);
-
+ const router = useRouter();
    // Access the user state
    const userState = useSelector((state: RootState) => state.user);
    const isLoggedIn = useSelector((state: RootState) => state.auth.isLogin);
@@ -60,6 +61,11 @@ const Navbar = () => {
       link: "/doctors",
 
       label: "Doctors",
+    },
+    {
+      id: 5,
+      link: "/#contact",
+      label: "Skin Care",
     },
     {
       id: 4,
@@ -152,14 +158,28 @@ const Navbar = () => {
                 <Avatar
                   radius="full"
                   size="4"
-                  className="cursor-pointer"
+                  className={`cursor-pointer self-center justify-center  text-white ${profile?.role==="patient" ? '' : ''}`}
                   src={profile?.image??""}
                   fallback={(profile.firstname ?? "")[0] + (profile.lastname ?? "")[0]}
                 />
                 </div>
               </DropdownMenu.Trigger>
               <DropdownMenu.Content>
+                <div className="flex flex-col align-middle bg-[#f1f5f9] mt-2 justify-center p-2">
+                <Avatar
+                  radius="full"
+                  size="4"
+                  className= {`cursor-pointer self-center justify-center ${profile?.role==="patient" ? 'text-[#f4581c]' : 'text-blue-900'}`}
+                  src={profile?.image??""}
+                  fallback={(profile.firstname ?? "")[0] + (profile.lastname ?? "")[0]}
+                />
+                
+                 <h4 className="p-1 justify-center self-center">{profile.username}</h4>
+                <h4 className="p-1">{profile.email}</h4>
+                </div>
+             
                 <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
+                <DropdownMenu.Item shortcut="🩺" onClick={()=>router.push('/scannow')}>Switch to doctor</DropdownMenu.Item>
                 <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
                 <DropdownMenu.Separator />
                 <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>

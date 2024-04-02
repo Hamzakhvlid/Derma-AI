@@ -8,6 +8,7 @@ type ProfileProps = {
   email?: string
   username?: string
   accessToken?: string
+  role?: string
 
 };
 
