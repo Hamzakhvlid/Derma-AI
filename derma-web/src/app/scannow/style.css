@@ -1,0 +1,15 @@
+.images{
+    width: 50%;
+
+    
+   
+}
+
+
+.image-box{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
