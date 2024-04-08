@@ -15,7 +15,7 @@ import { table } from 'console';
 import { FilePicker } from 'react-file-picker'
 import FileUploadComponent from './filecomponent';
 
-
+import "./style.css";
 
 
 
@@ -23,9 +23,7 @@ import FileUploadComponent from './filecomponent';
 
 const scannow = () => {
   
-  var textHello = "Hello i'm hamza";
-  var scrambleText:ScrambleText=textHello;
-  var textsList:ScrambleText[] = [textHello];
+
 
   const [open, setOpen] = useState(false)
        
@@ -71,11 +69,12 @@ console.log("event thrown it is paused")
           alt="" />
           <FileUploadComponent ></FileUploadComponent>
       </div>
-        <img src="skin.png" alt="" className='md:w-[50%] hidden  md:block md:h-[50%] md:ml-[-13%]'/>
-        <img src="skin.png" alt=" " className="md:w-[50%] hidden md:block md:h-[50%] md:ml-[-25%]" />
-        <img src="skin.png" alt=" " className="md:w-[50%] hidden  md:block   md:h-[50%] md:ml-[-25%] " />
-        <img src="skin.png" alt=" " className="md:w-[50%]  hidden md:block md:h-[50%] md:ml-[-25%] " />
-       
+      <div className=' flex flex-row'>
+        <img src="skin.png" alt="" className='image'/>
+        <img src="skin.png" alt=" " className="image" />
+        <img src="skin.png" alt=" " className="image " />
+        <img src="skin.png" alt=" " className="image " />
+        </div>
      
      
   
