@@ -1,14 +1,15 @@
 import SideNavbar from "./components/sidebar";
 import Mainbar from "./components/Mainbar";
+import "@radix-ui/themes/styles.css";
+import { Theme } from "@radix-ui/themes";
 
-export default function Dashboard(){
-    return (
-        <main className="w-full flex ">
-            <SideNavbar />
-            <Mainbar />
-        </main>
-    )
+export default function Dashboard() {
+  return (
+    <Theme>
+      <main className=" flex ">
+        <SideNavbar />
+        <Mainbar />
+      </main>
+    </Theme>
+  );
 }
-
-
-

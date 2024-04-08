@@ -5,6 +5,7 @@ import Navbar from "./homePage/components/Navbar";
 import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
 import Providers from "./lib/provider";
+import BottomNavigationBar from "./homePage/components/BottomNavigationBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
         <Theme>
           <Navbar />
           <body className={inter.className}>{children}</body>
+          <BottomNavigationBar />
         </Theme>
       </Providers>
     </html>

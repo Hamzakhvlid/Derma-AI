@@ -37,13 +37,6 @@ const Navbar = () => {
 
   function login() {}
 
-  const dropdownmenu = [
-    {
-      id: 0,
-      link: "settings",
-      label: "Settings",
-    },
-  ];
   const links = [
     {
       id: 1,
@@ -92,12 +85,6 @@ const Navbar = () => {
     setShowMenu(!showMenu);
   };
 
-  const toogleDropDown = () => {
-    setDropDown(!showDropDown);
-  };
-
-
-  const isuser = true;
 
   return (
     <header
@@ -208,7 +195,7 @@ const Navbar = () => {
         </ul>
       </nav>
 
-      <div className="md:hidden">
+      {/* <div className="md:hidden">
         <button
           className="flex items-center focus:outline-none"
           onClick={toggleMenu}
@@ -244,7 +231,8 @@ const Navbar = () => {
             ))}
           </ul>
         )}
-      </div>
+      </div> */}
+      
     </header>
   );
 };
