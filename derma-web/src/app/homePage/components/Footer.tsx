@@ -62,7 +62,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="px-4  bg-[#0A2540] wrapper text-white">
+    <footer className="px-4  bg-[#0A2540] wrapper text-white hidden md:block">
       <div className="mt-6 pt-6 flex ">
         <div className="mb-4 ">
           <h2 className="text-xl font-bold text-slate-100">

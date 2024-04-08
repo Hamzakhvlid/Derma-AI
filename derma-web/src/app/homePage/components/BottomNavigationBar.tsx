@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { GoHomeFill } from "react-icons/go";
 import { FaUserDoctor } from "react-icons/fa6";
 import { CgProfile } from "react-icons/cg";
+import { TbBodyScan } from "react-icons/tb";
 import Link from "next/link";
 
 export default function BottomNavigationBar() {
@@ -39,11 +40,23 @@ export default function BottomNavigationBar() {
         </div>
       </Link>
       <Link
-        href="/profile"
-        className={`cursor-pointer ${
+        href="/scannow"
+        className={` cursor-pointer ${
           activeIndex === 2 ? "text-blue-500" : "text-gray-600"
         }`}
         onClick={() => handleNavigation(2)}
+      >
+        <div className="flex flex-col justify-center items-center">
+          <TbBodyScan size={24} className="block mb-1" />
+          <h1>Scan Now</h1>
+        </div>
+      </Link>
+      <Link
+        href="/profile"
+        className={`cursor-pointer ${
+          activeIndex === 3 ? "text-blue-500" : "text-gray-600"
+        }`}
+        onClick={() => handleNavigation(3)}
       >
         <div className="flex flex-col justify-center items-center">
           <CgProfile size={24} className="block mb-1" />

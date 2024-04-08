@@ -4,22 +4,28 @@ import Link from "next/link";
 import { Avatar, DropdownMenu } from "@radix-ui/themes";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/lib/store";
-import {  useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
+import { TbDotsVertical } from "react-icons/tb";
+import Drawer from "./Drawer";
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-  const [showDropDown, setDropDown] = useState(false);
- const router = useRouter();
-   // Access the user state
-   const userState = useSelector((state: RootState) => state.user);
-   const isLoggedIn = useSelector((state: RootState) => state.auth.isLogin);
-   console.log(isLoggedIn);
-   const { user, profile, roles, isAdmin } = userState;
+  const [drawer, setDrawer] = useState(false);
+  const router = useRouter();
 
-     // Access specific properties from the user state
-     console.log(profile);
-  
+  const showDrawer = () => {
+    setDrawer(!drawer);
+  }
+  // Access the user state
+  const userState = useSelector((state: RootState) => state.user);
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLogin);
+  console.log(isLoggedIn);
+  const { user, profile, roles, isAdmin } = userState;
+
+  // Access specific properties from the user state
+  console.log(profile);
+
   const loggedInUser = useSelector((state: RootState) => state.user.user);
 
   useEffect(() => {
@@ -41,7 +47,7 @@ const Navbar = () => {
     {
       id: 1,
       link: "/",
-    
+
       label: "Home",
     },
     {
@@ -72,6 +78,14 @@ const Navbar = () => {
     },
   ];
 
+  const mobilelink = [
+    {
+      id: 0,
+      link: "/my-settings",
+      label: "Settings",
+    },
+  ];
+
   const loginLink = {
     id: 0,
     link: "/login",
@@ -85,6 +99,7 @@ const Navbar = () => {
     setShowMenu(!showMenu);
   };
 
+  
 
   return (
     <header
@@ -94,6 +109,26 @@ const Navbar = () => {
       }`}
       style={{ zIndex: showMenu ? 999 : "10" }}
     >
+      <div className="md:hidden">
+        <button onClick={showDrawer}>
+          <svg
+            className={`h-6 w-6 font-semibold  text-blue-900 ${
+              showNavbar ? "text-blue-900" : "text-blue-400"
+            }`}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+        {drawer && <Drawer close={showDrawer} key={"1"}/>}
+      </div>
       <Link
         href="/"
         className={`flex items-center whitespace-nowrap   cursor-pointer text-2xl font-bold  ${
@@ -139,34 +174,50 @@ const Navbar = () => {
             </li>
           ) : (
             <DropdownMenu.Root>
-              
               <DropdownMenu.Trigger>
                 <div>
-                <Avatar
-                  radius="full"
-                  size="4"
-                  className={`cursor-pointer self-center justify-center  text-white ${profile?.role==="patient" ? '' : ''}`}
-                  src={profile?.image??""}
-                  fallback={(profile.firstname ?? "")[0] + (profile.lastname ?? "")[0]}
-                />
+                  <Avatar
+                    radius="full"
+                    size="4"
+                    className={`cursor-pointer self-center justify-center  text-white ${
+                      profile?.role === "patient" ? "" : ""
+                    }`}
+                    src={profile?.image ?? ""}
+                    fallback={
+                      (profile.firstname ?? "")[0] + (profile.lastname ?? "")[0]
+                    }
+                  />
                 </div>
               </DropdownMenu.Trigger>
               <DropdownMenu.Content>
                 <div className="flex flex-col align-middle bg-[#f1f5f9] mt-2 justify-center p-2">
-                <Avatar
-                  radius="full"
-                  size="4"
-                  className= {`cursor-pointer self-center justify-center ${profile?.role==="patient" ? 'text-[#f4581c]' : 'text-blue-900'}`}
-                  src={profile?.image??""}
-                  fallback={(profile.firstname ?? "")[0] + (profile.lastname ?? "")[0]}
-                />
-                
-                 <h4 className="p-1 justify-center self-center">{profile.username}</h4>
-                <h4 className="p-1">{profile.email}</h4>
+                  <Avatar
+                    radius="full"
+                    size="4"
+                    className={`cursor-pointer self-center justify-center ${
+                      profile?.role === "patient"
+                        ? "text-[#f4581c]"
+                        : "text-blue-900"
+                    }`}
+                    src={profile?.image ?? ""}
+                    fallback={
+                      (profile.firstname ?? "")[0] + (profile.lastname ?? "")[0]
+                    }
+                  />
+
+                  <h4 className="p-1 justify-center self-center">
+                    {profile.username}
+                  </h4>
+                  <h4 className="p-1">{profile.email}</h4>
                 </div>
-             
+
                 <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
-                <DropdownMenu.Item shortcut="🩺" onClick={()=>router.push('/scannow')}>Switch to doctor</DropdownMenu.Item>
+                <DropdownMenu.Item
+                  shortcut="🩺"
+                  onClick={() => router.push("/scannow")}
+                >
+                  Switch to doctor
+                </DropdownMenu.Item>
                 <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
                 <DropdownMenu.Separator />
                 <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
@@ -195,30 +246,16 @@ const Navbar = () => {
         </ul>
       </nav>
 
-      {/* <div className="md:hidden">
+      <div className="md:hidden">
         <button
           className="flex items-center focus:outline-none"
           onClick={toggleMenu}
         >
-          <svg
-            className={`h-6 w-6 font-semibold  text-blue-900 ${
-              showNavbar ? "text-blue-900" : "text-blue-400"
-            }`}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
+          <TbDotsVertical size="22" />
         </button>
         {showMenu && (
           <ul className="absolute top-14 right-0 z-50 w-48 py-2 bg-white border border-gray-300 rounded shadow-md">
-            {links.map(({ id, link, label }) => (
+            {mobilelink.map(({ id, link, label }) => (
               <li key={id}>
                 <Link
                   href={link}
@@ -231,8 +268,7 @@ const Navbar = () => {
             ))}
           </ul>
         )}
-      </div> */}
-      
+      </div>
     </header>
   );
 };
