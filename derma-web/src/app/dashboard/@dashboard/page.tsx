@@ -5,7 +5,7 @@ import { Avatar, Card, Box, Flex, Text, Badge } from "@radix-ui/themes";
 
 export default function DashBoard1() {
   return (
-    <Theme className="pl-10">
+    <Theme>
       <h1 className="font-bold text-lg">Welcome, Dr. Stephan</h1>
       <h1>Have a nice day at great work</h1>
       <div className="flex justify-center items-center text-white gap-10">

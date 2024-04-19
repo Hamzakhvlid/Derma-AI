@@ -15,12 +15,14 @@ export default function Mainbar() {
         return <DashboardProfile />;
       // Add cases for other components as needed
       default:
-        return null; // Handle default case or display a placeholder
+        return (
+          <div>Not Found {activeItem}</div>
+        ); // Handle default case or display a placeholder
     }
   };
 
   return (
-    <div className="relative top-20 w-full">
+    <div className="relative min-h-screen wrapper top-20 w-full">
       {renderComponent()}
     </div>
   );

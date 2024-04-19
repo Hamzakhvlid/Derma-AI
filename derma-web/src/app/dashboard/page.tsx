@@ -6,7 +6,7 @@ import { Theme } from "@radix-ui/themes";
 export default function Dashboard() {
   return (
     <Theme>
-      <main className=" flex ">
+      <main className="fancybackground flex ">
         <SideNavbar />
         <Mainbar />
       </main>

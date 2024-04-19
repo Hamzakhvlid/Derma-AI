@@ -135,7 +135,7 @@ export default function DashboardProfile() {
     window.location.href = "/login";
   }
   return (
-    <div className="fancybackground wrapper  h-[100vh]">
+    <div className="   h-[100vh]">
       <div className=" p-2   md:pt-0 flex justify-center ">
         <div className="shadow w-[90%] flex-col flex pt-3 pb-3 pr-4 pl-4 bg-[#f1f5f9]  rounded-md drop-shadow-lg  md:w-[60%] lg-[50%] xl:w-[40%]">
           <h1 className="font-bold text-[1.3rem]  text-blue-900 self-center ">
