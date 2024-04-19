@@ -13,6 +13,11 @@ export const metadata: Metadata = {
   title: "DERMA AI",
   description: "DERMA AI - Dermatology AI",
   manifest: "/manifest.json",
+  icons:{
+    icon: ['/favicon/favicon.ico?v=4'],
+    apple: ['favicon/app-touch-icon.png?v=4'],
+    shortcut:['favicon/app-touch-icon.png']
+  }
 };
 
 export default function RootLayout({
