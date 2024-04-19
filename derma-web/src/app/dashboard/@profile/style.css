@@ -38,6 +38,16 @@
   
    
 }
+textarea{
+    width: 100%;
+    font-family: "Inter", sans-serif;
+   padding: .6rem;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 2px solid #eaebec;
+    border-radius: .8rem;
+    color: black;
+}
 input::placeholder{
     color: #9a9ba1;
     font-size: .8rem;
@@ -50,15 +60,7 @@ p{
     padding: 0%;
     margin: 0%;
 }
-.signupbg{
 
-    background-image: url('../../../public/blob.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 150% 130vh; 
-    
-   
-  }
   @media (max-width: 768px) {
     .signupbg {
    

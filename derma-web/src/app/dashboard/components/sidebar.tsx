@@ -1,10 +1,12 @@
 "use client";
 import { GiHamburgerMenu } from "react-icons/gi";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Theme } from "@radix-ui/themes";
+import "@radix-ui/themes/styles.css";
 import {
   MdOutlineSpaceDashboard,
   MdOutlineAnalytics,
-  MdOutlineIntegrationInstructions,
-  MdOutlineMoreHoriz,
   MdOutlineSettings,
   MdOutlineLogout,
 } from "react-icons/md";
@@ -15,6 +17,8 @@ import { FaPerson } from "react-icons/fa6";
 import { RiBankFill } from "react-icons/ri";
 import { AlertDialog, Button, Flex } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
+import { RootState } from "@/app/lib/store";
+import SidebarItems from "./component/sidebaritems";
 
 //tailwind
 const textstyle =
@@ -23,6 +27,11 @@ const box =
   "flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#007AFF] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto";
 
 export default function SideNavbar() {
+  const dispatch = useDispatch();
+  const activeItem = useSelector(
+    (state: RootState) => state.sidebar.activeItem
+  ); // Access state
+
   return (
     <div>
       <button className="fixed top-12 right-4 inline-flex items-center peer justify-center rounded-md p-2 text-gray-800 hover:bg-gray-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white group">
@@ -37,72 +46,130 @@ export default function SideNavbar() {
             Doctor Dashboard
           </h1>
           <div className=" my-4 border-b border-gray-100 pb-4">
-            <div className={`${box}`}>
-              <MdOutlineSpaceDashboard className="text-2xl text-gray-600 group-hover:text-white " />
-              <h3 className={`${textstyle}`}>Dashboard</h3>
-            </div>
-            <div className={`${box}`}>
-              <CgProfile className="text-2xl text-gray-600 group-hover:text-white " />
-              <h3 className={`${textstyle}`}>Profile</h3>
-            </div>
-            <div className={`${box}`}>
-              <AiOutlineSchedule className="text-2xl text-gray-600 group-hover:text-white " />
-              <h3 className={`${textstyle}`}>Appointments</h3>
-            </div>
-            <div className={`${box}`}>
-              <MdOutlineAnalytics className="text-2xl text-gray-600 group-hover:text-white " />
-              <h3 className={`${textstyle}`}>Analytics</h3>
-            </div>
-            <div className={`${box}`}>
-              <BiMessageSquareDots className="text-2xl text-gray-600 group-hover:text-white " />
-              <h3 className={`${textstyle}`}>Messages</h3>
-            </div>
-            <div className={`${box}`}>
-              <FaPerson className="text-2xl text-gray-600 group-hover:text-white " />
-              <h3 className={`${textstyle}`}>Patient</h3>
-            </div>
+            <SidebarItems
+              title={"Dashboard"}
+              activeItem={activeItem}
+              icon={
+                <MdOutlineSpaceDashboard
+                  className={`${
+                    activeItem === "Dashboard" ? "text-white" : ""
+                  } text-2xl text-gray-800 group-hover:text-white`}
+                />
+              }
+            />
+            <SidebarItems
+              title={"Profile"}
+              activeItem={activeItem}
+              icon={
+                <CgProfile
+                  className={`${
+                    activeItem === "Profile" ? "text-white" : ""
+                  } text-2xl text-gray-800 group-hover:text-white`}
+                />
+              }
+            />
+            <SidebarItems
+              title={"Appointments"}
+              activeItem={activeItem}
+              icon={
+                <AiOutlineSchedule
+                  className={`${
+                    activeItem === "Appointments" ? "text-white" : ""
+                  } text-2xl text-gray-800 group-hover:text-white`}
+                />
+              }
+            />
+            <SidebarItems
+              title={"Analytics"}
+              activeItem={activeItem}
+              icon={
+                <MdOutlineAnalytics
+                  className={`${
+                    activeItem === "Analytics" ? "text-white" : ""
+                  } text-2xl text-gray-800 group-hover:text-white`}
+                />
+              }
+            />
+            <SidebarItems
+              title={"Messages"}
+              activeItem={activeItem}
+              icon={
+                <BiMessageSquareDots
+                  className={`${
+                    activeItem === "Messages" ? "text-white" : ""
+                  } text-2xl text-gray-800 group-hover:text-white`}
+                />
+              }
+            />
+            <SidebarItems
+              title={"Patient"}
+              activeItem={activeItem}
+              icon={
+                <FaPerson
+                  className={`${
+                    activeItem === "Patient" ? "text-white" : ""
+                  } text-2xl text-gray-800 group-hover:text-white`}
+                />
+              }
+            />
           </div>
           {/* setting  */}
+
           <div className=" my-4 border-b border-gray-100 pb-4">
-            <div className={`${box}`}>
-              <MdOutlineSettings className="text-2xl text-gray-600 group-hover:text-white " />
-              <h3 className={`${textstyle}`}>Settings</h3>
-            </div>
-            <div className={`${box}`}>
-              <RiBankFill className="text-2xl text-gray-600 group-hover:text-white " />
-              <h3 className={`${textstyle}`}>Finance</h3>
-            </div>
+            <SidebarItems
+              title={"Settings"}
+              activeItem={activeItem}
+              icon={
+                <MdOutlineSettings
+                  className={`${
+                    activeItem === "Settings" ? "text-white" : ""
+                  } text-2xl text-gray-800 group-hover:text-white`}
+                />
+              }
+            />
+            <SidebarItems
+              title={"Finance"}
+              activeItem={activeItem}
+              icon={
+                <RiBankFill
+                  className={`${
+                    activeItem === "Finance" ? "text-white" : ""
+                  } text-2xl text-gray-800 group-hover:text-white`}
+                />
+              }
+            />
           </div>
           {/* logout */}
-
-          <AlertDialog.Root>
-            <AlertDialog.Trigger>
-              <div className=" my-4">
-                <div className="flex mb-2 justify-start items-center gap-4 pl-5 border border-gray-200  hover:bg-red-500 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
-                  <MdOutlineLogout className="text-2xl text-gray-600 group-hover:text-white " />
-                  <h3 className={`${textstyle}`}>Logout</h3>
+          <Theme>
+            <AlertDialog.Root>
+              <AlertDialog.Trigger>
+                <div className=" my-4">
+                  <div className="flex mb-2 justify-start items-center gap-4 pl-5 border border-gray-200  hover:bg-red-500 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
+                    <MdOutlineLogout className="text-2xl text-gray-600 group-hover:text-white " />
+                    <h3 className={`${textstyle}`}>Logout</h3>
+                  </div>
                 </div>
-              </div>
-            </AlertDialog.Trigger>
-            <AlertDialog.Content>
-              <AlertDialog.Title>Logout</AlertDialog.Title>
-              <AlertDialog.Description size="2">
-                Are you sure? This application will no longer be accessible and
-                any existing sessions will be expired.
-              </AlertDialog.Description>
+              </AlertDialog.Trigger>
+              <AlertDialog.Content>
+                <AlertDialog.Title>Logout</AlertDialog.Title>
+                <AlertDialog.Description size="2" color="red">
+                  Are you sure? This application will no longer be accessible
+                  and any existing sessions will be expired.
+                </AlertDialog.Description>
 
-              <Flex gap="3" mt="4" justify="end">
-                <AlertDialog.Cancel>
-                  <Button variant="soft" color="gray">
-                    Cancel
-                  </Button>
-                </AlertDialog.Cancel>
-                <AlertDialog.Action>
-                  <Button color="red">Logout</Button>
-                </AlertDialog.Action>
-              </Flex>
-            </AlertDialog.Content>
-          </AlertDialog.Root>
+                <Flex gap="3" mt="4" justify="end">
+                  <AlertDialog.Cancel>
+                    <Button variant="soft" color="gray">
+                      Cancel
+                    </Button>
+                  </AlertDialog.Cancel>
+                  <AlertDialog.Action>
+                    <Button color="red">Logout</Button>
+                  </AlertDialog.Action>
+                </Flex>
+              </AlertDialog.Content>
+            </AlertDialog.Root>
+          </Theme>
         </div>
       </div>
     </div>

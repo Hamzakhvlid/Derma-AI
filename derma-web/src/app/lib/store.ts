@@ -1,6 +1,7 @@
 import { configureStore,combineReducers } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import  authReducer  from "./authSlice";
+import sidebarReducer from './sidebarSlice';
 import {persistReducer} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import user from "./reducers/user";
@@ -10,11 +11,12 @@ const persistConfig ={
   key : "root",
   storage,
   version:1,
-  blacklist:[],
+  blacklist:['sidebar'],
   whitelist:[]
 }
 
-const allReducers = combineReducers({ auth: authReducer,user: userSlice.reducer})
+
+const allReducers = combineReducers({ auth: authReducer,user: userSlice.reducer, sidebar: sidebarReducer})
 const persistedReducer= persistReducer(persistConfig,allReducers);
 export const store = configureStore({
   devTools:true,
