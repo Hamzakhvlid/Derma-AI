@@ -48,7 +48,7 @@ const SymptomSelector = () => {
 
   return (
     <div className=''>
-      <div className='flex flex-col md:flex-row    overflow-scroll h-80 md:overflow-auto md:h-auto '>
+      <div className='flex flex-col  overflow-scroll h-80 md:flex-row md:overflow-auto md:h-auto md:flex-wrap'>
         {symptoms.map((symptom) => (
           <div
             key={symptom.name}
