@@ -22,7 +22,7 @@ export default function Mainbar() {
   };
 
   return (
-    <div className="relative min-h-screen wrapper top-20 w-full">
+    <div className="relative h-[80vh] wrapper top-20 w-full">
       {renderComponent()}
     </div>
   );

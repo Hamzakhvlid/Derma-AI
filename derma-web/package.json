@@ -17,6 +17,7 @@
     "@twistezo/react-text-scramble": "^1.0.6",
     "aws-sdk": "^2.1582.0",
     "axios": "^1.6.2",
+    "country-state-city": "^3.2.1",
     "formik": "^2.4.5",
     "framer-motion": "^11.0.3",
     "next": "14.0.3",

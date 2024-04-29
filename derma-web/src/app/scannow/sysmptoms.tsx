@@ -15,6 +15,12 @@ const SymptomSelector = () => {
     { name: 'Headache', selected: false },
     { name: 'Fatigue', selected: false },
     { name: 'Shortness of breath', selected: false },
+    { name: 'Shortness of breath', selected: false },
+    { name: 'Fever', selected: false },
+    { name: 'Cough', selected: false },
+    { name: 'Headache', selected: false },
+    { name: 'Fatigue', selected: false },
+    { name: 'Shortness of breath', selected: false },
   ];
 
   const [symptoms, setSymptoms] = useState(dummySymptoms);
@@ -41,8 +47,8 @@ const SymptomSelector = () => {
   };
 
   return (
-    <div className='ml-[24%] md:ml-[12%] mt-[1%]'>
-      <div className='flex flex-col md:flex-row '>
+    <div className=''>
+      <div className='flex flex-col md:flex-row    overflow-scroll h-80 md:overflow-auto md:h-auto '>
         {symptoms.map((symptom) => (
           <div
             key={symptom.name}

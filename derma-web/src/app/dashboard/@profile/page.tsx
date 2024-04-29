@@ -1,35 +1,28 @@
 "use client";
 import React from "react";
 import { useState, ChangeEvent } from "react";
-import Link from "next/link";
 import { useFormik } from "formik";
 import { signupSchema } from "../../schemas";
-import { signup } from "../../Api/baseUrl";
 import { useEffect } from "react";
 import axios from "axios";
-
+import { City } from "country-state-city";
 import "./style.css";
-import SucessMessage from "../../forgotPassword/sucessMessage";
-interface Values {
-  firstName: string;
-  lastName: string;
-  email: string;
-  username: string;
-  password: string;
-  confirm_password: string;
-}
+
 //initial values for form
 const initialValues = {
   nic: "",
   phone: "",
   hospital: "",
-  detailed_role: "",
+  role: "",
   services_offered: "",
   special_services: "",
   specialization: "",
   description: "",
   qualification: [],
   experience: [],
+  city: "",
+  years_exp: "",
+  promotional_headline: "",
 };
 
 interface Qualification {
@@ -50,6 +43,8 @@ export default function DashboardProfile() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [count, setCount] = useState(1);
+
+  const pakAllCities = City.getCitiesOfCountry("PK");
 
   // handle qualifications
   const [qualifications, setQualifications] = useState<Qualification[]>([
@@ -113,17 +108,17 @@ export default function DashboardProfile() {
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: initialValues,
-      validationSchema: signupSchema,
-      onSubmit: async (values, action) => {
+      onSubmit: (values, action) => {
         try {
-          const response = await axios.post(signup, values);
-          console.log(response);
-          setIsLoading(false);
-
-          if (response.status == 201) {
-            setShowSuccess(true);
-            setCount(1);
-          }
+          // const response = await axios.post(signup, values);
+          // console.log(response);
+          // setIsLoading(false);
+          
+          console.log(values);
+          // if (response.status == 201) {
+          //   setShowSuccess(true);
+          //   setCount(1);
+          // }
         } catch (error) {
           alert(JSON.stringify(error));
         }
@@ -203,26 +198,55 @@ export default function DashboardProfile() {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            <label className="label" htmlFor="services-offered">
+            <label className="label" htmlFor="services_offered">
               Services Offered
             </label>
             <input
               className="input"
               type="text"
-              id="services-offered"
-              name="services-offered"
+              id="services_offered"
+              name="services_offered"
               placeholder="Enter Your Services Offered"
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            <label className="label" htmlFor="special-services">
-            Special Services
+            <label className="label" htmlFor="city">
+              City
+            </label>
+            <select
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className="input"
+              name="city"
+              id="city"
+            >
+              {pakAllCities?.map((city, index) => (
+                <option id={`${index}`} className="input" value={city.name}>
+                  {city.name}
+                </option>
+              ))}
+            </select>
+            <label className="label" htmlFor="years_exp">
+              Years of Experience
+            </label>
+            <input
+              className="input"
+              type="number"
+              id="years_exp"
+              name="years_exp"
+              placeholder="1"
+              min="0"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <label className="label" htmlFor="special_services">
+              Special Services
             </label>
             <input
               className="input"
               type="text"
-              id="special-services"
-              name="special-services"
+              id="special_services"
+              name="special_services"
               placeholder="Enter Your Special Services"
               onChange={handleChange}
               onBlur={handleBlur}
@@ -240,7 +264,7 @@ export default function DashboardProfile() {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            <label className="label" htmlFor="specialization">
+            <label className="label" htmlFor="desc">
               Description
             </label>
             <textarea
@@ -251,13 +275,24 @@ export default function DashboardProfile() {
               onChange={handleChange}
               onBlur={handleBlur}
             />
+            <label className="label" htmlFor="promotional_headline">
+              Promotional Headline
+            </label>
+            <input
+              className="input"
+              type="text"
+              id="promotional_headline"
+              name="promotional_headline"
+              placeholder="Enter Promotional Headline"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
 
             {/* Qualifications */}
 
             <label className="label" htmlFor="qualifications">
               Qualifications
             </label>
-
 
             <div>
               {qualifications.map((qualification, index) => (
@@ -278,22 +313,24 @@ export default function DashboardProfile() {
                     onChange={(e) => handleQualificationChange(index, e)}
                     placeholder="Program"
                   />
-                  <button onClick={() => handleRemoveQualification(index)}>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveQualification(index)}
+                  >
                     Remove
                   </button>
                 </div>
               ))}
-              <button onClick={handleAddQualification}>
+              <button type="button" onClick={handleAddQualification}>
                 Add Qualification
               </button>
             </div>
 
-             {/* Experience */}
+            {/* Experience */}
 
-             <label className="label" htmlFor="experience">
+            <label className="label" htmlFor="experience">
               Experience
             </label>
-
 
             <div>
               {experience.map((exp, index) => (
@@ -314,16 +351,18 @@ export default function DashboardProfile() {
                     onChange={(e) => handleExperienceChange(index, e)}
                     placeholder="Designation"
                   />
-                  <button onClick={() => handleRemoveExperience(index)}>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveExperience(index)}
+                  >
                     Remove
                   </button>
                 </div>
               ))}
-              <button onClick={handleAddExperience}>
+              <button type="button" onClick={handleAddExperience}>
                 Add Experience
               </button>
             </div>
-
 
             <button
               type="submit"

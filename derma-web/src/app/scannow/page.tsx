@@ -1,86 +1,76 @@
-'use client';
-import React from 'react'
-import { useEffect } from 'react';
+"use client";
+import React from "react";
+import { useEffect } from "react";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import { text } from 'stream/consumers';
+import { text } from "stream/consumers";
 
-import shuffleMe from './shuffle.jsx';
-import TextScramble, { ScrambleText } from '@twistezo/react-text-scramble';
-import { table } from 'console';
+import shuffleMe from "./shuffle.jsx";
+import TextScramble, { ScrambleText } from "@twistezo/react-text-scramble";
+import { table } from "console";
 //@ts-ignore
-import { FilePicker } from 'react-file-picker'
-import FileUploadComponent from './filecomponent';
+import { FilePicker } from "react-file-picker";
+import FileUploadComponent from "./filecomponent";
 
 import "./style.css";
 
-
-
-  
-
 const scannow = () => {
-  
+  const [open, setOpen] = useState(false);
 
-
-  const [open, setOpen] = useState(false)
-       
   const [pauseTime, setpause] = useState(true);
- setTimeout(() => {setpause(true)
-console.log("event thrown it is paused")
-}, 4000);
-    
+  setTimeout(() => {
+    setpause(true);
+    console.log("event thrown it is paused");
+  }, 4000);
 
-
-  
-
-  
-  
- 
- 
   return (
-    <div className='flex pt-[20%]'>
-      <div className='absolute flex mb-[-40%]'>
-      <motion.img animate={{ y:150 }}
+    <div className=" min-h-screen flex pt-[20%] overflow-y-hidden">
+      <div className="absolute justify-between hidden xl1:flex">
+        <motion.img
+          animate={{ y: 200 }}
           transition={{ duration: 3 }}
-          className=" ml-[2%]  md:mt-[-10%] mt-[5%] h-[25%] w-[25%]  "
+          className="h-[15%] w-[15%]"
           src="robot1.png"
-          alt="" />
-           <motion.img animate={{ y:120 }}
+          alt=""
+        />
+        <motion.img
+          animate={{ y: 200 }}
           transition={{ duration: 3 }}
-          className="md:mt-[-10%]  mt-[5%] h-[35%] w-[35%]  "
+          className=" h-[15%] w-[15%]"
           src="robot2.png"
-          alt="" />
-         
+          alt=""
+        />
 
-           
-         
-           <motion.img animate={{ y:120 }}
+        <motion.img
+          animate={{ y: 200 }}
           transition={{ duration: 3 }}
-          className=" ml-[-8%]  mt-[3%] md:mt-[-10%] h-[25%] w-[25%]  "
+          className="h-[15%] w-[15%]"
           src="robot3.png"
-          alt="" />
-           <motion.img animate={{ y:150 }}
+          alt=""
+        />
+        <motion.img
+          animate={{ y: 200 }}
           transition={{ duration: 3 }}
-          className="  md:mt-[-5%] mt-[3%] h-[25%] w-[25%]  "
+          className="h-[15%] w-[15%]"
           src="robot4.png"
-          alt="" />
-          <FileUploadComponent ></FileUploadComponent>
+          alt=""
+        />
       </div>
-      <div className=' flex flex-row'>
-        <img src="skin.png" alt="" className='image'/>
-        <img src="skin.png" alt=" " className="image" />
-        <img src="skin.png" alt=" " className="image " />
-        <img src="skin.png" alt=" " className="image " />
-        </div>
-     
-     
-  
+      <FileUploadComponent></FileUploadComponent>
+      <div className="absolute bottom-0 flex gap-3 flex-row overflow-hidden z-0">
+        <img src="skin.png" alt="" className="image" />
+        <img src="skin.png" alt="" className="image" />
+        <img src="skin.png" alt="" className="image" />
+        <img src="skin.png" alt="" className="image" />
+        <img src="skin.png" alt="" className="image" />
+        <img src="skin.png" alt="" className="image" />
+        <img src="skin.png" alt="" className="image" />
+      </div>
     </div>
-    
-  )
-}
+  );
+};
 
-export default scannow
+export default scannow;

@@ -214,7 +214,7 @@ const Navbar = () => {
                 <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
                 <DropdownMenu.Item
                   shortcut="🩺"
-                  onClick={() => router.push("/scannow")}
+                  onClick={() => router.push("/registerdoctor")}
                 >
                   Switch to doctor
                 </DropdownMenu.Item>

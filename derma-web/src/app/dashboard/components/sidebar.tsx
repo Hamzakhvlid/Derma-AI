@@ -91,17 +91,6 @@ export default function SideNavbar() {
               }
             />
             <SidebarItems
-              title={"Messages"}
-              activeItem={activeItem}
-              icon={
-                <BiMessageSquareDots
-                  className={`${
-                    activeItem === "Messages" ? "text-white" : ""
-                  } text-2xl text-gray-800 group-hover:text-white`}
-                />
-              }
-            />
-            <SidebarItems
               title={"Patient"}
               activeItem={activeItem}
               icon={
