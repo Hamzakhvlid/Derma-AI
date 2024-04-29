@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { Badge } from "@radix-ui/themes";
 
 const DoctorsCard = (props: {
-    imgUrl: String;
+    imgUrl: string;
     name: string;
     isVerfied: Boolean;
     isSergeon: Boolean;
@@ -47,7 +47,7 @@ const DoctorsCard = (props: {
                     <div className="flex xl:flex-row flex-col">
                         <img
                             className="rounded-full shadow-lg mb-6 mt-6 sm:mx-[6rem] mx-0 w-24 "
-                            src="https://i.ibb.co/XVFPhWP/PSX-20230524-011601.jpg"
+                            src={props.imgUrl}
                             alt="avatar"
                         />
                         <div className="sm:pb-0 pb-4">

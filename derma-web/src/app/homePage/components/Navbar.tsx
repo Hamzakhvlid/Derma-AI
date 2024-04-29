@@ -7,6 +7,7 @@ import { RootState } from "@/app/lib/store";
 import { useRouter } from "next/navigation";
 import { TbDotsVertical } from "react-icons/tb";
 import Drawer from "./Drawer";
+import axios from "axios";
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
@@ -16,8 +17,10 @@ const Navbar = () => {
 
   const showDrawer = () => {
     setDrawer(!drawer);
+
   }
   // Access the user state
+ 
   const userState = useSelector((state: RootState) => state.user);
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLogin);
   console.log(isLoggedIn);
@@ -99,7 +102,6 @@ const Navbar = () => {
     setShowMenu(!showMenu);
   };
 
-  
 
   return (
     <header
