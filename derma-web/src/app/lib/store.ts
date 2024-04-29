@@ -6,6 +6,7 @@ import {persistReducer} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import user from "./reducers/user";
 import { userSlice } from "./reducers/loggedinUser";
+import { doctorSlice } from "./reducers/doctors";
 
 const persistConfig ={
   key : "root",
@@ -15,8 +16,7 @@ const persistConfig ={
   whitelist:[]
 }
 
-
-const allReducers = combineReducers({ auth: authReducer,user: userSlice.reducer, sidebar: sidebarReducer})
+const allReducers = combineReducers({ auth: authReducer,user: userSlice.reducer,doctor:doctorSlice.reducer,sidebar: sidebarReducer})
 const persistedReducer= persistReducer(persistConfig,allReducers);
 export const store = configureStore({
   devTools:true,

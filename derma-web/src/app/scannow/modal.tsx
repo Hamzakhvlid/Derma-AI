@@ -12,7 +12,7 @@ export default function Modal({
   return (
     // backdrop
     <div
-      className={`
+      className={`z-10
         fixed inset-0 flex justify-center items-center transition-colors z-10 px-[5%] 
         ${open ? "visible bg-black/20 backdrop-blur-lg" : "invisible"}
       `}

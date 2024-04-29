@@ -19,3 +19,5 @@ export const loginApi = baseUrl + "/users/login";
 export const resetForgotPassword = baseUrl + "/users/resetForgotPassword";
 
 export const forgotPassword = baseUrl + "/users/forgotPassword";
+
+export const doctor = baseUrl + "/users/getDoctors";

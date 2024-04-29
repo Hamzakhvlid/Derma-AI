@@ -5,8 +5,8 @@ export default function Modal() {
   return (
     // backdrop
     <div
-      className={`
-        fixed inset-0 flex justify-center items-center transition-colors 
+      className={` 
+        fixed inset-0 flex justify-center items-center transition-colors
         "visible bg-black/20 backdrop-blur-lg" : "invisible"
       `}
     >
