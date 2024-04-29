@@ -41,7 +41,7 @@ console.log("event thrown it is paused")
  
  
   return (
-    <div className='flex pt-[20%]'>
+    <div className='flex pt-[20%] flex-col'>
       <div className='absolute flex mb-[-40%]'>
       <motion.img animate={{ y:150 }}
           transition={{ duration: 3 }}
@@ -69,9 +69,11 @@ console.log("event thrown it is paused")
           alt="" />
           <FileUploadComponent ></FileUploadComponent>
       </div>
-      <div className=' flex flex-row'>
+      <div className=' flex-row  fixed bottom-0 left-0 right-0 flex justify-center pb-[2.5rem] md:pb-0'>
         <img src="skin.png" alt="" className='image'/>
         <img src="skin.png" alt=" " className="image" />
+        <img src="skin.png" alt=" " className="image " />
+        <img src="skin.png" alt=" " className="image " />
         <img src="skin.png" alt=" " className="image " />
         <img src="skin.png" alt=" " className="image " />
         </div>

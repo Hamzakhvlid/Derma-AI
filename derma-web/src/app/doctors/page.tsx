@@ -9,24 +9,52 @@ import FormData from 'form-data';
 import { useDispatch, useSelector } from "react-redux";
 import {  DoctorModel, setDoctor } from "../lib/reducers/doctors";
 import { RootState } from "../lib/store";
+import './style.css';
+import ReactDOM from 'react-dom';
+import ReactPaginate from 'react-paginate';
+import {StyledPagination} from './styled';
 
 
+const Limit = 2;
 
-
-
-let config = {
-  method: 'get',
-  maxBodyLength: Infinity,
-  url: `${doctor}?page=0&limit=6`,
-
- 
-};
 
 
 
 const Doctors = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [filters, setFilters] = useState<string[]>([]);
+    const [isloading, setisLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [totalCount, setTotalCount] = useState(0);
+    const [isError, setError] = useState(false);
+
+    let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `${doctor}?page=${currentPage}&limit=${Limit}`,
+      
+       
+      };
+  
+    useEffect(() => {
+        config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `${doctor}?page=${currentPage}&limit=${Limit}`,
+          
+           
+          };
+
+          const fetchData = async () => {
+            const data = await fetchDoctors();
+            console.log("data", data);
+            dispatch(setDoctor(data));
+        };
+    
+        fetchData();
+      
+    },[currentPage]);
+   
     const handleDrawerOpen = () => {
         setIsDrawerOpen(true);
     };
@@ -38,10 +66,15 @@ const fetchDoctors = async () => {
 
      
                 try{
+                    setisLoading(false);
+                    setError(false);
+              
                     const doc=  await axios.request(config)
                  console.log("response from doctors api");
                     console.log(doc.data.doctors);
-                 
+                    setTotalCount(doc.data.pagination.totalPages);
+                    console.log("total count",totalCount);
+                      console.log(doc);
                 return doc.data.doctors;
         
                 }catch(e){
@@ -70,6 +103,28 @@ const handleDrawerClose = () => {
         // Apply filters logic here
         setIsDrawerOpen(false);
     };
+
+    // Here we use item offsets; we could also use page offsets
+  // following the API or data you're working with.
+  const [itemOffset, setItemOffset] = useState(0);
+
+
+  // Simulate fetching items from another resources.
+  // (This could be items from props; or items loaded in a local state
+  // from an API endpoint with useEffect and useState)
+
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event:any) => {
+
+    setCurrentPage(event.selected + 1);
+  
+    console.log(
+        event.selected
+  
+    );
+ 
+  };
     return (
         <div className="wrapper">
             <div className="relative pt-[4rem]">
@@ -103,7 +158,7 @@ const handleDrawerClose = () => {
                     <DoctorsCard
                        imgUrl={id.imageUrl}
                         name={id.doctorName}
-                        experience={id.experienceYears.toString() + " years"}
+                        experience={id.experienceYears==null?"":id.experienceYears.toString() + " years"}
                         isVerfied={id.isApproved}
                         reviews={0}
                         speciality={id.specialization}
@@ -116,6 +171,16 @@ const handleDrawerClose = () => {
                     />
                 </div>
             ))} 
+            <div className="flex pr-5 pt-4 pb-20 justify-end align-bottom"> <StyledPagination
+        breakLabel="..."
+        nextLabel="next >"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={4}
+        pageCount={totalCount}
+        previousLabel="< prev"
+        renderOnZeroPageCount={null}
+      /></div>
+            
         </div>
     );
 };

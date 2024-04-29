@@ -57,7 +57,7 @@ const FileUploadComponent= () => {
         />
         <div className="w-40 aspect-video rounded flex items-center justify-center border-2 border-dashed cursor-pointer">
           {selectedImage ? (
-            <img src={selectedImage} alt="" />
+            <img src={selectedImage} height={50} width={50} alt="" />
           ) : (
             <span>Select Image</span>
           )}

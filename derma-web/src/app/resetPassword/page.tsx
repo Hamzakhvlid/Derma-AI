@@ -9,6 +9,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./style.css";
 import SucessMessage from "../forgotPassword/sucessMessage";
+import { url } from "inspector";
 interface Values {
 
   password: string;
@@ -42,24 +43,31 @@ export default function ResetPasswordPage() {
       initialValues: initialValues,
       validationSchema: resetPasswordSchema,
       onSubmit: async (values, action) => {
-      
-       console.log("form submitted")
-       console.log(token);
+ 
        
 
         try{
 
-          const response = await axios.post(resetForgotPassword, values,  {
-            headers: {
-              'Authorization': `bearer ${token}`
-
-            },
-            
+       
+    
           
-          });
+       
+          const response= await fetch(resetForgotPassword, {
+            method: 'POST',
+            body: JSON.stringify({password:values.password}),
+            headers: {
+              'authorization': token,
+             
+            }
+          })
 
-          if(response.status==200){}
+          if(response.status===200){
             setMessage("Password reset successfully");
+          }
+           
+          else{
+            setMessage("Password reset failed please try again later");
+          }
         
          
           
