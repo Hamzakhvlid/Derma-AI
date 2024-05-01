@@ -7,7 +7,7 @@ import Link from "next/link";
 import Modal from "./modal";
 import SymptomSelector from "./sysmptoms";
 import Button from "../doctors/Button";
-
+import './style.css'
 
 
 const FileUploadComponent= () => {
@@ -95,6 +95,49 @@ const FileUploadComponent= () => {
        </div>
      </div>:<div>
         <h1 className="text-center text-2xl font-black text-gray-800 pt-[10%]">Diagnosis</h1>
+        <div> <div>
+        <h1>Skin Analysis</h1>
+<table>
+  <tbody>
+    <tr>
+      <th>Skin type</th>
+      <td>Oily</td>
+    </tr>
+    <tr>
+      <th>Skin concerns</th>
+      <td>Wrinkles, Acne</td>
+    </tr>
+    <tr>
+      <th>Texture</th>
+      <td>Mid 30s</td>
+    </tr>
+  </tbody>
+</table>
+
+      <div className="section">
+        <h2>
+          <span className="icon">☀️🌙</span> Skin Care Routines
+        </h2>
+        <h3>Pre-cleanse</h3>
+        <ul>
+          <li>
+            <input type="checkbox" checked /> Laneige Cream Skin Milk Cleanser
+           <br></br> <span className="frequency">every day</span>
+          </li>
+        </ul>
+
+        <h3>Serum</h3>
+        <ul>
+          <li>
+            <input type="checkbox" checked /> Innisfree Green Tea Seed Serum
+            <br></br>   <span className="frequency">every day</span>
+          </li>
+          {/* Add more serum items here */}
+        </ul>
+
+        {/* Add more routine sections (Moisturizer, Sunscreen) similarly */}
+      </div>
+    </div></div>
         <p className="text-1xl text-gray-700 text-center pt-2">{result}</p>
         <div className="flex justify-center">
         <button  className="bg-blue-900 p-1 w-32 text-center rounded text-white  ml-4 mt-8">Book Appointment</button>
