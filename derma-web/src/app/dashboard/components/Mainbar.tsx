@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import DashBoard1 from "../@dashboard/page";
 import { RootState } from "@/app/lib/store";
 import DashboardProfile from "../@profile/page";
+import AppointmentsPage from '../@appointments/page';
 
 export default function Mainbar() {
   const activeItem = useSelector((state:RootState) => state.sidebar.activeItem);
@@ -14,6 +15,8 @@ export default function Mainbar() {
       case 'Profile':
         return <DashboardProfile />;
       // Add cases for other components as needed
+      case 'Appointments':
+        return <AppointmentsPage />;
       default:
         return (
           <div>Not Found {activeItem}</div>

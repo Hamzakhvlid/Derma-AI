@@ -42,7 +42,7 @@ const FileUploadComponent= () => {
   }
 
   return (
-    <div className="absolute md:ml-[44%] md:mt-[-4rem] mt-[15rem]  ml-[33%] ">
+    <div className="">
       <label>
         <input
           type="file"

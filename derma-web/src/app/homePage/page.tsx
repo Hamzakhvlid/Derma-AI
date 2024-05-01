@@ -9,6 +9,7 @@ import FAQs from './components/FAQs';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Testimonials from './components/Testimonials';
+import ScanHistory from './components/scanhistory';
 
 
 export default function HomePage() {
@@ -17,6 +18,7 @@ export default function HomePage() {
    
     
      <Hero />
+     <ScanHistory />
       <Services />
       <Features  /> 
       <Team />
