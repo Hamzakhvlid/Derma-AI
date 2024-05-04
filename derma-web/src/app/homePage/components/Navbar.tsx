@@ -23,11 +23,11 @@ const Navbar = () => {
  
   const userState = useSelector((state: RootState) => state.user);
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLogin);
-  console.log(isLoggedIn);
+  
   const { user, profile, roles, isAdmin } = userState;
 
   // Access specific properties from the user state
-  console.log(profile);
+
 
   const loggedInUser = useSelector((state: RootState) => state.user.user);
 

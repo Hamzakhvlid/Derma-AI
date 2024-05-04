@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import { useEffect } from "react";
 import "./style.css";
 import axios from "axios";
-import { signup } from "../Api/baseUrl";
+import { registerdoctor, signup } from "../Api/baseUrl";
 
 //initial values for form
 const initialValues = {
@@ -37,8 +37,13 @@ export default function RegisterDoctor() {
   const { values,setFieldValue, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: initialValues,
-      onSubmit:  (values, action) => {
+      onSubmit:  async (values, action) => {
         try {
+          await axios.post(registerdoctor, values, {
+            withCredentials: true
+          }).then((response) => {
+            console.log(response)
+          })
           console.log(values);
         } catch (error) {
           alert(JSON.stringify(error));

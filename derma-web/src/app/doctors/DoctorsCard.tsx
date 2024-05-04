@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import { Badge } from "@radix-ui/themes";
 
 const DoctorsCard = (props: {
+    baseUser: string;
     imgUrl: string;
     name: string;
     isVerfied: Boolean;
@@ -53,7 +54,7 @@ const DoctorsCard = (props: {
                         <div className="sm:pb-0 pb-4">
                             <div className="space-y-2">
                                 <div className="flex">
-                                    <Link href={'/doctordetailscreen'} className="text-blue-900 underline font-bold ">
+                                    <Link href={`/doctor/${props.baseUser}`} className="text-blue-900 underline font-bold ">
                                         {props.name}
                                     </Link>
                                     {props.isVerfied && (
@@ -143,7 +144,7 @@ const DoctorsCard = (props: {
 
                         <SwiperSlide className="rounded-md border-gray-300 border-solid border-2 ">
                             <Link
-                            href={"/doctordetailscreen#bookappointment"}
+                            href={"/doctor#bookappointment"}
                                 className="cursor-pointer">
                                 <div className="px-4 sm:space-y-0 space-y-3 py-2">
                                     <div className="flex text-sm font-bold">

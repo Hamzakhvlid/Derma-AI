@@ -1,7 +1,7 @@
 "use client";
 import { GiHamburgerMenu } from "react-icons/gi";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import {
@@ -11,7 +11,6 @@ import {
   MdOutlineLogout,
 } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
-import { BiMessageSquareDots } from "react-icons/bi";
 import { AiOutlineSchedule } from "react-icons/ai";
 import { FaPerson } from "react-icons/fa6";
 import { RiBankFill } from "react-icons/ri";
@@ -27,14 +26,13 @@ const box =
   "flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#007AFF] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto";
 
 export default function SideNavbar() {
-  const dispatch = useDispatch();
   const activeItem = useSelector(
     (state: RootState) => state.sidebar.activeItem
   ); // Access state
 
   return (
-    <div>
-      <button className="fixed top-12 right-4 inline-flex items-center peer justify-center rounded-md p-2 text-gray-800 hover:bg-gray-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white group">
+    <div className="hidden lg:flex">
+      <button className="fixed top-12 right-4  inline-flex items-center peer justify-center rounded-md p-2 text-gray-800 hover:bg-gray-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white group">
         <GiHamburgerMenu
           className="block md:hidden h-6 w-6"
           aria-hidden="true"

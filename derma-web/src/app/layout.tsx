@@ -6,6 +6,8 @@ import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
 import Providers from "./lib/provider";
 import BottomNavigationBar from "./homePage/components/BottomNavigationBar";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +34,7 @@ export default function RootLayout({
           <Navbar />
           <body className={inter.className}>{children}</body>
           <BottomNavigationBar />
+          <ToastContainer />
         </Theme>
       </Providers>
     </html>
