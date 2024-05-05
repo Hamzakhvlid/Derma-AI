@@ -13,7 +13,7 @@ export default function Modal() {
       {/* modal */}
       <div
         className={`
-          modal-content bg-white rounded-xl shadow p-6 transition-all
+          modal-content bg-white rounded-xl shadow p-6 transition-all md:w-[75%]
           "scale-100 opacity-100" : "scale-125 opacity-0"
         `}
       >

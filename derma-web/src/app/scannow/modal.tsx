@@ -21,7 +21,7 @@ export default function Modal({
       <div
         onClick={(e) => e.stopPropagation()}
         className={`
-          modal-content bg-white rounded-xl shadow p-6 transition-all
+          modal-content bg-white rounded-xl shadow p-1 md:p-6 transition-all w-[100%] md:w-[75%]
           ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}
         `}
       >

@@ -6,7 +6,7 @@ import { scanNowDisease,scanNowTips } from '../schemas';
 import { useField } from 'formik';
 
 import { useFormikContext } from 'formik';
-import "./style.css";
+// import "./style.css";
 import { error } from 'console';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAdditionalInfo ,setReqSymptoms} from '../lib/reducers/scanNow';
@@ -85,7 +85,7 @@ const SymptomSelector = () => {
 
   return (
     <div className=''>
-      <div className='flex flex-col  overflow-scroll h-80 md:flex-row md:overflow-auto md:h-auto md:flex-wrap'>
+      <div className='flex flex-col  overflow-y-scroll h-80 md:flex-row md:overflow-auto md:h-auto md:flex-wrap '>
         {symptoms.map((symptom:any) => (
           <div
             key={symptom.name}
