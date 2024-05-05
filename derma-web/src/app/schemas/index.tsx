@@ -33,3 +33,30 @@ export const loginSchema = Yup.object().shape({
   password: Yup.string().min(8, "Too Short!").required(),
 })
 
+export const scanNowDisease = Yup.object().shape({
+  additionalInfo: Yup.string()
+    .test(
+      'wordCount',
+      'Please enter atleast 20 and maximum 60 words.', 
+      (value) => {
+        if (!value) return true; // Allow empty values to be handled by required validation
+        const wordCount = value.trim().split(/\s+/).length;
+        return wordCount >= 20 && wordCount <= 60;
+      }
+    )
+    .required("Additional information is required.")
+});
+
+export const scanNowTips = Yup.object().shape({
+  additionalInfo: Yup.string()
+    .test(
+      'wordCount',
+      ' maximum 60 words.', 
+      (value) => {
+        if (!value) return true; // Allow empty values to be handled by required validation
+        const wordCount = value.trim().split(/\s+/).length;
+        return  wordCount <= 60;
+      }
+    )
+    
+});

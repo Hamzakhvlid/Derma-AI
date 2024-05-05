@@ -1,10 +1,33 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setScanType, setSelectionChips } from "../lib/reducers/scanNow";
+import { beautyTopics, diseaseSymptoms } from "./staticData";
+
+
 export default function Radio() {
+  const [selected, setSelected] = useState("disease"); // Set the initial value here
+
+const dispatch= useDispatch();
+  const handleChange = (e:any) => {
+    dispatch(setSelectionChips(e.target.value==="disease"?diseaseSymptoms:beautyTopics))
+    dispatch(setScanType(e.target.value));
+
+    setSelected(e.target.value);
+  };
+
   return (
     <div className="relative ">
       <div className="flex flex-col md:flex-row gap-3 mt-10 md:mt-0">
         <label className="cursor-pointer">
-          <input type="radio" className="peer sr-only" name="pricing" />
-          <div className="w-72 max-w-xl rounded-md bg-white p-5 text-gray-600 ring-2 ring-transparent transition-all hover:shadow peer-checked:text-sky-600 peer-checked:ring-blue-400 peer-checked:ring-offset-2">
+          <input
+            type="radio"
+            className="peer sr-only"
+            name="pricing"
+            value="disease"
+            checked={selected === "disease"}
+            onChange={handleChange}
+          />
+          <div className="w-72 max-w-xl rounded-md bg-white p-5 ring-2 ring-transparent transition-all hover:shadow peer-checked:text-sky-600 peer-checked:ring-blue-400 peer-checked:ring-offset-2">
             <div className="flex flex-col gap-1">
               <div className="flex items-center justify-between">
                 <p className="text-sm font-semibold uppercase text-gray-500">
@@ -23,7 +46,14 @@ export default function Radio() {
           </div>
         </label>
         <label className="cursor-pointer">
-          <input type="radio" className="peer sr-only" name="pricing" />
+          <input
+            type="radio"
+            className="peer sr-only"
+            name="pricing"
+            value="tips"
+            checked={selected === "tips"}
+            onChange={handleChange}
+          />
           <div className="w-72 max-w-xl rounded-md bg-white p-5 text-gray-600 ring-2 ring-transparent transition-all hover:shadow peer-checked:text-sky-600 peer-checked:ring-blue-400 peer-checked:ring-offset-2">
             <div className="flex flex-col gap-1">
               <div className="flex items-center justify-between">
@@ -39,11 +69,10 @@ export default function Radio() {
                   </svg>
                 </div>
               </div>
-              
             </div>
           </div>
         </label>
       </div>
     </div>
   );
-}
+};

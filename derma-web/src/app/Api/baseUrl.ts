@@ -10,7 +10,7 @@ export class API_ROUTES {
   };
 }
 
-export const baseUrl = " https://derma-ai-test-7888054d78d5.herokuapp.com/api/v1";
+export const baseUrl = "https://derma-ai-test-7888054d78d5.herokuapp.com/api/v1";
 
 export const signup = baseUrl + "/users/register";
 
@@ -23,5 +23,5 @@ export const resetForgotPassword = baseUrl + "/users/resetForgotPassword";
 export const forgotPassword = baseUrl + "/users/forgotPassword";
 
 export const doctor = baseUrl + "/users/getDoctors";
-
-export const registerdoctor = baseUrl + "/users/regitserDoctor"
+export const uploadImage = baseUrl + "/users/uploadImage";
+export const scanNow = baseUrl + "/users/scanNow";

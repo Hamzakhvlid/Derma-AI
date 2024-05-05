@@ -33,21 +33,28 @@ export default function LoginPage() {
       validationSchema: loginSchema,
       onSubmit: async (values, action) => {
         try {
-          await axios.post(loginApi, values).then((response) => {
-            setError("");
-            setIsLoading(false);
-            if (response.status == 200) {
-              setShowSuccess(true);
-              dispatch(actions.login(true));
-              localStorage.setItem("auth_token", response.data.data.accessToken);
-              toast(response.data.message);
-              router.push("/");
-              dispatch(setProfile(response.data));
-            } else {
-              setError(response.data.message);
-              toast(response.data.message)
-            }
-          });
+          const response = await axios.post(loginApi, values);
+          const res_data = response.data;
+         
+        
+          setError("");
+          setIsLoading(false);
+
+          if(response.status==200){
+            console.log(response.data.data.accessToken);
+            localStorage.setItem('auth_token', res_data.data.data.accessToken)
+            setShowSuccess(true);
+            dispatch(actions.login(true));
+            console.log(response);
+            console.log(res_data.data);
+            router.push("/");
+            dispatch(setProfile(res_data.data));
+           }
+            
+
+          else{
+            setError(response.data.message);
+          }
         } catch (error: any) {
           console.log(error.message);
           toast(error.message);

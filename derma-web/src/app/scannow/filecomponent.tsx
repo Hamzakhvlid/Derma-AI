@@ -1,5 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
-import { useState } from "react";
+import { use, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 
 import path from "path";
@@ -8,24 +9,45 @@ import Modal from "./modal";
 import SymptomSelector from "./sysmptoms";
 import Button from "../doctors/Button";
 import './style.css'
-
-
+import { scanNow, uploadImage } from "../Api/baseUrl";
+import { json } from "stream/consumers";
+import {useDispatch, useSelector} from 'react-redux'
+import { setImageName, setImageUrl, setResponse } from "../lib/reducers/scanNow";
+import { redirect } from "next/dist/server/api-utils";
+import {useRouter } from 'next/navigation'
+import SkinAnalysisResult from "./diseaseResult";
+import { RootState } from "../lib/store";
+import TipsResult from "./tipsResult";
 const FileUploadComponent= () => {
   const [uploading, setUploading] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedFile, setSelectedFile] = useState<File>();
   const [open, setOpen] = useState(false)
   const [result, setResult] = useState<string>("");
+  const dispatch = useDispatch();
+  const router=useRouter();
+  const reqSymptoms=useSelector((state:RootState)=>state.scanNow.symptoms);
+  const reqAdditionalInfo=useSelector((state:RootState)=>state.scanNow.additionalInfo);
+  const reqImageName=useSelector((state:RootState)=>state.scanNow.imageName);
+  const reqImageUrl=useSelector((state:RootState)=>state.scanNow.imageUrl);
+  const type=useSelector((state:RootState)=>state.scanNow.type);
+  const analysis=useSelector((state:RootState)=>state.scanNow.response);
   const handleUpload = async () => {
     setUploading(true);
     try {
       if (!selectedFile) return;
       const formData = new FormData();
-      formData.append("myImage", selectedFile);
-      const { data } = await axios.post("/api/image", formData);
-      console.log(data);
+      formData.append("image", selectedFile);
+      const response= await axios.post(uploadImage, formData);
+      console.log(response.data.imageName);
+      console.log(response.data.imageUrl);
+
+      dispatch(setImageName(response.data.imageName));
+      dispatch(setImageUrl(response.data.imageUrl));
+
     } catch (error: any) {
-      console.log(error.response?.data);
+      alert("error occured while uploading image please try again later");
+      router.push("/scannow");
     }
     setUploading(false);
    
@@ -33,7 +55,31 @@ const FileUploadComponent= () => {
 
   const handleDiagnose = async () => {
 
-    setResult("You  are diagnosed with Chickenpox")
+    try {
+      if (!selectedFile) return;
+      const formData = new FormData();
+
+      formData.append("symptoms", reqSymptoms??"");
+      formData.append("additionalInfo", reqAdditionalInfo??"");
+      formData.append("imageName", reqImageName??"");
+      formData.append("imageUrl", reqImageUrl??"");
+      formData.append("type", type??"");
+      const  response  = await axios.post(scanNow, formData);
+     
+  
+      const textObject = response.data.aiResponse;
+      dispatch(setResponse(response.data.aiResponse));
+      console.log(textObject);
+
+
+
+      
+    }catch (error: any) {
+     alert("error occured while Diagnosis please try again later");
+   //  router.push("/scanNow");
+    }
+    console.log("selectedFile req gone through axios");
+    setResult("You have Acne")
     
   }
   const handleClose=()=>{
@@ -41,20 +87,26 @@ const FileUploadComponent= () => {
     setResult("")
   }
 
+
+
+
   return (
     <div className="">
       <label>
+      
         <input
           type="file"
           hidden
           onChange={({ target }) => {
             if (target.files) {
               const file = target.files[0];
+
               setSelectedImage(URL.createObjectURL(file));
               setSelectedFile(file);
             }
           }}
         />
+       
         <div className="w-40 aspect-video rounded flex items-center justify-center border-2 border-dashed cursor-pointer">
           {selectedImage ? (
             <img src={selectedImage} height={50} width={50} alt="" />
@@ -63,9 +115,9 @@ const FileUploadComponent= () => {
           )}
         </div>
       </label>
-
+  
       <button
-        onClick={() => setOpen(true)}
+        onClick={() => {handleUpload();setOpen(true)}}
         disabled={uploading}
         style={{ opacity: uploading ? ".5" : "1" }}
         className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4"
@@ -76,9 +128,9 @@ const FileUploadComponent= () => {
        {result==""?<div className="text-center md:w-[80rem] md:h-[40rem]">
        
        <div className="mx-auto my-4 ">
-         <h3 className="text-lg font-black text-gray-800 pt-[10%]">Symptoms</h3>
+         <h3 className="text-lg font-black text-gray-800 pt-[10%]">{type==='disease'?"Disease Symptoms":"Beauty Tips Topic"} </h3>
          <p className="text-sm text-gray-500 ">
-           Select from below how many symptoms you are getting
+         {type==='disease'?" Select from below how many symptoms you are getting":"Select from below topics that you wanted to be added in response"} 
          </p>
        </div>
        <div className="flex-col gap-4">
@@ -93,56 +145,8 @@ const FileUploadComponent= () => {
 
          
        </div>
-     </div>:<div>
-        <h1 className="text-center text-2xl font-black text-gray-800 pt-[10%]">Diagnosis</h1>
-        <div> <div>
-        <h1>Skin Analysis</h1>
-<table>
-  <tbody>
-    <tr>
-      <th>Skin type</th>
-      <td>Oily</td>
-    </tr>
-    <tr>
-      <th>Skin concerns</th>
-      <td>Wrinkles, Acne</td>
-    </tr>
-    <tr>
-      <th>Texture</th>
-      <td>Mid 30s</td>
-    </tr>
-  </tbody>
-</table>
-
-      <div className="section">
-        <h2>
-          <span className="icon">☀️🌙</span> Skin Care Routines
-        </h2>
-        <h3>Pre-cleanse</h3>
-        <ul>
-          <li>
-            <input type="checkbox" checked /> Laneige Cream Skin Milk Cleanser
-           <br></br> <span className="frequency">every day</span>
-          </li>
-        </ul>
-
-        <h3>Serum</h3>
-        <ul>
-          <li>
-            <input type="checkbox" checked /> Innisfree Green Tea Seed Serum
-            <br></br>   <span className="frequency">every day</span>
-          </li>
-          {/* Add more serum items here */}
-        </ul>
-
-        {/* Add more routine sections (Moisturizer, Sunscreen) similarly */}
-      </div>
-    </div></div>
-        <p className="text-1xl text-gray-700 text-center pt-2">{result}</p>
-        <div className="flex justify-center">
-        <button  className="bg-blue-900 p-1 w-32 text-center rounded text-white  ml-4 mt-8">Book Appointment</button>
-        </div>
-      </div>}  
+     </div>:<div className="w-[50%] "><>{type==='disease'?<SkinAnalysisResult apiResponse={analysis}></SkinAnalysisResult>:<TipsResult apiResponse={analysis}></TipsResult>}</>
+     </div> }
       </Modal>
 
     
