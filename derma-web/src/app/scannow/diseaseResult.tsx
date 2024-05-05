@@ -1,8 +1,10 @@
+import Link from "next/link";
 import React from "react";
 
 function SkinAnalysisResult({ apiResponse }: { apiResponse: any }) {
   return (
-    <div className="h-[80vh] overflow-y-scroll lg:h-auto lg:overflow-auto text-sm md:text-base">
+    <div className="flex flex-col justify-between items-center">
+      <div className="h-[80vh] overflow-y-scroll lg:h-[80vh] lg:overflow-auto">
       {Object.entries(apiResponse).map(([key, value]) => (
         <tr key={key}>
           <td>{key}</td>
@@ -45,6 +47,8 @@ function SkinAnalysisResult({ apiResponse }: { apiResponse: any }) {
           </td>
         </tr>
       ))}
+    </div>
+    <Link href={"/doctors"} className="bg-blue-900 p-3  text-center rounded text-white ">Book Appointment</Link>
     </div>
   );
 }

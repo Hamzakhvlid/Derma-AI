@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 function tipsResult({ apiResponse }: { apiResponse: any }) {
@@ -93,7 +94,7 @@ function tipsResult({ apiResponse }: { apiResponse: any }) {
           </td>
         </tr>
       ))}
-      <div></div>
+      <Link href={"/doctors"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Book Appointment</Link>
     </div>
   );
 }
