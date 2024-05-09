@@ -11,6 +11,19 @@ import "@radix-ui/themes/styles.css";
 import { Avatar } from "@radix-ui/themes";
 import DoctorDetailScreenLoading from "./loading";
 
+const dummyAvailability = [
+  { id: 1, from: "09:00", to: "12:00", location: "Hospital A", price:"1500" },
+  { id: 2, from: "14:00", to: "17:00", location: "Hospital B", price: "2832" },
+  { id: 3, from: "08:30", to: "11:30", location: "Clinic C", price: "2983" }
+];
+
+const dummyOnlineAvailability = {
+  id: 1,
+  from: "09:50",
+  to: "10:50",
+  price: "3903"
+}
+
 interface DoctorData {
   doctorName: string;
   detailedRole: string;
@@ -272,7 +285,7 @@ export default function DoctorDetailScreen({
           </div>
         </div>
         <div id="bookappointment" className="right">
-          <BookAppointmentCard />
+          <BookAppointmentCard availabilites={dummyAvailability} onlineAvailability={dummyOnlineAvailability}/>
         </div>
       </div>
       <div className="text-sm m-3">

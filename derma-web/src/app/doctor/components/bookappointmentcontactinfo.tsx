@@ -1,58 +1,42 @@
 import React, { useRef, useState, useEffect } from "react";
-import emailjs from "@emailjs/browser";
 import Fade from "react-awesome-reveal";
 import sampleDoctorData from "@/app/homePage/components/sampleDoctorData";
-import Link from "next/link";
 
-const BookAppointmentCardContactInfo = () => {
-  const doctor = sampleDoctorData.doctors[0];
-  const form = useRef();
-  const [isSent, setIsSent] = useState(false);
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-console.log(form);
-  useEffect(() => {
-    let timeout: any;
-    if (error) {
-      timeout = setTimeout(() => {
-        setError("");
-      }, 8000);
+const BookAppointmentCardContactInfo = (props: {
+  from: string;
+  to: string;
+}) => {
+  const generateTimeSlots = (from:any, to:any) => {
+    const slots = [];
+    const currentDate = new Date();
+    const startTime = new Date(`${currentDate.toDateString()} ${from}`);
+    const endTime = new Date(`${currentDate.toDateString()} ${to}`);
+    let current = startTime;
+
+    while (current <= endTime) {
+      slots.push(
+        `${current.getHours()}:${current
+          .getMinutes()
+          .toString()
+          .padStart(2, "0")}`
+      );
+      current.setMinutes(current.getMinutes() + 30);
     }
-    return () => clearTimeout(timeout);
-  }, [error]);
-
-  const sendEmail = (e: any) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    // emailjs
-    //   .sendForm(
-    //     "service_xisoyix",
-    //     "template_o8b8bzr",
-    //     form.current as any,
-    //     "y5LmTUdhgknXetKeT"
-    //   )
-    //   .then((result) => {
-    //     var form = form.current as any;
-    //     setIsSent(true);
-    //     setIsLoading(false);
-    //     form.reset();
-    //     setTimeout(() => {
-    //       setIsSent(false);
-    //     }, 5000);
-    //   })
-    //   .catch((error) => {
-    //     setError("An error occurred. Please try again later.");
-    //     setIsLoading(false);
-    //   });
+    return slots;
   };
+  const [selectedSlot, setSelectedSlot] = useState("");
+
+  const handleSlotChange = (e:any) => {
+    setSelectedSlot(e.target.value);
+  };
+
+
 
   return (
     <div className="mx-auto p-2">
       <div className=" border rounded-md">
         <form
-          ref={form.current}
-          onSubmit={sendEmail}
+          onSubmit={() => {}}
           className="md:col-span-8 px-4 pt-4 pb-3"
         >
           <div className="mb-3 " id="contact">
@@ -131,17 +115,27 @@ console.log(form);
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-3">
                 <label
-                  htmlFor="user_time"
+                  htmlFor="slot"
                   className="mb-1 block text-base font-medium text-[#07074D]"
                 >
                   Time
                 </label>
-                <input
-                  type="time"
-                  name="user_time"
-                  id="user_time"
+                <select
+                  id="slot"
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                />
+                  value={selectedSlot}
+                  onChange={handleSlotChange}
+                >
+                  <option value="">Select a time slot</option>
+                  {generateTimeSlots(
+                    props.from,
+                    props.to,
+                  ).map((slot, index) => (
+                    <option key={index} value={slot}>
+                      {slot}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
           </div>
@@ -163,34 +157,17 @@ console.log(form);
           </div>
 
           <div className="mt-4">
-            <Fade>
-              <Link
-              href={{pathname:"/appointmentdone", query:{
-                id: doctor.id,
-                patientName: "Muhammad Ansar",
-                patientPhoneNo: "03214613759",
-                doctorname: doctor.name,
-                appointmentTime: doctor.otherConsultations[0].id,
-                hospitalPhone: doctor.otherConsultations[0].phone,
-                hospital: doctor.otherConsultations[0].area,
-                place: doctor.otherConsultations[0].place,
-                date: doctor.otherConsultations[0].timeFrom,
-              }}}
-            
-                type="submit"
-                // value="Send"
-                className="hover:shadow-form hover:opacity-90 w-full rounded-md bg-blue-600 py-3 px-8 text-center text-base font-semibold text-white outline-none"
-                // disabled={isLoading}
-              >
-                {isLoading ? "Booking..." : "Book Appointment"}
-              </Link>
+            <Fade className="hover:shadow-form hover:opacity-90 w-full cursor-pointer rounded-md bg-blue-600 py-3 px-8 text-center text-base font-semibold text-white outline-none">
+             
+                {false ? "Booking..." : "Book Appointment"}
+              
             </Fade>
-            {isSent && (
+            {false && (
               <p className="text-green-500 mt-1 text-center">
                 Appointment received successfully, Thank you!
               </p>
             )}
-            {error && <p className="text-red-500 mt-1 text-center">{error}</p>}
+            {false && <p className="text-red-500 mt-1 text-center">error</p>}
           </div>
         </form>
       </div>

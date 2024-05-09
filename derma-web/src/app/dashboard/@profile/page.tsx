@@ -7,6 +7,9 @@ import { useEffect } from "react";
 import axios from "axios";
 import { City } from "country-state-city";
 import "./style.css";
+import { Theme, Switch } from "@radix-ui/themes";
+import '@radix-ui/themes/styles.css';
+
 
 //initial values for form
 const initialValues = {
@@ -37,15 +40,59 @@ interface Experience {
   [key: string]: string; // Index signature
 }
 
+interface Availability {
+  from: string; // Time in 24-hour format (e.g., "09:00")
+  to: string; // Time in 24-hour format (e.g., "17:00")
+  location: string;
+  price: string;
+  [key: string]: string;
+}
+interface OnlineAvailability{
+  from : string,
+  to: string,
+  price: string,
+}
+
 // Render the Counter component inside the SignUpPage component
 
 export default function DashboardProfile() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [count, setCount] = useState(1);
+  const [onlineAvailabilitySwitch, setOnlineAvailabilitySwitch] = useState(false);
+  const [onlineAvailability, setOnlineAvailability] = useState<OnlineAvailability>({
+    from: "", to: "", price: ""
+  });
+  const handleOnlineAvailabilityChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setOnlineAvailability({ ...onlineAvailability, [name]: value });
+  };
 
   const pakAllCities = City.getCitiesOfCountry("PK");
 
+  // handle availability
+
+  const [availability, setAvailability] = useState<Availability[]>([
+    {from: "", to: "", location: "", price: ""}
+  ]);
+  const handleAddAvailability = () => {
+    setAvailability([...availability, { from: "", to: "", location: "" , price: ""}]);
+  };
+
+  const handleRemoveAvailability = (index: number) => {
+    const updatedAvailability = availability.filter((_, i) => i !== index);
+    setAvailability(updatedAvailability);
+  };
+
+  const handleAvailabilityChange = (
+    index: number,
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+    const updatedAvailability = [...availability];
+    updatedAvailability[index][name] = value;
+    setAvailability(updatedAvailability);
+  };
   // handle qualifications
   const [qualifications, setQualifications] = useState<Qualification[]>([
     { institution: "", program: "" },
@@ -113,7 +160,7 @@ export default function DashboardProfile() {
           // const response = await axios.post(signup, values);
           // console.log(response);
           // setIsLoading(false);
-          
+
           console.log(values);
           // if (response.status == 201) {
           //   setShowSuccess(true);
@@ -363,7 +410,95 @@ export default function DashboardProfile() {
                 Add Experience
               </button>
             </div>
+            <label className="label" htmlFor="availability">
+              Availability
+            </label>
+            <div>
+            {availability.map((slot, index) => (
+              <div key={index} className="flex flex-col  md:flex-row gap-1">
+                <input
+                  type="time"
+                  className="input"
+                  name="from"
+                  value={slot.from}
+                  onChange={(e) => handleAvailabilityChange(index, e)}
+                  placeholder="From"
+                />
+                <input
+                  type="time"
+                  className="input"
+                  name="to"
+                  value={slot.to}
+                  onChange={(e) => handleAvailabilityChange(index, e)}
+                  placeholder="To"
+                /><input
+                type="number"
+                className="input"
+                name="price"
+                value={slot.price}
+                onChange={(e) => handleAvailabilityChange(index, e)}
+                placeholder="Price"
+                min={"500"}
+                max={"2000"}
+              />
+                <input
+                  type="text"
+                  className="input"
+                  name="location"
+                  value={slot.location}
+                  onChange={(e) => handleAvailabilityChange(index, e)}
+                  placeholder="Location"
+                />
+                <button
+                  type="button"
+                  onClick={() => handleRemoveAvailability(index)}
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+            
 
+            <button type="button" onClick={handleAddAvailability}>
+              Add Availability
+            </button>
+            </div>
+            <div><Theme><Switch checked={onlineAvailabilitySwitch} onCheckedChange={() => setOnlineAvailabilitySwitch(!onlineAvailabilitySwitch)}/></Theme></div>
+            {
+              onlineAvailabilitySwitch ? <div>
+              <label className="label" htmlFor="availability">
+              Online Availability
+            </label>
+            <div className="flex flex-col  md:flex-row gap-1">
+            <input
+                  type="time"
+                  className="input"
+                  name="from"
+                  value={onlineAvailability.from}
+                  onChange={handleOnlineAvailabilityChange}
+                  placeholder="From"
+                />
+                <input
+                  type="time"
+                  className="input"
+                  name="to"
+                  value={onlineAvailability.to}
+                  onChange={handleOnlineAvailabilityChange}
+                  placeholder="To"
+                /><input
+                type="number"
+                className="input"
+                name="price"
+                value={onlineAvailability.price}
+                onChange={handleOnlineAvailabilityChange}
+                placeholder="Price"
+                min={"500"}
+                max={"2000"}
+              />
+
+            </div>
+            </div> : (<></>)
+}
             <button
               type="submit"
               className=" mt-[4%] w-[100%] md:w-[30%] lg:-[20%] self-center  bg-[#f4581c] rounded-lg hover:bg-opacity-90  h-[3rem]  text-white font-sans "

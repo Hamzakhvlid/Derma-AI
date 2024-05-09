@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { Badge } from "@radix-ui/themes";
 
 const DoctorsCard = (props: {
-    baseUser: string;
+    doctorID: string;
     imgUrl: string;
     name: string;
     isVerfied: Boolean;
@@ -54,7 +54,7 @@ const DoctorsCard = (props: {
                         <div className="sm:pb-0 pb-4">
                             <div className="space-y-2">
                                 <div className="flex">
-                                    <Link href={`/doctor/${props.baseUser}`} className="text-blue-900 underline font-bold ">
+                                    <Link href={`/doctor/${props.doctorId}`} className="text-blue-900 underline font-bold ">
                                         {props.name}
                                     </Link>
                                     {props.isVerfied && (
