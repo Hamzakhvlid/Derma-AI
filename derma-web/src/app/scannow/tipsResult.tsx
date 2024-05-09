@@ -1,57 +1,26 @@
 import Link from "next/link";
+import { Router } from "next/router";
 import React from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@radix-ui/themes";
 
 function tipsResult({ apiResponse }: { apiResponse: any }) {
-  return (
-    <div className="h-[80vh] overflow-y-scroll overflow-x-scroll sm:overflow-x-auto">
-      <h2>Diagnosis</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Skin Analysis</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Skin type</td>
-            <td>Oily</td>
-          </tr>
-          <tr>
-            <td>Skin concerns</td>
-            <td>Wrinkles, Acne</td>
-          </tr>
-          <tr>
-            <td>Texture</td>
-            <td>Mid 30s</td>
-          </tr>
-        </tbody>
-      </table>
+  const code=apiResponse.status_code;
+  const router=useRouter();
+  const { status_code, ...rest } =  apiResponse;
 
-      <h3>Skin Care Routines</h3>
-      <ul>
-        <li>
+  function handleTryAgain(){
+    router.push("/scannow");
+  }
+  apiResponse=rest; 
+  return ( 
+    <div className="h-[80vh] overflow-y-scroll overflow-x-scroll sm:overflow-x-auto">
+      
           <span role="img" aria-label="Sun and moon emoji">
             ☀️🌙
           </span>{" "}
-          Pre-cleanse
-        </li>
-        <li>
-          <input type="checkbox" checked /> Laneige Cream Skin Milk Cleanser
-          <span style={{ fontSize: "0.8em", color: "gray" }}>
-            <br></br>
-            every day
-          </span>
-        </li>
-        <li>
-          <input type="checkbox" checked /> Innisfree Green Tea Seed Serum
-          <span style={{ fontSize: "0.8em", color: "gray" }}>
-            <br></br>
-            every day
-          </span>
-        </li>
-        {/* Add more list items as needed */}
-      </ul>
+         
+         
       {Object.entries(apiResponse).map(([key, value]) => (
         <tr key={key}>
           <td>{key}</td>
@@ -94,7 +63,7 @@ function tipsResult({ apiResponse }: { apiResponse: any }) {
           </td>
         </tr>
       ))}
-      <Link href={"/doctors"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Book Appointment</Link>
+      <div className="flex pt-2 justify-center"> {code===400?<Link href={"/"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Try Again</Link>:<Link href={"/doctors"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Book Appointment</Link>}</div>
     </div>
   );
 }

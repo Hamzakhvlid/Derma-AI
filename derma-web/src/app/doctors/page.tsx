@@ -138,7 +138,7 @@ const Doctors = () => {
         doctorData.map((id: DoctorModel) => (
           <div className="flex flex-col sm:px-20 px-3 mt-10 ">
             <DoctorsCard
-            doctorId={id._id}
+            _id={id._id}
               imgUrl={id.imageUrl}
               name={id.doctorName}
               experience={

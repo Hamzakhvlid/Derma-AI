@@ -35,15 +35,24 @@ export default function LoginPage() {
         try {
           setIsLoading(true);
           const response = await axios.post(loginApi, values);
+          console.log("request sent one time")
           const res_data = response.data;
-          console.log(res_data);
-          if(res_data.success){
-            localStorage.setItem('auth_token', response.data.data.accessToken)
-            toast(res_data.message)
+         
+        
+          setError("");
+          setIsLoading(false);
+
+          if(response.status==200){
+            console.log(response.data.data.accessToken);
+            localStorage.setItem("accessToken", response.data.data.accessToken);
+ 
+            setShowSuccess(true);
             dispatch(actions.login(true));
-            router.push("/");
+            console.log(response);
+            console.log(res_data.data);
             dispatch(setProfile(res_data.data));
-            setIsLoading(false);
+            router.push("/");
+           
            }
           else{
             toast(response.data.message);

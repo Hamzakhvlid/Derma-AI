@@ -1,9 +1,18 @@
+import { Button } from "@radix-ui/themes";
 import Link from "next/link";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 function SkinAnalysisResult({ apiResponse }: { apiResponse: any }) {
-  return (
-    <div className="flex flex-col justify-between items-center">
+  const code=apiResponse.status_code;
+  const router=useRouter();
+  const { status_code, ...rest } =  apiResponse;
+  apiResponse=rest; 
+  function handleTryAgain(){
+    router.push("/scannow");
+  }
+  return (<>
+    <div className="flex flex-col justify-between items-center align-middle">
       <div className="h-[80vh] overflow-y-scroll lg:h-[80vh] lg:overflow-auto">
       {Object.entries(apiResponse).map(([key, value]) => (
         <tr key={key}>
@@ -47,9 +56,14 @@ function SkinAnalysisResult({ apiResponse }: { apiResponse: any }) {
           </td>
         </tr>
       ))}
+     
     </div>
-    <Link href={"/doctors"} className="bg-blue-900 p-3  text-center rounded text-white ">Book Appointment</Link>
+    <div className="flex pt-2 justify-center"> {code===400?<Link   href={"/"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Try Again</Link>:<Link href={"/doctors"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Book Appointment</Link>}</div>
+    
+      
     </div>
+   
+   </>
   );
 }
 

@@ -25,3 +25,4 @@ export const forgotPassword = baseUrl + "/users/forgotPassword";
 export const doctor = baseUrl + "/users/getDoctors";
 export const uploadImage = baseUrl + "/users/uploadImage";
 export const scanNow = baseUrl + "/users/scanNow";
+export const bookAppointment = baseUrl + "/users/bookAppointment";

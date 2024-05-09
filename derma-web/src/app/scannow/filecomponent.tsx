@@ -25,7 +25,9 @@ import { useRouter } from "next/navigation";
 import SkinAnalysisResult from "./diseaseResult";
 import { RootState } from "../lib/store";
 import TipsResult from "./tipsResult";
+import ResponseScreenLoading from "./loading";
 const FileUploadComponent = () => {
+  const [loading, setloading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedFile, setSelectedFile] = useState<File>();
@@ -85,7 +87,7 @@ const FileUploadComponent = () => {
       }
     } catch (error: any) {
       alert("error occured while Diagnosis please try again later");
-      //  router.push("/scanNow");
+       router.push("/scannow");
     }
     console.log("selectedFile req gone through axios");
     
@@ -171,7 +173,8 @@ const FileUploadComponent = () => {
               </button>
             </div>
           </div>
-        ) : (
+        ) : <>{
+          loading?<ResponseScreenLoading></ResponseScreenLoading>:
           <div className="p-6">
             <>
               {type === "disease" ? (
@@ -181,7 +184,7 @@ const FileUploadComponent = () => {
               )}
             </>
           </div>
-        )}
+        }</> }
       </Modal>
     </div>
   );
