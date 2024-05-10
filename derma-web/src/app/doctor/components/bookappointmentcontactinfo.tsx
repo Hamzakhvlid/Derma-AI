@@ -29,8 +29,13 @@ const BookAppointmentCardContactInfo = (props: {
   const handleSlotChange = (e:any) => {
     setSelectedSlot(e.target.value);
   };
+  const today = new Date();
 
-
+  // Calculate the date 20 days from today
+  const nextTwentyDays = new Date(today);
+  nextTwentyDays.setDate(nextTwentyDays.getDate() + 20);
+  const todayString = today.toISOString().split('T')[0];
+  const nextTwentyDaysString = nextTwentyDays.toISOString().split('T')[0];
 
   return (
     <div className="mx-auto p-2">
@@ -106,6 +111,8 @@ const BookAppointmentCardContactInfo = (props: {
                 </label>
                 <input
                   type="date"
+                  min={todayString as string}
+                  max={nextTwentyDaysString as string}
                   name="user_date"
                   id="user_date"
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
@@ -124,7 +131,7 @@ const BookAppointmentCardContactInfo = (props: {
                   id="slot"
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                   value={selectedSlot}
-                  onChange={handleSlotChange}
+                  onChange={(e) => handleSlotChange(e)}
                 >
                   <option value="">Select a time slot</option>
                   {generateTimeSlots(

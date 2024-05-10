@@ -1,4 +1,5 @@
 
+import Image from "next/image";
 import Consultation from "./Images/consultation.jpg";
 
 import { Fade } from "react-awesome-reveal";
@@ -60,7 +61,7 @@ const Services = () => {
         <ul className="grid gap-4 h-30 mt-6 sm:grid-cols-2   lg:grid-cols-4 mr-2 ">
           <Fade>
             <li className="bg-slate-200  ">
-              <div className="h-[250px]">  <img src={'AIface.jpg'} alt="" className="object-cover h-full w-full" /></div>
+              <div className="h-[250px]">  <Image src={'/AIface.jpg'} alt="" width={200} height={200} className="object-cover h-full w-full" /></div>
             
 
               <div className="relative py-2">
@@ -74,7 +75,7 @@ const Services = () => {
         
           <Fade>
             <li className="bg-slate-200">
-              <div className="h-[250px]"> <img src={'cosmeticderma.jpg'}   alt="" className="object-cover h-full w-full" /></div>
+              <div className="h-[250px]"> <Image width={200} height={200} src={'/cosmeticderma.jpg'}   alt="" className="object-cover h-full w-full" /></div>
              
 
               <div className="relative py-2">
@@ -86,7 +87,7 @@ const Services = () => {
           </Fade>
           <Fade>
             <li className="bg-slate-200 ">
-            <div className="h-[250px]"> <img src={'skintest.jpg'}  alt="" className="object-cover h-full w-full" />
+            <div className="h-[250px]"> <Image width={200} height={200} src={'/skintest.jpg'}  alt="" className="object-cover h-full w-full" />
 </div>
              
               <div className="relative py-2">
@@ -98,7 +99,7 @@ const Services = () => {
           </Fade>
           <Fade>
             <li className="bg-slate-200">
-            <div className="h-[250px]"> <img src={'medicines.jpg'} alt="" className="object-cover h-full w-full" />
+            <div className="h-[250px]"> <Image width={200} height={200} src={'/medicines.jpg'} alt="" className="object-cover h-full w-full" />
 </div>
              
               <div className="relative py-2">
@@ -112,7 +113,7 @@ const Services = () => {
          
           <Fade>
             <li className="bg-slate-200 rounded-[4px]">
-            <div className="h-[250px]"><img src={Consultation.src} alt="" className="object-cover h-full w-full"/></div>
+            <div className="h-[250px]"><Image src={Consultation.src} width={200} height={200} alt=""  className="object-cover h-full w-full"/></div>
               
 
               <div className="relative py-2 ">
@@ -125,7 +126,7 @@ const Services = () => {
           <Fade  >
             <li className="bg-slate-200 ">
               <div className="h-[250px] "
-              > <img src={'acne.jpg'}   alt="" className="object-cover h-full w-full" />
+              > <Image width={200} height={200} src={'/acne.jpg'}   alt="" className="object-cover h-full w-full" />
               </div>
              
               <div className="relative py-2">

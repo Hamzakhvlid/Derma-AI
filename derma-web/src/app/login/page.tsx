@@ -19,7 +19,7 @@ const initialValues = {
   password: "",
 };
 export default function LoginPage() {
-  const [showSuccess, setShowSuccess] = useState(false);
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -33,34 +33,28 @@ export default function LoginPage() {
       validationSchema: loginSchema,
       onSubmit: async (values, action) => {
         try {
+          setIsLoading(true);
           const response = await axios.post(loginApi, values);
           const res_data = response.data;
-         
-        
-          setError("");
-          setIsLoading(false);
-
-          if(response.status==200){
-            console.log(response.data.data.accessToken);
-            localStorage.setItem('auth_token', res_data.data.data.accessToken)
-            setShowSuccess(true);
+          console.log(res_data);
+          if(res_data.success){
+            localStorage.setItem('auth_token', response.data.data.accessToken)
+            toast(res_data.message)
             dispatch(actions.login(true));
-            console.log(response);
-            console.log(res_data.data);
             router.push("/");
             dispatch(setProfile(res_data.data));
+            setIsLoading(false);
            }
-            
-
           else{
+            toast(response.data.message);
             setError(response.data.message);
+            setIsLoading(false);
           }
-        } catch (error: any) {
-          console.log(error.message);
-          toast(error.message);
+        } catch (error) {
           setError(
             "Invalid Credentials either username or password is incorrect"
-          );
+          );                              
+          setIsLoading(false);
         }
         action.resetForm();
       },
@@ -131,7 +125,7 @@ export default function LoginPage() {
               type="submit"
               className="mt-[4%] w-[100%] md:w-[30%] lg:-[20%] self-center  bg-[#f4581c] rounded-lg hover:bg-opacity-90  h-[3rem]  text-white font-sans "
             >
-              Login
+              {isLoading ? (<img src="loader.gif" className="w-14 h-14 relative left-[30%]" alt="loader" />) : 'Login'}
             </button>
           </form>
           <h1 className="text-center pt-[1rem] pr-[4rem] text-md text-blue-900 ">

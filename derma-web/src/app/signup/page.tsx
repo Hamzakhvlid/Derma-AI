@@ -10,6 +10,7 @@ import axios from "axios";
 
 import "./style.css";
 import SucessMessage from "../forgotPassword/sucessMessage";
+import { toast } from "react-toastify";
 interface Values {
   firstName: string;
   lastName: string;
@@ -60,17 +61,19 @@ export default function SignUpPage() {
       initialValues: initialValues,
       validationSchema: signupSchema,
       onSubmit: async (values, action) => {
+        setIsLoading(true);
         try{
           const response = await axios.post(signup, values);
-          console.log(response);
-          setIsLoading(false);
 
           if(response.status==201){
             setShowSuccess(true);
             setCount(1);
+            setIsLoading(false);
           }
-        }catch (error){
-          alert(JSON.stringify(error));
+          console.log(response.data);
+        }catch (error:any){
+          toast(error.response.data.data.message)
+          setIsLoading(false);
         }
         action.resetForm();
       },
