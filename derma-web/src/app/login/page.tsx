@@ -46,7 +46,7 @@ export default function LoginPage() {
             console.log(response.data.data.accessToken);
             localStorage.setItem("accessToken", response.data.data.accessToken);
  
-            setShowSuccess(true);
+           
             dispatch(actions.login(true));
             console.log(response);
             console.log(res_data.data);

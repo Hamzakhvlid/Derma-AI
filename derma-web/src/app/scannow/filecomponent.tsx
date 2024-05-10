@@ -27,7 +27,7 @@ import { RootState } from "../lib/store";
 import TipsResult from "./tipsResult";
 import ResponseScreenLoading from "./loading";
 const FileUploadComponent = () => {
-  const [loading, setloading] = useState(false);
+ 
   const [uploading, setUploading] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedFile, setSelectedFile] = useState<File>();
