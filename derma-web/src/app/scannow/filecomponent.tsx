@@ -18,7 +18,10 @@ import {
   setImageUrl,
   setResponse,
   scanSuccess,
-  scanFailure
+  scanFailure,
+  setReqSymptoms,
+  setAdditionalInfo,
+  setScanType
 } from "../lib/reducers/scanNow";
 import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/navigation";
@@ -95,9 +98,18 @@ const FileUploadComponent = () => {
   };
   const handleClose = () => {
     setOpen(false);
+    setLoading(false);
     setUploading(false);
     setSelectedImage("");
+    dispatch(setImageName(""));
+    dispatch(setImageUrl(""));
+    dispatch(setResponse({}));
+    dispatch(setReqSymptoms(""));
+    dispatch(setAdditionalInfo(""));
+    dispatch(setScanType("disease"));
     
+    setSelectedImage("");
+    setSelectedFile(undefined);
 
   };
 
@@ -110,7 +122,7 @@ const FileUploadComponent = () => {
           onChange={({ target }) => {
             if (target.files) {
               const file = target.files[0];
-
+              console.log(target.files);
               setSelectedImage(URL.createObjectURL(file));
               setSelectedFile(file);
             }

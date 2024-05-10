@@ -2,10 +2,11 @@
 import React from 'react';
 import {useState} from 'react';
 import { buyCredits } from '../Api/baseUrl';
+import { toast } from 'react-toastify';
 const PurchaseCreditsPage = () => {
 
   const [message, setMessage] = useState("");
-
+ const [sucess,setSuccess]=useState(false);
   const Credits= async (plan:String) => {
 
     // Call the API to buy credits
@@ -17,12 +18,20 @@ const PurchaseCreditsPage = () => {
         'Content-Type': 'application/json',
   }},
 );
+
+    if(response.status==200){
+      setSuccess(true);
+    }
     const data = await response.json();
+    toast("Congratulations 🎊 your Credit has been Updated ");
+
     setMessage(data.message);
   }
   
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center pt-[4rem] pb-[5rem]">
+      {sucess?<h1 className="text-3xl font-bold text-gray-800 mb-8">{message}</h1>:
+      <>
       <h1 className="text-3xl font-bold text-gray-800 mb-8">Purchase More Credits</h1>
       <div  className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Plan 1 */}
@@ -67,7 +76,7 @@ const PurchaseCreditsPage = () => {
             Buy Now
           </button>
         </div>
-      </div>
+      </div></>}
     </div>
   );
 };
