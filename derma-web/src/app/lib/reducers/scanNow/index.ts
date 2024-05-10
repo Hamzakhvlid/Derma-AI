@@ -79,8 +79,15 @@ export const scanNowSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         },
+
+        backToInitialState: (state) => {
+            state.loading = false;
+            state.error = null;
+            state.result = null;
+            state.success = false;
+        }
     },
 });
 
-export const { startScan, scanSuccess, scanFailure,setReqSymptoms,setAdditionalInfo,setImageName,setImageUrl,setScanType,setResponse,setSelectionChips} = scanNowSlice.actions;
+export const { backToInitialState,startScan, scanSuccess, scanFailure,setReqSymptoms,setAdditionalInfo,setImageName,setImageUrl,setScanType,setResponse,setSelectionChips} = scanNowSlice.actions;
 
