@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useState, useEffect } from "react";
 import Fade from "react-awesome-reveal";
 import sampleDoctorData from "@/app/homePage/components/sampleDoctorData";
@@ -131,7 +132,7 @@ const BookAppointmentCardContactInfo = (props: {
                   id="slot"
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                   value={selectedSlot}
-                  onChange={(e) => handleSlotChange(e)}
+                  onChange={(e)=>handleSlotChange(e)}
                 >
                   <option value="">Select a time slot</option>
                   {generateTimeSlots(

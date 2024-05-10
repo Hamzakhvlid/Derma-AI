@@ -16,7 +16,7 @@ export const signup = baseUrl + "/users/register";
 
 export const loginApi = baseUrl + "/users/login";
 
-
+export const buyCredits = baseUrl + "/users/buyCredits";
 
 export const resetForgotPassword = baseUrl + "/users/resetForgotPassword";
 

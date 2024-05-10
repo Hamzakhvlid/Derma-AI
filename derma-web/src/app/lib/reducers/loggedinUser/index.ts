@@ -9,6 +9,7 @@ type ProfileProps = {
   username?: string
   accessToken?: string
   role?: string
+  scanCredits?: number
 
 };
 

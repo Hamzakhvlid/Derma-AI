@@ -75,6 +75,11 @@ const Navbar = () => {
       label: "Team",
     },
     {
+      id: 4,
+      link: "/buy-credits",
+      label: "Pricing",
+    },
+    {
       id: 5,
       link: "/#contact",
       label: "Book Now",
@@ -210,7 +215,9 @@ const Navbar = () => {
                   <h4 className="p-1 justify-center self-center">
                     {profile.username}
                   </h4>
+                  
                   <h4 className="p-1">{profile.email}</h4>
+                  <h4 className="p-1"><span className="text-[black] font-bold text-sm ">Scan Credits :</span>{profile.scanCredits}</h4>
                 </div>
 
                 <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
