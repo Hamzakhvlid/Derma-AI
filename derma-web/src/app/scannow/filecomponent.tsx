@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from "next";
 import { use, useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import { X } from "react-feather";
 
 import path from "path";
 import Link from "next/link";
@@ -16,6 +17,8 @@ import {
   setImageName,
   setImageUrl,
   setResponse,
+  scanSuccess,
+  scanFailure
 } from "../lib/reducers/scanNow";
 import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/navigation";
@@ -27,7 +30,7 @@ const FileUploadComponent = () => {
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedFile, setSelectedFile] = useState<File>();
   const [open, setOpen] = useState(false);
-  const [result, setResult] = useState<string>("");
+  
   const dispatch = useDispatch();
   const router = useRouter();
   const reqSymptoms = useSelector((state: RootState) => state.scanNow.symptoms);
@@ -40,8 +43,9 @@ const FileUploadComponent = () => {
   const reqImageUrl = useSelector((state: RootState) => state.scanNow.imageUrl);
   const type = useSelector((state: RootState) => state.scanNow.type);
   const analysis = useSelector((state: RootState) => state.scanNow.response);
+  const success = useSelector((state: RootState) => state.scanNow.success);
+  const [loading, setLoading] = useState(false);
   const handleUpload = async () => {
-    setUploading(true);
     try {
       if (!selectedFile) return;
       const formData = new FormData();
@@ -54,12 +58,14 @@ const FileUploadComponent = () => {
       dispatch(setImageUrl(response.data.imageUrl));
     } catch (error: any) {
       alert("error occured while uploading image please try again later");
+      setOpen(false);
       router.push("/scannow");
     }
     setUploading(false);
   };
 
   const handleDiagnose = async () => {
+    setLoading(true);
     try {
       if (!selectedFile) return;
       const formData = new FormData();
@@ -71,19 +77,26 @@ const FileUploadComponent = () => {
       formData.append("type", type ?? "");
       const response = await axios.post(scanNow, formData);
 
-      const textObject = response.data.aiResponse;
+      console.log(response.data);
+      if(response.data.success){
+        
       dispatch(setResponse(response.data.aiResponse));
-      console.log(textObject);
+      
+      }
     } catch (error: any) {
       alert("error occured while Diagnosis please try again later");
       //  router.push("/scanNow");
     }
     console.log("selectedFile req gone through axios");
-    setResult("You have Acne");
+    
+    setLoading(false);
   };
   const handleClose = () => {
     setOpen(false);
-    setResult("");
+    setUploading(false);
+    setSelectedImage("");
+    
+
   };
 
   return (
@@ -104,7 +117,15 @@ const FileUploadComponent = () => {
 
         <div className="w-40 aspect-video rounded flex items-center justify-center border-2 border-dashed cursor-pointer">
           {selectedImage ? (
-            <img src={selectedImage} height={50} width={50} alt="" />
+            <div className="flex flex-row items-start justify-center">
+              <img src={selectedImage} height={70} width={70} alt="" />
+              <X
+                className="relative right-3 top-0 bg-blue-800 rounded"
+                onClick={() => {
+                  setSelectedImage("");
+                }}
+              />
+            </div>
           ) : (
             <span>Select Image</span>
           )}
@@ -113,18 +134,23 @@ const FileUploadComponent = () => {
 
       <button
         onClick={() => {
-          handleUpload();
-          setOpen(true);
+          if (selectedImage) {
+            handleUpload();
+            setOpen(true);
+          }
         }}
-        disabled={uploading}
+        disabled={selectedImage === "" || uploading}
         style={{ opacity: uploading ? ".5" : "1" }}
         className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4"
       >
         {uploading ? "Uploading.." : "Upload"}
       </button>
       <Modal open={open} onClose={() => handleClose()}>
-        {result == "" ? (
-          <div className="text-center ">
+        
+        {success === false ? (
+          <div
+            className={`text-center `}
+          >
             <div className="mx-auto my-4 ">
               <h3 className="text-lg font-black text-gray-800 pt-[10%]">
                 {type === "disease" ? "Disease Symptoms" : "Beauty Tips Topic"}{" "}
@@ -139,9 +165,9 @@ const FileUploadComponent = () => {
               <SymptomSelector></SymptomSelector>
               <button
                 onClick={handleDiagnose}
-                className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4"
+                className={`${loading ? 'bg-slate-400' : ''} bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4`}
               >
-                Diagnose
+                {loading ? (<img src="loader.gif" className="w-14 h-14 relative left-[30%]" alt="loader" />) : 'Diagnose'}
               </button>
             </div>
           </div>

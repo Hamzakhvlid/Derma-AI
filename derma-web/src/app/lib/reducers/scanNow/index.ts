@@ -2,6 +2,7 @@ import { diseaseSymptoms } from '@/app/scannow/staticData';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ScanNowState {
+    success: boolean;
     loading: boolean;
     error: string | null;
     result: string | null;
@@ -16,6 +17,7 @@ interface ScanNowState {
 
 
 const initialState: ScanNowState = {
+    success: false,
     loading: false,
     error: null,
     result: null,
@@ -36,6 +38,7 @@ export const scanNowSlice = createSlice({
             state.loading = true;
             state.error = null;
             state.result = null;
+            state.success = false;
         },
         setAdditionalInfo:(state,action: PayloadAction<string>)=>{
             state.additionalInfo=action.payload;
@@ -59,6 +62,7 @@ export const scanNowSlice = createSlice({
         },
         setResponse:(state,action: PayloadAction<any>)=>{
             state.response=action.payload;
+            state.success = true;
         },
         setSelectionChips:(state,action: PayloadAction<any>)=>{
             state.selectionChips=action.payload;
