@@ -193,26 +193,18 @@ const FileUploadComponent = () => {
               </button>
             </div>
           </div>
-        ) : (
-          <>
-            {loading ? (
-              <ResponseScreenLoading></ResponseScreenLoading>
-            ) : (
-              <div className="p-6">
-                <>
-                  {type === "disease" ? (
-                    <SkinAnalysisResult
-                      apiResponse={analysis}
-                      close={handleClose}
-                    ></SkinAnalysisResult>
-                  ) : (
-                    <TipsResult apiResponse={analysis} close={handleClose}></TipsResult>
-                  )}
-                </>
-              </div>
-            )}
-          </>
-        )}
+        ) : <>{
+          loading?<ResponseScreenLoading></ResponseScreenLoading>:
+          <div className="p-6">
+            <>
+              {type === "disease" ? (
+                <SkinAnalysisResult apiResponse={analysis} close={handleClose}></SkinAnalysisResult>
+              ) : (
+                <TipsResult close={handleClose} apiResponse={analysis}></TipsResult>
+              )}
+            </>
+          </div>
+        }</> }
       </Modal>
     </div>
   );
