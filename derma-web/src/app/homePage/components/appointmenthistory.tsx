@@ -1,3 +1,32 @@
+export const appointmentshistory = [
+  {
+    date: "April 15, 2023",
+    time: "10:00 AM",
+    reason: "Routine Check-up",
+    status: "Completed",
+  },
+  {
+    date: "March 28, 2023",
+    time: "2:30 PM",
+    reason: "Dental Cleaning",
+    status: "Completed",
+  },
+  {
+    date: "February 12, 2023",
+    time: "9:00 AM",
+    reason: "Allergy Consultation",
+    status: "Pending",
+  },
+  {
+    date: "January 5, 2023",
+    time: "11:45 AM",
+    reason: "Physical Exam",
+    status: "Cancelled",
+  },
+
+];
+
+
 export default function AppointmentHistory() {
   return (
     <div className="wrapper hidden md:block">

@@ -21,28 +21,7 @@ const Contact = () => {
 
   const sendEmail = (e:any) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    emailjs
-      .sendForm(
-        "service_xisoyix",
-        "template_o8b8bzr",
-        form.current as any,
-        "y5LmTUdhgknXetKeT"
-      )
-      .then((result) => {
-        var form=form.current as any;
-        setIsSent(true);
-        setIsLoading(false);
-        form.reset();
-        setTimeout(() => {
-          setIsSent(false);
-        }, 5000);
-      })
-      .catch((error) => {
-        setError("An error occurred. Please try again later.");
-        setIsLoading(false);
-      });
+    
   };
 
   return (
@@ -169,26 +148,24 @@ const Contact = () => {
               htmlFor="chosen_service"
               className="mb-1 block text-base font-medium text-[#07074D]"
             >
-              Dental Services
+              Services
             </label>
             <select
               name="chosen_service"
               id="chosen_service"
               className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
             >
-              <option value="checkup_Consultation">
-                Dental Check-ups and Consultation
+              <option value="AI_diseases_Diagnosis_Prevention">
+              AI diseases Diagnosis & Prevention
               </option>
-              <option value="x-rays">X-rays</option>
-              <option value="fillings">Fillings</option>
-              <option value="crowns_Bridges">Crowns and Bridges</option>
-              <option value="RCT">Root Canal Treatment</option>
-              <option value="teethWhitening">
-                Cleaning and Teeth Whitening
+              <option value="Cosmetic_Dermatology">Cosmetic Dermatology</option>
+              <option value="Appointment_Booking">Appointment Booking</option>
+              <option value="Skin_Care_Tips_Tricks">Skin Care Tips & Tricks</option>
+              <option value="Check-ups_and_Consultation">Check-ups and Consultation</option>
+              <option value="Acne_Treatment">
+              Acne Treatment
               </option>
-              <option value="orthodontic">Orthodontic Treatment</option>
-              <option value="periodontal">Periodontal Treatment</option>
-              <option value="dentalImplants">Dental Implants</option>
+              
             </select>
           </div>
 
@@ -232,7 +209,7 @@ const Contact = () => {
               className="mb-1 block text-base font-medium text-[#07074D]"
               htmlFor="user_message"
             >
-              Doctor Note
+              Message
             </label>
             <textarea
               id="user_message"
@@ -250,7 +227,7 @@ const Contact = () => {
                 className="hover:shadow-form hover:opacity-90 w-full rounded-md bg-blue-600 py-3 px-8 text-center text-base font-semibold text-white outline-none"
                 disabled={isLoading}
               >
-                {isLoading ? "Booking..." : "Book Appointment"}
+                {isLoading ? "Sending..." : "Send Message"}
               </button>
             </Fade>
             {isSent && (
