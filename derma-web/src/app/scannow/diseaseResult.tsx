@@ -2,14 +2,31 @@ import { Button } from "@radix-ui/themes";
 import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import {
+  setImageName,
+  setImageUrl,
+  setResponse,
+  scanSuccess,
+  scanFailure,
+  setReqSymptoms,
+  setAdditionalInfo,
+  setScanType,
+  backToInitialState
+} from "../lib/reducers/scanNow";
 
-function SkinAnalysisResult({ apiResponse }: { apiResponse: any }) {
+function SkinAnalysisResult({ apiResponse,close }: { apiResponse: any,close:Function }) {
   const code=apiResponse.status_code;
   const router=useRouter();
+  const dispatch= useDispatch();
+
+
   const { status_code, ...rest } =  apiResponse;
   apiResponse=rest; 
   function handleTryAgain(){
-    router.push("/scannow");
+    close();
+
+
   }
   return (<>
     <div className="flex flex-col justify-between items-center align-middle">
@@ -58,7 +75,7 @@ function SkinAnalysisResult({ apiResponse }: { apiResponse: any }) {
       ))}
      
     </div>
-    <div className="flex pt-2 justify-center"> {code===400?<Link   href={"/"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Try Again</Link>:<Link href={"/doctors"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Book Appointment</Link>}</div>
+    <div className="flex pt-2 justify-center"> {code===400?<button onClick={handleTryAgain}  className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Try Again</button>:<Link href={"/doctors"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Book Appointment</Link>}</div>
     
       
     </div>

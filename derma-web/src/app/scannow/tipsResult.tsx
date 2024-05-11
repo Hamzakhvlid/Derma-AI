@@ -3,14 +3,37 @@ import { Router } from "next/router";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@radix-ui/themes";
+import { useDispatch } from "react-redux";
+import {
+  setImageName,
+  setImageUrl,
+  setResponse,
+  scanSuccess,
+  scanFailure,
+  setReqSymptoms,
+  setAdditionalInfo,
+  setScanType,
+  backToInitialState
+} from "../lib/reducers/scanNow";
 
-function tipsResult({ apiResponse }: { apiResponse: any }) {
+function tipsResult({ apiResponse, close }: { apiResponse: any,close:Function }) {
   const code=apiResponse.status_code;
   const router=useRouter();
   const { status_code, ...rest } =  apiResponse;
-
+  const dispatch= useDispatch();
   function handleTryAgain(){
-    router.push("/scannow");
+   
+    close();
+    dispatch(setReqSymptoms(""));
+    dispatch(setAdditionalInfo(""));
+
+    dispatch(setImageName(""));
+    dispatch(setImageUrl(""));
+    dispatch(setResponse({}));
+ 
+    dispatch(setScanType("disease"));
+    dispatch(scanFailure(""));
+   dispatch(backToInitialState())
   }
   apiResponse=rest; 
   return ( 
@@ -63,7 +86,7 @@ function tipsResult({ apiResponse }: { apiResponse: any }) {
           </td>
         </tr>
       ))}
-      <div className="flex pt-2 justify-center"> {code===400?<Link href={"/"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Try Again</Link>:<Link href={"/doctors"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Book Appointment</Link>}</div>
+      <div className="flex pt-2 justify-center"> {code===400?<button onClick={handleTryAgain} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Try Again</button>:<Link href={"/doctors"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Book Appointment</Link>}</div>
     </div>
   );
 }

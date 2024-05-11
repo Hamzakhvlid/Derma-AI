@@ -8,6 +8,7 @@ import sampleDoctorData from "../../homePage/components/sampleDoctorData";
 import { useState } from "react";
 
 export default function BookAppointmentCard(props:{
+  docID: string,
   availabilites: Array<{
     id: number,
     price:string,
@@ -92,7 +93,7 @@ export default function BookAppointmentCard(props:{
         Select Date & Time
       </div>}
 
-      {selectedConsultantData && <BookAppointmentCardContactInfo from={selectedConsultantData.from} to={selectedConsultantData.to}/>}
+      {selectedConsultantData && <BookAppointmentCardContactInfo location={selectedConsultantData.location} doctorID={props.docID} from={selectedConsultantData.from} to={selectedConsultantData.to}/>}
     </div>
   );
 }

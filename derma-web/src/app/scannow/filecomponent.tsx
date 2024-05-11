@@ -193,9 +193,9 @@ const FileUploadComponent = () => {
           <div className="p-6">
             <>
               {type === "disease" ? (
-                <SkinAnalysisResult apiResponse={analysis}></SkinAnalysisResult>
+                <SkinAnalysisResult apiResponse={analysis} close={handleClose}></SkinAnalysisResult>
               ) : (
-                <TipsResult apiResponse={analysis}></TipsResult>
+                <TipsResult close={handleClose} apiResponse={analysis}></TipsResult>
               )}
             </>
           </div>

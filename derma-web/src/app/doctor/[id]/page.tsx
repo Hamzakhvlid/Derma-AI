@@ -10,6 +10,7 @@ import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { Avatar } from "@radix-ui/themes";
 import DoctorDetailScreenLoading from "./loading";
+import { getDoctorDetail } from "@/app/Api/baseUrl";
 
 const dummyAvailability = [
   { id: 1, from: "09:00", to: "12:00", location: "Hospital A", price:"1500" },
@@ -66,7 +67,7 @@ export default function DoctorDetailScreen({
     async function fetchSingleDoctor() {
       try {
         await axios
-          .get(`http://localhost:4001/api/v1/users/getDetailedDoctor?id=${params.id}`)
+          .get(`${getDoctorDetail}?id=${params.id}`)
           .then((response) => {
             console.log(response.data);
             setDoctor(response.data);
@@ -285,7 +286,7 @@ export default function DoctorDetailScreen({
           </div>
         </div>
         <div id="bookappointment" className="right">
-          <BookAppointmentCard availabilites={dummyAvailability} onlineAvailability={dummyOnlineAvailability}/>
+          <BookAppointmentCard docID={params.id} availabilites={dummyAvailability} onlineAvailability={dummyOnlineAvailability}/>
         </div>
       </div>
       <div className="text-sm m-3">

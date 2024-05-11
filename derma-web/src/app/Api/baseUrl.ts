@@ -10,19 +10,21 @@ export class API_ROUTES {
   };
 }
 
-export const baseUrl = "https://derma-ai-test-7888054d78d5.herokuapp.com/api/v1";
+export const baseUrl = "https://derma-ai-test-7888054d78d5.herokuapp.com/api/v1/users/";
 
-export const signup = baseUrl + "/users/register";
+export const signup = baseUrl + "register";
 
-export const loginApi = baseUrl + "/users/login";
+export const loginApi = baseUrl + "login";
 
-export const buyCredits = baseUrl + "/users/buyCredits";
+export const buyCredits = baseUrl + "buyCredits";
 
-export const resetForgotPassword = baseUrl + "/users/resetForgotPassword";
+export const resetForgotPassword = baseUrl + "resetForgotPassword";
 
-export const forgotPassword = baseUrl + "/users/forgotPassword";
+export const forgotPassword = baseUrl + "forgotPassword";
 
-export const doctor = baseUrl + "/users/getDoctors";
-export const uploadImage = baseUrl + "/users/uploadImage";
-export const scanNow = baseUrl + "/users/scanNow";
-export const bookAppointment = baseUrl + "/users/bookAppointment";
+export const doctor = baseUrl + "getDoctors";
+export const uploadImage = baseUrl + "uploadImage";
+export const scanNow = baseUrl + "scanNow";
+export const bookAppointment = baseUrl + "bookAppointment";
+
+export const getDoctorDetail = baseUrl + "getDetailedDoctor";

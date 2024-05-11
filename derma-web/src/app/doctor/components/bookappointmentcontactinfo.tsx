@@ -2,8 +2,14 @@
 import React, { useRef, useState, useEffect } from "react";
 import Fade from "react-awesome-reveal";
 import sampleDoctorData from "@/app/homePage/components/sampleDoctorData";
+import { bookAppointment } from "@/app/Api/baseUrl";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/lib/store";
 
 const BookAppointmentCardContactInfo = (props: {
+  doctorID: string;
+  location: string;
   from: string;
   to: string;
 }) => {
@@ -33,16 +39,68 @@ const BookAppointmentCardContactInfo = (props: {
   const today = new Date();
 
   // Calculate the date 20 days from today
+  const aiResponse= useSelector((state:RootState)=>state.scanNow.response);
   const nextTwentyDays = new Date(today);
   nextTwentyDays.setDate(nextTwentyDays.getDate() + 20);
   const todayString = today.toISOString().split('T')[0];
   const nextTwentyDaysString = nextTwentyDays.toISOString().split('T')[0];
+  const [loading,setLoading] = useState(false);
+
+  const handleSubmit = async (e:any) => {
+    setLoading(true);
+    e.preventDefault();
+    const formData = {
+      name: e.target.user_name.value,
+      phone: e.target.user_phone.value,
+      email: e.target.user_email.value,
+      date: e.target.user_date.value,
+      startTime: e.target.slot.value,
+      promo_code: e.target.promo_code.value,
+      aiDiagnosis: aiResponse,
+      title : aiResponse["title"] ? aiResponse["title"] : "No title",
+      description: aiResponse["description"],
+      location: props.location,
+      duration:20
+
+     
+    };
+
+    
+
+    try{
+      const response = await fetch(bookAppointment, {
+        method: "POST",
+        headers: {
+          "authorization": "Bearer " + localStorage.getItem("accessToken"),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.status == 200) {
+        toast.success("Appointment booked successfully");
+      }
+      else{ 
+        
+        throw new Error("Failed to book appointment");
+      }
+      setLoading(false);
+    
+    }catch(e){
+      toast.error("Failed to book appointment");
+      setLoading(false);
+    }
+
+    e.target.reset();
+    console.log(formData);
+  };
 
   return (
     <div className="mx-auto p-2">
       <div className=" border rounded-md">
         <form
-          onSubmit={() => {}}
+        method="POST"
+        
+          onSubmit={handleSubmit}
           className="md:col-span-8 px-4 pt-4 pb-3"
         >
           <div className="mb-3 " id="contact">
@@ -164,19 +222,14 @@ const BookAppointmentCardContactInfo = (props: {
             ></input>
           </div>
 
-          <div className="mt-4">
-            <Fade className="hover:shadow-form hover:opacity-90 w-full cursor-pointer rounded-md bg-blue-600 py-3 px-8 text-center text-base font-semibold text-white outline-none">
+          <button type="submit"  className="mt-4">
+            <Fade  className="hover:shadow-form hover:opacity-90 w-full cursor-pointer rounded-md bg-blue-600 py-3 px-8 text-center text-base font-semibold text-white outline-none">
              
-                {false ? "Booking..." : "Book Appointment"}
+                {loading ? "Booking..." : "Book Appointment"}
               
             </Fade>
-            {false && (
-              <p className="text-green-500 mt-1 text-center">
-                Appointment received successfully, Thank you!
-              </p>
-            )}
-            {false && <p className="text-red-500 mt-1 text-center">error</p>}
-          </div>
+            
+          </button>
         </form>
       </div>
     </div>
