@@ -6,6 +6,7 @@ import doctorsData from "../../data/dataprovider/doctordata";
 
 
 const Team = () => {
+  
   var doctors=doctorsData;
   return (
     <section className="mt-16  bg-slate-100 " id="team">

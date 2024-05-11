@@ -22,7 +22,7 @@ import {
   setReqSymptoms,
   setAdditionalInfo,
   setScanType,
-  backToInitialState
+  backToInitialState,
 } from "../lib/reducers/scanNow";
 import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/navigation";
@@ -31,12 +31,11 @@ import { RootState } from "../lib/store";
 import TipsResult from "./tipsResult";
 import ResponseScreenLoading from "./loading";
 const FileUploadComponent = () => {
- 
   const [uploading, setUploading] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedFile, setSelectedFile] = useState<File>();
   const [open, setOpen] = useState(false);
-  
+
   const dispatch = useDispatch();
   const router = useRouter();
   const reqSymptoms = useSelector((state: RootState) => state.scanNow.symptoms);
@@ -84,42 +83,35 @@ const FileUploadComponent = () => {
       const response = await axios.post(scanNow, formData);
 
       console.log(response.data);
-      if(response.data.success){
-        
-      dispatch(setResponse(response.data.aiResponse));
-      
+      if (response.data.success) {
+        dispatch(setResponse(response.data.aiResponse));
       }
     } catch (error: any) {
       alert("error occured while Diagnosis please try again later");
-       router.push("/scannow");
+      router.push("/scannow");
     }
     console.log("selectedFile req gone through axios");
-    
+
     setLoading(false);
   };
   const handleClose = () => {
     setOpen(false);
     setLoading(false);
-    dispatch(setReqSymptoms(""));
-    dispatch(setAdditionalInfo(""));
     setUploading(false);
-    setSelectedImage("");
-    dispatch(setImageName(""));
-    dispatch(setImageUrl(""));
-    dispatch(setResponse({}));
- 
-    dispatch(setScanType("disease"));
-    dispatch(scanFailure(""));
-   dispatch(backToInitialState())
+    dispatch(backToInitialState());
     setSelectedImage("");
     setSelectedFile(undefined);
-
+    const fileInput = document.getElementById("fileInput") as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = ""; // Reset file input
+    }
   };
 
   return (
     <div className="">
       <label>
         <input
+          id="fileInput"
           type="file"
           hidden
           onChange={({ target }) => {
@@ -140,6 +132,12 @@ const FileUploadComponent = () => {
                 className="relative right-3 top-0 bg-blue-800 rounded"
                 onClick={() => {
                   setSelectedImage("");
+                  const fileInput = document.getElementById(
+                    "fileInput"
+                  ) as HTMLInputElement;
+                  if (fileInput) {
+                    fileInput.value = ""; // Reset file input
+                  }
                 }}
               />
             </div>
@@ -163,11 +161,8 @@ const FileUploadComponent = () => {
         {uploading ? "Uploading.." : "Upload"}
       </button>
       <Modal open={open} onClose={() => handleClose()}>
-        
         {success === false ? (
-          <div
-            className={`text-center `}
-          >
+          <div className={`text-center `}>
             <div className="mx-auto my-4 ">
               <h3 className="text-lg font-black text-gray-800 pt-[10%]">
                 {type === "disease" ? "Disease Symptoms" : "Beauty Tips Topic"}{" "}
@@ -182,24 +177,42 @@ const FileUploadComponent = () => {
               <SymptomSelector></SymptomSelector>
               <button
                 onClick={handleDiagnose}
-                className={`${loading ? 'bg-slate-400' : ''} bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4`}
+                className={`${
+                  loading ? "bg-slate-400" : ""
+                } bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4`}
               >
-                {loading ? (<img src="loader.gif" className="w-14 h-14 relative left-[30%]" alt="loader" />) : 'Diagnose'}
+                {loading ? (
+                  <img
+                    src="loader.gif"
+                    className="w-14 h-14 relative left-[30%]"
+                    alt="loader"
+                  />
+                ) : (
+                  "Diagnose"
+                )}
               </button>
             </div>
           </div>
-        ) : <>{
-          loading?<ResponseScreenLoading></ResponseScreenLoading>:
-          <div className="p-6">
-            <>
-              {type === "disease" ? (
-                <SkinAnalysisResult apiResponse={analysis}></SkinAnalysisResult>
-              ) : (
-                <TipsResult apiResponse={analysis}></TipsResult>
-              )}
-            </>
-          </div>
-        }</> }
+        ) : (
+          <>
+            {loading ? (
+              <ResponseScreenLoading></ResponseScreenLoading>
+            ) : (
+              <div className="p-6">
+                <>
+                  {type === "disease" ? (
+                    <SkinAnalysisResult
+                      apiResponse={analysis}
+                      close={handleClose}
+                    ></SkinAnalysisResult>
+                  ) : (
+                    <TipsResult apiResponse={analysis} close={handleClose}></TipsResult>
+                  )}
+                </>
+              </div>
+            )}
+          </>
+        )}
       </Modal>
     </div>
   );

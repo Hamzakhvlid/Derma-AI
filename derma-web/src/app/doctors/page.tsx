@@ -147,7 +147,7 @@ const Doctors = () => {
                   : id.experienceYears.toString() + " years"
               }
               isVerfied={id.isApproved}
-              reviews={0}
+              reviews={id.reviewsCount}
               speciality={id.specialization}
               satisfaction={97}
               key={id._id}

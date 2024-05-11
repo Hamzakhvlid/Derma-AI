@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/navigation";
 
-function SkinAnalysisResult({ apiResponse }: { apiResponse: any }) {
+function SkinAnalysisResult({ apiResponse, close }: { apiResponse: any, close:any }) {
   const code=apiResponse.status_code;
   const router=useRouter();
   const { status_code, ...rest } =  apiResponse;
@@ -13,7 +13,7 @@ function SkinAnalysisResult({ apiResponse }: { apiResponse: any }) {
   }
   return (<>
     <div className="flex flex-col justify-between items-center align-middle">
-      <div className="h-[80vh] overflow-y-scroll lg:h-[80vh] lg:overflow-auto">
+      <div className="h-[60vh] overflow-y-scroll  lg:overflow-auto">
       {Object.entries(apiResponse).map(([key, value]) => (
         <tr key={key}>
           <td>{key}</td>
@@ -58,7 +58,7 @@ function SkinAnalysisResult({ apiResponse }: { apiResponse: any }) {
       ))}
      
     </div>
-    <div className="flex pt-2 justify-center"> {code===400?<Link   href={"/"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Try Again</Link>:<Link href={"/doctors"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Book Appointment</Link>}</div>
+    <div onClick={close} className="flex pt-2 justify-center"> {code===400?<Link   href={"/"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Try Again</Link>:<Link href={"/doctors"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Book Appointment</Link>}</div>
     
       
     </div>

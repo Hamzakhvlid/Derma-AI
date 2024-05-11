@@ -35,6 +35,7 @@ export interface Root {
     experience: Experience[]
     isPublic: boolean
     experienceYears: number
+    reviewsCount: number
   }
   
   export interface Qualification {

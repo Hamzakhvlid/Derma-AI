@@ -10,6 +10,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Testimonials from './components/Testimonials';
 import ScanHistory from './components/scanhistory';
+import AppointmentHistory from './components/appointmenthistory';
 
 
 export default function HomePage() {
@@ -18,7 +19,7 @@ export default function HomePage() {
    
     
      <Hero />
-     <ScanHistory />
+     <div className='px-7 mb-5'><AppointmentHistory /></div>
       <Services />
       <Features  /> 
       <Team />

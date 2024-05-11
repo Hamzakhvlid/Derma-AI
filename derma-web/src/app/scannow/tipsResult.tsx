@@ -4,7 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@radix-ui/themes";
 
-function tipsResult({ apiResponse }: { apiResponse: any }) {
+function tipsResult({ apiResponse, close }: { apiResponse: any, close: any }) {
   const code=apiResponse.status_code;
   const router=useRouter();
   const { status_code, ...rest } =  apiResponse;
@@ -14,7 +14,7 @@ function tipsResult({ apiResponse }: { apiResponse: any }) {
   }
   apiResponse=rest; 
   return ( 
-    <div className="h-[80vh] overflow-y-scroll overflow-x-scroll sm:overflow-x-auto">
+    <div className="h-[60vh] overflow-y-scroll overflow-x-scroll sm:overflow-x-auto">
       
           <span role="img" aria-label="Sun and moon emoji">
             ☀️🌙
@@ -63,7 +63,7 @@ function tipsResult({ apiResponse }: { apiResponse: any }) {
           </td>
         </tr>
       ))}
-      <div className="flex pt-2 justify-center"> {code===400?<Link href={"/"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Try Again</Link>:<Link href={"/doctors"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Book Appointment</Link>}</div>
+      <div onClick={close} className="flex pt-2 justify-center"> {code===400?<Link href={"/"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Try Again</Link>:<Link href={"/doctors"} className="bg-blue-900 p-3 w-32 text-center rounded text-white  ml-4 mt-4">Book Appointment</Link>}</div>
     </div>
   );
 }
