@@ -87,24 +87,24 @@ const Services = () => {
           </Fade>
           <Fade>
             <li className="bg-slate-200 ">
-            <div className="h-[250px]"> <Image width={200} height={200} src={'/skintest.jpg'}  alt="" className="object-cover h-full w-full" />
+            <div className="h-[250px]"> <Image width={200} height={200} src={'/appointment.png'}  alt="" className="object-cover h-full w-full" />
 </div>
              
               <div className="relative py-2">
                 <h3 className="text-m text-center text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                  Skin Allergy Test
+                 Appointment Booking
                 </h3>
               </div>
             </li>
           </Fade>
           <Fade>
             <li className="bg-slate-200">
-            <div className="h-[250px]"> <Image width={200} height={200} src={'/medicines.jpg'} alt="" className="object-cover h-full w-full" />
+            <div className="h-[250px]"> <Image width={200} height={200} src={'/tips.png'} alt="" className="object-cover h-full w-full" />
 </div>
              
               <div className="relative py-2">
                 <h3 className="text-m text-center text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                   Skin Care prodcuts & Medicines
+                   Skin Care Tips & Tricks
                 </h3>
               </div>
             </li>

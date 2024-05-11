@@ -4,8 +4,9 @@ import Fade from "react-awesome-reveal";
 import sampleDoctorData from "@/app/homePage/components/sampleDoctorData";
 import { bookAppointment } from "@/app/Api/baseUrl";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/lib/store";
+import { setResponse } from "@/app/lib/reducers/scanNow";
 
 const BookAppointmentCardContactInfo = (props: {
   doctorID: string;
@@ -45,7 +46,7 @@ const BookAppointmentCardContactInfo = (props: {
   const todayString = today.toISOString().split('T')[0];
   const nextTwentyDaysString = nextTwentyDays.toISOString().split('T')[0];
   const [loading,setLoading] = useState(false);
-
+  const dispatch = useDispatch();
   const handleSubmit = async (e:any) => {
     setLoading(true);
     e.preventDefault();
@@ -78,6 +79,7 @@ const BookAppointmentCardContactInfo = (props: {
       });
       if (response.status == 200) {
         toast.success("Appointment booked successfully");
+        dispatch(setResponse({}));
       }
       else{ 
         
