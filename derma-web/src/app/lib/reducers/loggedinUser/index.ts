@@ -10,6 +10,7 @@ type ProfileProps = {
   accessToken?: string
   role?: string
   scanCredits?: number
+  phoneNumber?: string
 
 };
 

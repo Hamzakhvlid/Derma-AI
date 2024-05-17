@@ -40,7 +40,7 @@ const Hero = () => {
                 <Link
                   href="scannow"
                  
-                  className="underline-offset-2 inline-flex items-center text-xl font-bold text-blue-600 underline transition-colors duration-200 hover:underline"
+                  className="underline-offset-2  items-center text-xl font-bold text-blue-600 underline transition-colors duration-200 hover:underline hidden md:inline-flex"
                 >
                   Scan Now
                 </Link>

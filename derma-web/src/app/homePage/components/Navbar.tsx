@@ -116,7 +116,7 @@ const Navbar = () => {
       }`}
       style={{ zIndex: showMenu ? 999 : "10" }}
     >
-      <div className="md:hidden">
+      {profile?.role === "patient" && <div className="md:hidden">
         <button onClick={showDrawer}>
           <svg
             className={`h-6 w-6 font-semibold  text-blue-900 ${
@@ -135,7 +135,7 @@ const Navbar = () => {
           </svg>
         </button>
         {drawer && <Drawer close={showDrawer} key={"1"}/>}
-      </div>
+      </div>}
       <Link
         href="/"
         className={`flex items-center whitespace-nowrap   cursor-pointer text-2xl font-bold  ${
@@ -145,7 +145,7 @@ const Navbar = () => {
       >
         {" "}
         <span className="mr-1 text-xl text-blue-500">
-          <img src="appLogo.png" width={"38px"} height="28px" alt="" />
+          <img src="dermalogo.png" width={"38px"} height="28px" alt="" />
         </span>
         Derma AI
       </Link>
