@@ -145,7 +145,7 @@ const Navbar = () => {
       >
         {" "}
         <span className="mr-1 text-xl text-blue-500">
-          <img src="dermalogo.png" width={"38px"} height="28px" alt="" />
+          <img src="/dermalogo.png" width={"38px"} height="28px" alt="" />
         </span>
         Derma AI
       </Link>
