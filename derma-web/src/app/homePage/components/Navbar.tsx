@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { TbDotsVertical } from "react-icons/tb";
 import Drawer from "./Drawer";
 import axios from "axios";
+import { AlertDialog, Button, Flex } from "@radix-ui/themes";
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
@@ -17,17 +18,15 @@ const Navbar = () => {
 
   const showDrawer = () => {
     setDrawer(!drawer);
-
-  }
+  };
   // Access the user state
- 
+
   const userState = useSelector((state: RootState) => state.user);
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLogin);
-  
+
   const { user, profile, roles, isAdmin } = userState;
 
   // Access specific properties from the user state
-
 
   const loggedInUser = useSelector((state: RootState) => state.user.user);
 
@@ -84,6 +83,11 @@ const Navbar = () => {
       link: "/#contact",
       label: "Book Now",
     },
+    {
+      id:6,
+      link: "/blogs",
+      label: "Blogs"
+    }
   ];
 
   const mobilelink = [
@@ -107,7 +111,6 @@ const Navbar = () => {
     setShowMenu(!showMenu);
   };
 
-
   return (
     <header
       id="navbar"
@@ -116,26 +119,28 @@ const Navbar = () => {
       }`}
       style={{ zIndex: showMenu ? 999 : "10" }}
     >
-      {profile?.role === "patient" && <div className="md:hidden">
-        <button onClick={showDrawer}>
-          <svg
-            className={`h-6 w-6 font-semibold  text-blue-900 ${
-              showNavbar ? "text-blue-900" : "text-blue-400"
-            }`}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
-        {drawer && <Drawer close={showDrawer} key={"1"}/>}
-      </div>}
+      {profile?.role === "patient" && (
+        <div className="md:hidden">
+          <button onClick={showDrawer}>
+            <svg
+              className={`h-6 w-6 font-semibold  text-blue-900 ${
+                showNavbar ? "text-blue-900" : "text-blue-400"
+              }`}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+          {drawer && <Drawer close={showDrawer} key={"1"} />}
+        </div>
+      )}
       <Link
         href="/"
         className={`flex items-center whitespace-nowrap   cursor-pointer text-2xl font-bold  ${
@@ -215,9 +220,14 @@ const Navbar = () => {
                   <h4 className="p-1 justify-center self-center">
                     {profile.username}
                   </h4>
-                  
+
                   <h4 className="p-1">{profile.email}</h4>
-                  <h4 className="p-1"><span className="text-[black] font-bold text-sm ">Scan Credits :</span>{profile.scanCredits}</h4>
+                  <h4 className="p-1">
+                    <span className="text-[black] font-bold text-sm ">
+                      Scan Credits :
+                    </span>
+                    {profile.scanCredits}
+                  </h4>
                 </div>
 
                 <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
@@ -246,9 +256,27 @@ const Navbar = () => {
                 <DropdownMenu.Item>Share</DropdownMenu.Item>
                 <DropdownMenu.Item>Add to favorites</DropdownMenu.Item>
                 <DropdownMenu.Separator />
-                <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
-                  Delete
-                </DropdownMenu.Item>
+                  <AlertDialog.Root>
+                    <AlertDialog.Trigger>Logout</AlertDialog.Trigger>
+                    <AlertDialog.Content>
+                      <AlertDialog.Title>Logout</AlertDialog.Title>
+                      <AlertDialog.Description size="2" color="red">
+                        Are you sure? This application will no longer be
+                        accessible and any existing sessions will be expired.
+                      </AlertDialog.Description>
+
+                      <Flex gap="3" mt="4" justify="end">
+                        <AlertDialog.Cancel>
+                          <Button variant="soft" color="gray">
+                            Cancel
+                          </Button>
+                        </AlertDialog.Cancel>
+                        <AlertDialog.Action>
+                          <Button color="red">Logout</Button>
+                        </AlertDialog.Action>
+                      </Flex>
+                    </AlertDialog.Content>
+                  </AlertDialog.Root>
               </DropdownMenu.Content>
             </DropdownMenu.Root>
           )}

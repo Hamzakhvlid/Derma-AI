@@ -11,3 +11,9 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
+
+module.exports = {
+    images: {
+      domains: ['img.freepik.com'], // Add your desired domains here
+    },
+  };
