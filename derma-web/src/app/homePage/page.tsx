@@ -11,11 +11,13 @@ import Footer from './components/Footer';
 import Testimonials from './components/Testimonials';
 import ScanHistory from './components/scanhistory';
 import AppointmentHistory from './components/appointmenthistory';
+import { useTheme } from "next-themes";
 
 
 export default function HomePage() {
+  const { setTheme, resolvedTheme } = useTheme();
   return (
-   <div className='bg-white fancybackground'>
+   <div className={`bg-white dark:bg-gray-900 ${resolvedTheme === 'dark' ? '' : 'fancybackground'} `}>
    
     
      <Hero />

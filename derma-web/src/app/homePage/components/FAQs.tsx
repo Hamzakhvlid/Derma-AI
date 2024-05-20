@@ -2,7 +2,7 @@ import { Fade } from "react-awesome-reveal";
 
 const FAQs = () => {
   return (
-    <section id="faqs" className="bg-white pb-7 text-slate-900">
+    <section id="faqs" className="bg-white dark:bg-slate-800 pb-7 text-slate-900 dark:text-white">
       <div className="container  flex flex-col justify-center p-3 mx-auto md:p-8">
         <Fade>
           <h2 className="mb-10 mt-10 text-3xl font-bold leading-none text-center sm:mx-4">

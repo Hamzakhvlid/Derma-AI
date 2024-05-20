@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Avatar, DropdownMenu } from "@radix-ui/themes";
+import { Avatar, DropdownMenu, Theme } from "@radix-ui/themes";
+import "@radix-ui/themes/styles.css";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/lib/store";
 import { useRouter } from "next/navigation";
@@ -9,12 +10,17 @@ import { TbDotsVertical } from "react-icons/tb";
 import Drawer from "./Drawer";
 import axios from "axios";
 import { AlertDialog, Button, Flex } from "@radix-ui/themes";
+import { FiSun, FiMoon } from "react-icons/fi";
+import { useTheme } from "next-themes";
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [drawer, setDrawer] = useState(false);
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+  const { setTheme, resolvedTheme } = useTheme();
+  useEffect(() => setMounted(true), []);
 
   const showDrawer = () => {
     setDrawer(!drawer);
@@ -84,10 +90,10 @@ const Navbar = () => {
       label: "Book Now",
     },
     {
-      id:6,
+      id: 6,
       link: "/blogs",
-      label: "Blogs"
-    }
+      label: "Blogs",
+    },
   ];
 
   const mobilelink = [
@@ -113,7 +119,7 @@ const Navbar = () => {
 
   return (
     <header
-      id="navbar"
+      id={`${resolvedTheme === 'dark' ? 'darknavbar' : 'navbar'}`}
       className={`fixed w-full flex items-center  justify-between px-4 py-3 text-blue-900 transition-all ${
         showNavbar ? "bg-white/50 shadow-md backdrop-blur-lg " : ""
       }`}
@@ -185,82 +191,77 @@ const Navbar = () => {
               </Link>
             </li>
           ) : (
-            <DropdownMenu.Root>
-              <DropdownMenu.Trigger>
-                <div>
-                  <Avatar
-                    radius="full"
-                    size="4"
-                    className={`cursor-pointer self-center justify-center  text-white ${
-                      profile?.role === "patient" ? "" : ""
-                    }`}
-                    src={profile?.image ?? ""}
-                    fallback={
-                      (profile.firstname ?? "")[0] + (profile.lastname ?? "")[0]
-                    }
-                  />
-                </div>
-              </DropdownMenu.Trigger>
-              <DropdownMenu.Content>
-                <div className="flex flex-col align-middle bg-[#f1f5f9] mt-2 justify-center p-2">
-                  <Avatar
-                    radius="full"
-                    size="4"
-                    className={`cursor-pointer self-center justify-center ${
-                      profile?.role === "patient"
-                        ? "text-[#f4581c]"
-                        : "text-blue-900"
-                    }`}
-                    src={profile?.image ?? ""}
-                    fallback={
-                      (profile.firstname ?? "")[0] + (profile.lastname ?? "")[0]
-                    }
-                  />
+            <Theme>
+              <DropdownMenu.Root>
+                <DropdownMenu.Trigger>
+                  <div>
+                    <Avatar
+                      radius="full"
+                      size="4"
+                      className={`cursor-pointer self-center justify-center  text-white ${
+                        profile?.role === "patient" ? "" : ""
+                      }`}
+                      src={profile?.image ?? ""}
+                      fallback={
+                        (profile.firstname ?? "")[0] +
+                        (profile.lastname ?? "")[0]
+                      }
+                    />
+                  </div>
+                </DropdownMenu.Trigger>
+                <DropdownMenu.Content>
+                  <div className="flex flex-col align-middle bg-[#f1f5f9] mt-2 justify-center p-2">
+                    <Avatar
+                      radius="full"
+                      size="4"
+                      className={`cursor-pointer self-center justify-center ${
+                        profile?.role === "patient"
+                          ? "text-[#f4581c]"
+                          : "text-blue-900"
+                      }`}
+                      src={profile?.image ?? ""}
+                      fallback={
+                        (profile.firstname ?? "")[0] +
+                        (profile.lastname ?? "")[0]
+                      }
+                    />
 
-                  <h4 className="p-1 justify-center self-center">
-                    {profile.username}
-                  </h4>
+                    <h4 className="p-1 justify-center self-center">
+                      {profile.username}
+                    </h4>
 
-                  <h4 className="p-1">{profile.email}</h4>
-                  <h4 className="p-1">
-                    <span className="text-[black] font-bold text-sm ">
-                      Scan Credits :
-                    </span>
-                    {profile.scanCredits}
-                  </h4>
-                </div>
+                    <h4 className="p-1">{profile.email}</h4>
+                    <h4 className="p-1">
+                      <span className="text-[black] font-bold text-sm ">
+                        Scan Credits :
+                      </span>
+                      {profile.scanCredits}
+                    </h4>
+                  </div>
 
-                <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
-                <DropdownMenu.Item
-                  shortcut="🩺"
-                  onClick={() => router.push("/registerdoctor")}
-                >
-                  Switch to doctor
-                </DropdownMenu.Item>
-                <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
-                <DropdownMenu.Separator />
-                <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
-
-                <DropdownMenu.Sub>
-                  <DropdownMenu.SubTrigger>More</DropdownMenu.SubTrigger>
-                  <DropdownMenu.SubContent>
-                    <DropdownMenu.Item>Move to project…</DropdownMenu.Item>
-                    <DropdownMenu.Item>Move to folder…</DropdownMenu.Item>
-
-                    <DropdownMenu.Separator />
-                    <DropdownMenu.Item>Advanced options…</DropdownMenu.Item>
-                  </DropdownMenu.SubContent>
-                </DropdownMenu.Sub>
-
-                <DropdownMenu.Separator />
-                <DropdownMenu.Item>Share</DropdownMenu.Item>
-                <DropdownMenu.Item>Add to favorites</DropdownMenu.Item>
-                <DropdownMenu.Separator />
+                  <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
+                  <DropdownMenu.Item
+                    shortcut="🩺"
+                    onClick={() => router.push("/registerdoctor")}
+                  >
+                    Switch to doctor
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item onClick={() => setTheme(resolvedTheme === "dark" ? 'light':'dark')}>
+                    Theme{" "}
+                    {resolvedTheme === "dark" ? (
+                      <FiSun onClick={() => setTheme("light")} />
+                    ) : (
+                      <FiMoon onClick={() => setTheme("dark")} />
+                    )}
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Separator />
                   <AlertDialog.Root>
-                    <AlertDialog.Trigger>Logout</AlertDialog.Trigger>
+                    <AlertDialog.Trigger>
+                      <Button color="red">Logout</Button>
+                    </AlertDialog.Trigger>
                     <AlertDialog.Content>
                       <AlertDialog.Title>Logout</AlertDialog.Title>
-                      <AlertDialog.Description size="2" color="red">
+                      <AlertDialog.Description size="2" >
                         Are you sure? This application will no longer be
                         accessible and any existing sessions will be expired.
                       </AlertDialog.Description>
@@ -272,13 +273,16 @@ const Navbar = () => {
                           </Button>
                         </AlertDialog.Cancel>
                         <AlertDialog.Action>
-                          <Button color="red">Logout</Button>
+                          <Button variant="solid" color="red">
+                            Logout
+                          </Button>
                         </AlertDialog.Action>
                       </Flex>
                     </AlertDialog.Content>
                   </AlertDialog.Root>
-              </DropdownMenu.Content>
-            </DropdownMenu.Root>
+                </DropdownMenu.Content>
+              </DropdownMenu.Root>
+            </Theme>
           )}
         </ul>
       </nav>

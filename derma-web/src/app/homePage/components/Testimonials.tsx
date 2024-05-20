@@ -20,11 +20,11 @@ export default function App() {
           <header className="">
             <div className="max-w-xl mb-0 mx-auto sm:text-center lg:max-w-2xl md:mb-12">
               <div>
-                <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400">
+                <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400 dark:text-white">
                   Testimonials
                 </p>
               </div>
-              <h2 className="max-w-lg mb-0 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+              <h2 className="max-w-lg mb-0 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto dark:text-white">
                 <span className="relative inline-block">
                   <svg
                     viewBox="0 0 52 24"
@@ -88,7 +88,7 @@ export default function App() {
             },
           }}
         >
-          {reviewsList.map((review) => ( <SwiperSlide id={review.id.toString()} className="flex rounded-[4px] my-10 justify-center items-center bg-slate-100">
+          {reviewsList.map((review) => ( <SwiperSlide id={review.id.toString()} className="flex rounded-[4px] my-10 justify-center items-center bg-slate-100 dark:bg-slate-800 dark:text-white">
             <div className="my-auto carousel-item active relative float-left w-full">
               <img
                 className="rounded-full shadow-lg mb-6 mt-6  w-24 mx-auto"

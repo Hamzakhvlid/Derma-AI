@@ -27,7 +27,7 @@ const Contact = () => {
   return (
     <div id="contact-us" className="max-w-screen-lg mx-auto p-2 mb-16 md:mb-0">
       <div className="grid grid-cols-1 md:grid-cols-12 border rounded-md">
-        <div className="bg-slate-100 md:col-span-4 p-7 text-gray-900">
+        <div className="bg-slate-100 dark:bg-slate-800 md:col-span-4 p-7 text-gray-900 dark:text-white">
           <p className="mt-4 text-sm leading-7 font-regular uppercase">
             Contact
           </p>

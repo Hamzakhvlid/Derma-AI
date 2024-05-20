@@ -8,6 +8,9 @@ import Providers from "./lib/provider";
 import BottomNavigationBar from "./homePage/components/BottomNavigationBar";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Suspense } from "react";
+import HomePageLoading from "./loading";
+import { ThemeProvidersComp } from "./themeprovider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,13 +31,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <Providers>
         <Theme>
+          <ThemeProvidersComp>
           <Navbar />
-          <body className={inter.className}>{children}</body>
+          <Suspense fallback={<HomePageLoading />}><body className={inter.className}>{children}</body></Suspense>
           <BottomNavigationBar />
           <ToastContainer />
+          </ThemeProvidersComp>
         </Theme>
       </Providers>
     </html>

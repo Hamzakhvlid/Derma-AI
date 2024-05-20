@@ -17,11 +17,11 @@ const Services = () => {
           <Fade>
             <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
               <div>
-                <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400">
+                <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 dark:text-white uppercase rounded-full bg-teal-accent-400">
                   Services
                 </p>
               </div>
-              <h2 className="max-w-[40rem] mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+              <h2 className="max-w-[40rem] mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 dark:text-white sm:text-4xl md:mx-auto">
                 <span className="relative inline-block">
                   <svg
                     viewBox="0 0 52 24"
@@ -45,22 +45,22 @@ const Services = () => {
                       height="24"
                     />
                   </svg>
-                  <span className="relative"> The </span>
+                  <span className="relative dark:text-white"> The </span>
                 </span>{" "}
                 Suite of Skin-care <span className="text-blue-500">Services</span>{" "}
                 we offers
               </h2>
 
-              <p className="max-w-[40rem] text-md mx-auto mt-4 text-gray-500">
+              <p className="max-w-[40rem] text-md mx-auto mt-4 text-gray-500 dark:text-white">
               Derma AI provides a comprehensive suite of dermatological services, including general dermatology, cosmetic dermatology, pediatric dermatology, and emergency dermatology. Our cutting-edge AI technology can help you detect and diagnose skin diseases with unparalleled accuracy and efficiency.
               </p>
             </div>
           </Fade>
         </header>
 
-        <ul className="grid gap-4 h-30 mt-6 sm:grid-cols-2   lg:grid-cols-4 mr-2 ">
+        <ul className="grid gap-4 h-30 mt-6 sm:grid-cols-2   lg:grid-cols-4 mr-2  dark:text-white">
           <Fade>
-            <li className="bg-slate-200  ">
+            <li className="bg-slate-200  dark:bg-slate-800">
               <div className="h-[250px]">  <Image src={'/AIface.jpg'} alt="" width={200} height={200} className="object-cover h-full w-full" /></div>
             
 
@@ -74,7 +74,7 @@ const Services = () => {
 
         
           <Fade>
-            <li className="bg-slate-200">
+            <li className="bg-slate-200 dark:bg-slate-800">
               <div className="h-[250px]"> <Image width={200} height={200} src={'/cosmeticderma.jpg'}   alt="" className="object-cover h-full w-full" /></div>
              
 
@@ -86,7 +86,7 @@ const Services = () => {
             </li>
           </Fade>
           <Fade>
-            <li className="bg-slate-200 ">
+            <li className="bg-slate-200 dark:bg-slate-800">
             <div className="h-[250px]"> <Image width={200} height={200} src={'/appointment.png'}  alt="" className="object-cover h-full w-full" />
 </div>
              
@@ -98,7 +98,7 @@ const Services = () => {
             </li>
           </Fade>
           <Fade>
-            <li className="bg-slate-200">
+            <li className="bg-slate-200 dark:bg-slate-800">
             <div className="h-[250px]"> <Image width={200} height={200} src={'/tips.png'} alt="" className="object-cover h-full w-full" />
 </div>
              
@@ -112,7 +112,7 @@ const Services = () => {
          
          
           <Fade>
-            <li className="bg-slate-200 rounded-[4px]">
+            <li className="bg-slate-200 dark:bg-slate-800 rounded-[4px]">
             <div className="h-[250px]"><Image src={Consultation.src} width={200} height={200} alt=""  className="object-cover h-full w-full"/></div>
               
 
@@ -124,7 +124,7 @@ const Services = () => {
             </li>
           </Fade>
           <Fade  >
-            <li className="bg-slate-200 ">
+            <li className="bg-slate-200 dark:bg-slate-800">
               <div className="h-[250px] "
               > <Image width={200} height={200} src={'/acne.jpg'}   alt="" className="object-cover h-full w-full" />
               </div>
