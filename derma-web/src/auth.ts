@@ -16,8 +16,8 @@ export const {
 } = NextAuth({
     providers: [
         GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID ?? "358039047057-4gcqda9vsmfm2ms495hkgermi9acnbhb.apps.googleusercontent.com",
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "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",
+            clientId: process.env.GOOGLE_CLIENT_ID ,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
             authorization: {
                 params: {
                     access_type: "offline",
