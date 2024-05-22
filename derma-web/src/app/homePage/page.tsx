@@ -1,4 +1,4 @@
-"use client";
+
 import Image from 'next/image'
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -14,6 +14,9 @@ import AppointmentHistory from './components/appointmenthistory';
 import { useTheme } from "next-themes";
 
 
+
+
+
 export default function HomePage() {
   const { setTheme, resolvedTheme } = useTheme();
   return (
@@ -25,7 +28,7 @@ export default function HomePage() {
       <Services />
       <Features  /> 
       <Team />
-      <Testimonials />
+    
       <FAQs/>
       <Contact />
       < Footer />  

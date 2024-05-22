@@ -2,9 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 type ProfileProps = {
   _id?: string
-  firstname?: string
-  lastname?: string
-  image?: string
+  first_name?: string
+  last_name?: string
+ 
+imageUrl?: string
   email?: string
   username?: string
   accessToken?: string

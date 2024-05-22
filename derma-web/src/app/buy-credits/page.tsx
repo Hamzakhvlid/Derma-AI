@@ -1,29 +1,41 @@
 "use client";
 import React from 'react';
 import {useState} from 'react';
-import { buyCredits } from '../Api/baseUrl';
+import { baseUrl, buyCredits } from '../api/baseUrl';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { RootState } from '../lib/store';
 const PurchaseCreditsPage = () => {
 
   const [message, setMessage] = useState("");
  const [sucess,setSuccess]=useState(false);
+ const router = useRouter();
+ const token = useSelector((state: RootState) => state.user.profile.accessToken);
   const Credits= async (plan:String) => {
 
     // Call the API to buy credits
-    const response = await fetch(buyCredits, {
+    console.log(localStorage.getItem('accessToken'));
+    const res = await fetch(buyCredits, {
       method: 'POST',
       body: JSON.stringify({packageType:plan}),
       headers: {
-        'authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+        'authorization': 'Bearer ' + token,
         'Content-Type': 'application/json',
   }},
 );
+const data = await res.json();
 
-    if(response.status==200){
+    if(res.status==200){
+      // Redirect to the session page
+    router.push(data.session);
+      //router.push(response);
       setSuccess(true);
     }
-    const data = await response.json();
-    toast("Congratulations 🎊 your Credit has been Updated ");
+   
+    else{
+      toast.error(data.message);
+    }
 
     setMessage(data.message);
   }

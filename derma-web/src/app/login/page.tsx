@@ -4,8 +4,8 @@ import { useFormik } from "formik";
 import { loginSchema } from "../schemas";
 import { useState } from "react";
 import axios from "axios";
-import { loginApi } from "../Api/baseUrl";
-import { actions } from "../lib/authSlice";
+import { loginApi } from "../api/baseUrl";
+import {login } from "../lib/authSlice";
 import { setProfile } from "../lib/reducers/loggedinUser";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -47,7 +47,7 @@ export default function LoginPage() {
             localStorage.setItem("accessToken", response.data.data.accessToken);
  
            
-            dispatch(actions.login(true));
+            dispatch(login(true));
             console.log(response);
             console.log(res_data.data);
             dispatch(setProfile(res_data.data));

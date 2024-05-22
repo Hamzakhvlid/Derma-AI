@@ -1,6 +1,6 @@
 
 
-import { Fade } from "react-awesome-reveal";
+
 // import Doctors from "./doctors/page";
 import doctorsData from "../../data/dataprovider/doctordata";
 
@@ -11,7 +11,7 @@ const Team = () => {
   return (
     <section className="mt-16   " id="team">
       <div className="container px-6 py-12 mx-auto">
-        <Fade>
+ 
           <header className="">
             <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
               <div>
@@ -59,7 +59,7 @@ const Team = () => {
               </p>
             </div>
           </header>
-        </Fade>
+      
 
         <div className="grid gap-8 mt-12  md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
          

@@ -2,7 +2,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import { forgotPasswordSchema, signupSchema } from "../schemas";
-import { forgotPassword } from "../Api/baseUrl";
+import { forgotPassword } from "../api/baseUrl";
 import axios from "axios";
 import {  useState } from "react";
 import "./style.css";

@@ -1,17 +1,17 @@
-import { Fade } from "react-awesome-reveal";
+
 
 const FAQs = () => {
   return (
     <section id="faqs" className="bg-white dark:bg-slate-800 pb-7 text-slate-900 dark:text-white">
       <div className="container  flex flex-col justify-center p-3 mx-auto md:p-8">
-        <Fade>
+  
           <h2 className="mb-10 mt-10 text-3xl font-bold leading-none text-center sm:mx-4">
             {" "}
             Frequently Asked Questions
           </h2>
-        </Fade>
+ 
         <div className="flex flex-col divide-y divide-gray-300 sm:mx-12 lg:px-12 xl:px-32 mb-10">
-          <Fade>
+      
             <details>
               <summary className="py-2 outline-none cursor-pointer focus:font-semibold">
                 {" "}
@@ -30,7 +30,7 @@ const FAQs = () => {
                 <p className="px-4 pb-4"></p>
               </div>
             </details>
-          </Fade>
+       
           <FAQsFade
             answer={`Derma AI offers a comprehensive range of virtual
             dermatological services, leveraging advanced artificial
@@ -64,7 +64,7 @@ export default FAQs;
 
 const FAQsFade = (props: { question: String; answer: String }) => {
   return (
-    <Fade>
+   
       <details>
         <summary className="py-2 outline-none cursor-pointer focus:font-semibold">
           {" "}
@@ -75,6 +75,6 @@ const FAQsFade = (props: { question: String; answer: String }) => {
           <p className="px-4 pb-4"> </p>
         </div>
       </details>
-    </Fade>
+    
   );
 };

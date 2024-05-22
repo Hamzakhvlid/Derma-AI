@@ -2,7 +2,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import Fade from "react-awesome-reveal";
 import sampleDoctorData from "@/app/homePage/components/sampleDoctorData";
-import { bookAppointment } from "@/app/Api/baseUrl";
+import { bookAppointment } from "@/app/api/baseUrl";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/lib/store";

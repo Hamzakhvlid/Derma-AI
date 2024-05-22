@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
-import { Fade } from "react-awesome-reveal";
+
 import { Yesteryear } from "next/font/google";
 // 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
 
@@ -138,9 +138,9 @@ const Footer = () => {
             <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100">
               <img src="dermalogo.png" className="object-cover rounded-xl"/>
             </div>
-            <Fade>
+ 
               <span className="self-center text-2xl font-bold">Derma AI</span>
-            </Fade>
+    
           </a>
         </div>
 
@@ -340,7 +340,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <Fade>
+
         <div className="py-2 border-t text-sm px-1 flex justify-between">
 
         <div className="text-left dark:text-gray-400">
@@ -353,7 +353,7 @@ const Footer = () => {
         </div>
 
         
-      </Fade>
+    
     </footer>
   );
 };

@@ -4,13 +4,20 @@ import { useState } from "react";
 import Link from "next/link";
 import { useFormik } from "formik";
 import { signupSchema } from "../schemas";
-import { signup } from "../Api/baseUrl";
+import { signup } from "../api/baseUrl";
 import { useEffect } from "react";
 import axios from "axios";
 
 import "./style.css";
 import SucessMessage from "../forgotPassword/sucessMessage";
 import { toast } from "react-toastify";
+import {signIn} from 'next-auth/react'
+import { useDispatch } from "react-redux";
+import { setProfile,  } from "../lib/reducers/loggedinUser";
+import { auth } from "@/auth";
+import { login } from "../lib/authSlice";
+import { GoogleLogin } from '@react-oauth/google';
+import { redirect } from "next/navigation";
 interface Values {
   firstName: string;
   lastName: string;
@@ -29,8 +36,7 @@ const initialValues = {
   confirm_password: "",
 };
 
-
-
+import {doSocialLogin} from "../actions/index";
 
 
 
@@ -41,8 +47,25 @@ export default function SignUpPage() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [count, setCount] = useState(1);
+ const dispatch = useDispatch();
 
+  const signInWithGoogle = async () => {
+
+    try{
+      signIn("google",{redirectTo:"/"});
+
+     redirect("/");
    
+
+
+    }catch(error:any){
+      toast(error.message)
+    }
+  
+
+  
+  };
+  
   
     useEffect(() => {
       const interval = setInterval(() => {
@@ -219,17 +242,20 @@ export default function SignUpPage() {
           Or login with
         </h1>
 
-        <div className="flex mt-2 gap-2 w-full justify-center">
+        <div onClick={()=>doSocialLogin("google")} className="flex mt-2 gap-2 w-full justify-center">
           <img
             className="inlinew-[2.3rem] h-[2.3rem]  "
             src="googleLogo.png"
             alt=""
           />
+         
           <img
             className="inline w-[2rem] h-[2rem]  "
             src="appleLogo.png"
             alt=""
           />  </div></>}
+
+
         
       
       </div>

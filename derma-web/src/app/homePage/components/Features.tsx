@@ -1,5 +1,5 @@
 
-import { Fade } from "react-awesome-reveal";
+
 
 const Features = () => {
   return (
@@ -10,7 +10,7 @@ const Features = () => {
             Features
           </p>
         </div>
-        <Fade>
+
           <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
             <span className="relative inline-block">
               <svg
@@ -39,17 +39,17 @@ const Features = () => {
             </span>{" "}
             Comprehensive Skin Care Solution
           </h2>
-        </Fade>
-        <Fade>
-          <p className="text-base text-gray-700 dark:text-white md:text-lg">
+       
+     
+          <p className="text-base text-gray-700 md:text-lg">
             we are dedicated to delivering exceptional skin care with a focus
             on convenience, prevention, and effective treatments.
           </p>
-        </Fade>
+    
       </div>
 
       <div className="grid gap-4 row-gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <Fade>
+      
           <div className="flex flex-col justify-between p-5 border rounded shadow-sm">
             <div>
               <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
@@ -83,8 +83,7 @@ const Features = () => {
               Learn more
             </a>
           </div>
-        </Fade>
-        <Fade>
+      
           <div className="flex flex-col justify-between p-5 border rounded shadow-sm">
             <div>
               <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
@@ -116,8 +115,7 @@ const Features = () => {
               Learn more
             </a>
           </div>
-        </Fade>
-        <Fade>
+     
           <div className="flex flex-col justify-between p-5 border rounded shadow-sm">
             <div>
               <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
@@ -150,8 +148,7 @@ const Features = () => {
               Learn more
             </a>
           </div>
-        </Fade>
-        <Fade>
+     
           <div className="flex flex-col justify-between p-5 border rounded shadow-sm">
             <div>
               <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
@@ -184,7 +181,7 @@ const Features = () => {
               Learn more
             </a>
           </div>
-        </Fade>
+   
       </div>
     </div>
   );

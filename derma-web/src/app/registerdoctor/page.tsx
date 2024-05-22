@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import { useEffect } from "react";
 import "./style.css";
 import axios from "axios";
-import {  signup } from "../Api/baseUrl";
+import {  signup } from "../api/baseUrl";
 
 //initial values for form
 const initialValues = {

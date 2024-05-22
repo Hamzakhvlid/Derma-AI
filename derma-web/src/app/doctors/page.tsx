@@ -4,7 +4,7 @@ import sampleDoctorData from "../homePage/components/sampleDoctorData";
 import React, { useEffect, useState } from "react";
 import FilterDrawer from "./Filter/filter";
 import axios from "axios";
-import { doctor } from "../Api/baseUrl";
+import { doctor } from "../api/baseUrl";
 import FormData from "form-data";
 import { useDispatch, useSelector } from "react-redux";
 import { DoctorModel, setDoctor } from "../lib/reducers/doctors";

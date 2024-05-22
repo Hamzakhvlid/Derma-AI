@@ -42,6 +42,7 @@ export default function RootLayout({
           </ThemeProvidersComp>
         </Theme>
       </Providers>
+
     </html>
   );
 }

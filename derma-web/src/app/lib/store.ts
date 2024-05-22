@@ -3,7 +3,7 @@ import authReducer from "./authSlice";
 import sidebarReducer from "./sidebarSlice";
 import { persistReducer } from "redux-persist";
 
-import user from "./reducers/user";
+
 import { userSlice } from "./reducers/loggedinUser";
 import { doctorSlice } from "./reducers/doctors";
 import { scanNowSlice } from "./reducers/scanNow";

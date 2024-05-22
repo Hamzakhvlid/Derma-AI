@@ -1,5 +1,5 @@
 
-import { API_ROUTES } from "@/app/Api/baseUrl";
+import { API_ROUTES } from "@/app/api/baseUrl";
 import authSlice from "@/app/lib/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 

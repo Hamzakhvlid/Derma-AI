@@ -23,8 +23,9 @@ export const resetForgotPassword = baseUrl + "resetForgotPassword";
 export const forgotPassword = baseUrl + "forgotPassword";
 
 export const doctor = baseUrl + "getDoctors";
-export const uploadImage = baseUrl + "uploadImage";
+export const uploadImage = baseUrl + "uploadScanImage";
 export const scanNow = baseUrl + "scanNow";
 export const bookAppointment = baseUrl + "bookAppointment";
 
 export const getDoctorDetail = baseUrl + "getDetailedDoctor";
+export const googleSignin= baseUrl+"googleSignup"

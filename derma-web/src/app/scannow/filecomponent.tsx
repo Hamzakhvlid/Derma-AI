@@ -10,7 +10,7 @@ import Modal from "./modal";
 import SymptomSelector from "./sysmptoms";
 import Button from "../doctors/Button";
 import "./style.css";
-import { scanNow, uploadImage } from "../Api/baseUrl";
+import { scanNow, uploadImage } from "../api/baseUrl";
 import { json } from "stream/consumers";
 import { useDispatch, useSelector } from "react-redux";
 import {

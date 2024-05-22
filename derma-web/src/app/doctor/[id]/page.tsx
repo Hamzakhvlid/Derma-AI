@@ -1,16 +1,16 @@
 "use client";
 import Link from "next/link";
 import Button from "../../doctors/Button";
-import { Fade } from "react-awesome-reveal";
+
 import BookAppointmentCard from "../components/BookAppointmentCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { baseUrl } from "@/app/Api/baseUrl";
+import { baseUrl } from "@/app/api/baseUrl";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { Avatar } from "@radix-ui/themes";
 import DoctorDetailScreenLoading from "./loading";
-import { getDoctorDetail } from "@/app/Api/baseUrl";
+import { getDoctorDetail } from "@/app/api/baseUrl";
 
 const dummyAvailability = [
   { id: 1, from: "09:00", to: "12:00", location: "Hospital A", price:"1500" },
@@ -267,7 +267,7 @@ export default function DoctorDetailScreen({
 
             {
               doctor?.faqs && doctor?.faqs.length > 0 ? (doctor?.faqs.map((index) => (
-                <Fade>
+             
                   <details>
                     <summary className="py-2 outline-none cursor-pointer focus:font-semibold">
                       {" "}
@@ -278,7 +278,7 @@ export default function DoctorDetailScreen({
                       <p> {index.answer}</p>
                     </div>
                   </details>
-                </Fade>
+               
               ))) : (
                 <div className="text-sm bg-white p-4 rounded-lg  border-2">No FAQ's</div>
               )

@@ -9,7 +9,7 @@ import {
   forgotPassword,
   resetForgotPassword,
   signup,
-} from "../Api/baseUrl";
+} from "../api/baseUrl";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./style.css";

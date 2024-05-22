@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Consultation from "./Images/consultation.jpg";
 
-import { Fade } from "react-awesome-reveal";
+
 
 
 const Services = () => {
@@ -14,7 +14,7 @@ const Services = () => {
     <section className="px-5 wrapper " id="service">
       <div className=" ">
         <header className="">
-          <Fade>
+   
             <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
               <div>
                 <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 dark:text-white uppercase rounded-full bg-teal-accent-400">
@@ -55,12 +55,12 @@ const Services = () => {
               Derma AI provides a comprehensive suite of dermatological services, including general dermatology, cosmetic dermatology, pediatric dermatology, and emergency dermatology. Our cutting-edge AI technology can help you detect and diagnose skin diseases with unparalleled accuracy and efficiency.
               </p>
             </div>
-          </Fade>
+
         </header>
 
-        <ul className="grid gap-4 h-30 mt-6 sm:grid-cols-2   lg:grid-cols-4 mr-2  dark:text-white">
-          <Fade>
-            <li className="bg-slate-200  dark:bg-slate-800">
+        <ul className="grid gap-4 h-30 mt-6 sm:grid-cols-2   lg:grid-cols-4 mr-2 ">
+      
+            <li className="bg-slate-200  ">
               <div className="h-[250px]">  <Image src={'/AIface.jpg'} alt="" width={200} height={200} className="object-cover h-full w-full" /></div>
             
 
@@ -70,11 +70,11 @@ const Services = () => {
                 </h3>
               </div>
             </li>
-          </Fade>
+  
 
         
-          <Fade>
-            <li className="bg-slate-200 dark:bg-slate-800">
+   
+            <li className="bg-slate-200">
               <div className="h-[250px]"> <Image width={200} height={200} src={'/cosmeticderma.jpg'}   alt="" className="object-cover h-full w-full" /></div>
              
 
@@ -84,9 +84,8 @@ const Services = () => {
                 </h3>
               </div>
             </li>
-          </Fade>
-          <Fade>
-            <li className="bg-slate-200 dark:bg-slate-800">
+         
+            <li className="bg-slate-200 ">
             <div className="h-[250px]"> <Image width={200} height={200} src={'/appointment.png'}  alt="" className="object-cover h-full w-full" />
 </div>
              
@@ -96,9 +95,8 @@ const Services = () => {
                 </h3>
               </div>
             </li>
-          </Fade>
-          <Fade>
-            <li className="bg-slate-200 dark:bg-slate-800">
+        
+            <li className="bg-slate-200">
             <div className="h-[250px]"> <Image width={200} height={200} src={'/tips.png'} alt="" className="object-cover h-full w-full" />
 </div>
              
@@ -108,11 +106,8 @@ const Services = () => {
                 </h3>
               </div>
             </li>
-          </Fade>
-         
-         
-          <Fade>
-            <li className="bg-slate-200 dark:bg-slate-800 rounded-[4px]">
+      
+            <li className="bg-slate-200 rounded-[4px]">
             <div className="h-[250px]"><Image src={Consultation.src} width={200} height={200} alt=""  className="object-cover h-full w-full"/></div>
               
 
@@ -122,9 +117,8 @@ const Services = () => {
                 </h3>
               </div>
             </li>
-          </Fade>
-          <Fade  >
-            <li className="bg-slate-200 dark:bg-slate-800">
+          
+            <li className="bg-slate-200 ">
               <div className="h-[250px] "
               > <Image width={200} height={200} src={'/acne.jpg'}   alt="" className="object-cover h-full w-full" />
               </div>
@@ -133,7 +127,7 @@ const Services = () => {
                 <h3 className="text-m text-center text-gray-700 ">Acne Treatment</h3>
               </div>
             </li>
-          </Fade>
+          
 
         </ul>
       </div>

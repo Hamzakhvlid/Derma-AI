@@ -1,17 +1,23 @@
 "use client";
+"@ts-nocheck";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Avatar, DropdownMenu, Theme } from "@radix-ui/themes";
+import { AlertDialog, Avatar, Button, DropdownMenu, Flex, Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
-import { useSelector } from "react-redux";
-import { RootState } from "@/app/lib/store";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../lib/store";
 import { useRouter } from "next/navigation";
 import { TbDotsVertical } from "react-icons/tb";
 import Drawer from "./Drawer";
 import axios from "axios";
-import { AlertDialog, Button, Flex } from "@radix-ui/themes";
-import { FiSun, FiMoon } from "react-icons/fi";
 import { useTheme } from "next-themes";
+
+import { useSession } from "next-auth/react";
+import { auth } from "../../../auth";
+import { login } from "../../lib/authSlice";
+import { setProfile } from "../../lib/reducers/loggedinUser";
+import { FiSun, FiMoon } from "react-icons/fi";
+
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
@@ -22,11 +28,29 @@ const Navbar = () => {
   const { setTheme, resolvedTheme } = useTheme();
   useEffect(() => setMounted(true), []);
 
+  const dispatch = useDispatch();
+ console.log("Session token is added ");
+ const { data: session } = useSession();
+ const data = async  ()=>{
+  const newdata= await auth();
+  console.log(newdata);
+ }
+ data();
+
+  console.log(session)
+  useEffect(() => {
+    if (session) {
+      dispatch(login(true));
+      dispatch(setProfile(session.user));
+      localStorage.setItem("auth_Token", session.user!.accessToken);
+      console.log(localStorage.getItem("accessToken"));
+    }
+  }, [session]);
   const showDrawer = () => {
     setDrawer(!drawer);
-  };
+  }
   // Access the user state
-
+ 
   const userState = useSelector((state: RootState) => state.user);
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLogin);
 
@@ -49,7 +73,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  function login() {}
+ 
 
   const links = [
     {
@@ -118,7 +142,8 @@ const Navbar = () => {
   };
 
   return (
-    <header
+    <>
+    <div
       id={`${resolvedTheme === 'dark' ? 'darknavbar' : 'navbar'}`}
       className={`fixed w-full flex items-center  justify-between px-4 py-3 text-blue-900 transition-all ${
         showNavbar ? "bg-white/50 shadow-md backdrop-blur-lg " : ""
@@ -160,7 +185,7 @@ const Navbar = () => {
         </span>
         Derma AI
       </Link>
-
+     
       <nav className="hidden md:block">
         <ul className="flex items-center space-x-6">
           {links.map(({ id, link, label }) => (
@@ -192,39 +217,37 @@ const Navbar = () => {
             </li>
           ) : (
             <Theme>
-              <DropdownMenu.Root>
-                <DropdownMenu.Trigger>
-                  <div>
-                    <Avatar
-                      radius="full"
-                      size="4"
-                      className={`cursor-pointer self-center justify-center  text-white ${
-                        profile?.role === "patient" ? "" : ""
-                      }`}
-                      src={profile?.image ?? ""}
-                      fallback={
-                        (profile.firstname ?? "")[0] +
-                        (profile.lastname ?? "")[0]
-                      }
-                    />
-                  </div>
-                </DropdownMenu.Trigger>
-                <DropdownMenu.Content>
-                  <div className="flex flex-col align-middle bg-[#f1f5f9] mt-2 justify-center p-2">
-                    <Avatar
-                      radius="full"
-                      size="4"
-                      className={`cursor-pointer self-center justify-center ${
-                        profile?.role === "patient"
-                          ? "text-[#f4581c]"
-                          : "text-blue-900"
-                      }`}
-                      src={profile?.image ?? ""}
-                      fallback={
-                        (profile.firstname ?? "")[0] +
-                        (profile.lastname ?? "")[0]
-                      }
-                    />
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger>
+                <div>
+                  <Avatar
+                    radius="full"
+                    size="4"
+                    className={`cursor-pointer self-center justify-center  text-white ${
+                      profile?.role === "patient" ? "" : ""
+                    }`}
+                    src={profile?.imageUrl ?? ""}
+                    fallback={
+                      (profile.first_name ?? "")[0] + (profile.last_name ?? "")[0]
+                    }
+                  />
+                </div>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content>
+                <div className="flex flex-col align-middle bg-[#f1f5f9] mt-2 justify-center p-2">
+                  <Avatar
+                    radius="full"
+                    size="4"
+                    className={`cursor-pointer self-center justify-center ${
+                      profile?.role === "patient"
+                        ? "text-[#f4581c]"
+                        : "text-blue-900"
+                    }`}
+                    src={profile?.imageUrl ?? ""}
+                    fallback={
+                      (profile.first_name ?? "")[0] + (profile.last_name ?? "")[0]
+                    }
+                  />
 
                     <h4 className="p-1 justify-center self-center">
                       {profile.username}
@@ -284,8 +307,10 @@ const Navbar = () => {
               </DropdownMenu.Root>
             </Theme>
           )}
+          
         </ul>
       </nav>
+   
 
       <div className="md:hidden">
         <button
@@ -310,7 +335,8 @@ const Navbar = () => {
           </ul>
         )}
       </div>
-    </header>
+</div>
+    </>
   );
 };
 

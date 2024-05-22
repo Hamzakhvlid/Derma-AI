@@ -1,6 +1,7 @@
+"use client";
 import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
-import Fade from "react-awesome-reveal";
+
 
 const Contact = () => {
   const form = useRef();
@@ -220,7 +221,7 @@ const Contact = () => {
           </div>
 
           <div className="mt-4">
-            <Fade>
+     
               <button
                 type="submit"
                 value="Send"
@@ -229,7 +230,7 @@ const Contact = () => {
               >
                 {isLoading ? "Sending..." : "Send Message"}
               </button>
-            </Fade>
+
             {isSent && (
               <p className="text-green-500 mt-1 text-center">
                 Appointment received successfully, Thank you!
