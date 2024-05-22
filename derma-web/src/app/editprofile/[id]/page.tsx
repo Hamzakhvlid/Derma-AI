@@ -16,7 +16,7 @@ import { MdOutlineFileUpload } from "react-icons/md";
 import { useSelector } from "react-redux";
 import * as Yup from "yup";
 import axios from "axios";
-import { uploadImage } from "@/app/Api/baseUrl";
+import { uploadImage } from "@/app/api/baseUrl";
 
 export default function EditProfile() {
   const userState = useSelector((state: RootState) => state.user);

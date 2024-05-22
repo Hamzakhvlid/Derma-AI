@@ -14,8 +14,8 @@ import { useTheme } from "next-themes";
 
 import { useSession } from "next-auth/react";
 import { auth } from "../../../auth";
-import { login } from "../../lib/authSlice";
-import { setProfile } from "../../lib/reducers/loggedinUser";
+import { login, logout } from "../../lib/authSlice";
+import { setProfile, setUser } from "../../lib/reducers/loggedinUser";
 import { FiSun, FiMoon } from "react-icons/fi";
 
 
@@ -31,16 +31,16 @@ const Navbar = () => {
   const dispatch = useDispatch();
  console.log("Session token is added ");
  const { data: session } = useSession();
- const data = async  ()=>{
-  const newdata= await auth();
-  console.log(newdata);
- }
- data();
+//  const data = async  ()=>{
+//   const newdata= await auth();
+//   console.log(newdata);
+//  }
+//  data();
 
   console.log(session)
   useEffect(() => {
     if (session) {
-      dispatch(login(true));
+      dispatch(login());
       dispatch(setProfile(session.user));
       localStorage.setItem("auth_Token", session.user!.accessToken);
       console.log(localStorage.getItem("accessToken"));
@@ -55,6 +55,7 @@ const Navbar = () => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLogin);
 
   const { user, profile, roles, isAdmin } = userState;
+  console.log(profile)
 
   // Access specific properties from the user state
 
@@ -73,7 +74,15 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
- 
+  const handleLogout = () => {
+    dispatch(login());
+    dispatch(setProfile(null));
+    dispatch(setUser(null));
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("auth_Token");
+    dispatch(logout());
+    
+  }
 
   const links = [
     {
@@ -226,7 +235,7 @@ const Navbar = () => {
                     className={`cursor-pointer self-center justify-center  text-white ${
                       profile?.role === "patient" ? "" : ""
                     }`}
-                    src={profile?.imageUrl ?? ""}
+                    src={profile?.imageUrl ?? profile?.image ?? ""}
                     fallback={
                       (profile.first_name ?? "")[0] + (profile.last_name ?? "")[0]
                     }
@@ -243,7 +252,7 @@ const Navbar = () => {
                         ? "text-[#f4581c]"
                         : "text-blue-900"
                     }`}
-                    src={profile?.imageUrl ?? ""}
+                    src={profile?.imageUrl ?? profile?.image ?? ""}
                     fallback={
                       (profile.first_name ?? "")[0] + (profile.last_name ?? "")[0]
                     }
@@ -296,7 +305,7 @@ const Navbar = () => {
                           </Button>
                         </AlertDialog.Cancel>
                         <AlertDialog.Action>
-                          <Button variant="solid" color="red">
+                          <Button variant="solid" color="red" onClick={handleLogout}>
                             Logout
                           </Button>
                         </AlertDialog.Action>

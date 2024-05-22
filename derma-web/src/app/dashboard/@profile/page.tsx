@@ -2,7 +2,6 @@
 import React from "react";
 import { useState, ChangeEvent } from "react";
 import { useFormik } from "formik";
-import { signupSchema } from "../../schemas";
 import { useEffect } from "react";
 import axios from "axios";
 import { City } from "country-state-city";
@@ -26,6 +25,8 @@ const initialValues = {
   city: "",
   years_exp: "",
   promotional_headline: "",
+  availability: [],
+  onlineAvailability: {}
 };
 
 interface Qualification {
@@ -157,6 +158,11 @@ export default function DashboardProfile() {
       initialValues: initialValues,
       onSubmit: (values, action) => {
         try {
+          values.availability = availability as never[]; // Explicitly type 'values.availability' as an array of 'never' type
+          values.qualification = qualifications as never[];
+          values.experience = experience as never[];
+          values.onlineAvailability = onlineAvailability;
+          
           // const response = await axios.post(signup, values);
           // console.log(response);
           // setIsLoading(false);
@@ -262,6 +268,7 @@ export default function DashboardProfile() {
             </label>
             <select
               onChange={handleChange}
+              defaultValue={"Lahore"}
               onBlur={handleBlur}
               className="input"
               name="city"

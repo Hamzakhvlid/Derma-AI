@@ -19,14 +19,14 @@ const Profile = () => {
               className="h-10 w-10"
               radius="full"
               fallback={
-                (profile.firstname ?? "")[0] + (profile.lastname ?? "")[0]
+                (profile.first_name ?? "")[0] + (profile.last_name ?? "")[0]
               }
-              src={profile?.image ?? ""}
+              src={profile?.image ?? profile?.imageUrl ?? ""}
             />
 
             <div>
               <h2 className="font-medium text-gray-900 ">
-                {profile.firstname} {profile.lastname}
+                {profile.first_name} {profile.last_name}
               </h2>
               <p className="text-gray-500  text-sm">{profile.email}</p>
             </div>

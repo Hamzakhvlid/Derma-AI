@@ -23,6 +23,15 @@ module.exports = nextConfig
 
 module.exports = {
     images: {
-      domains: ['img.freepik.com'], // Add your desired domains here
+      remotePatterns:[
+        {
+            protocol: 'https',
+            hostname: 'lh3.googleusercontent.com',
+        },
+        {
+            protocol: 'https',
+            hostname: 'img.freepik.com',
+        }
+      ]
     },
   };

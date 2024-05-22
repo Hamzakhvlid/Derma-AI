@@ -4,7 +4,7 @@ import BookAppointmentCardContactInfo from "./bookappointmentcontactinfo";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Link from "next/link";
-import sampleDoctorData from "../../homePage/components/sampleDoctorData";
+import sampleDoctorData from "../../../homePage/components/sampleDoctorData";
 import { useState } from "react";
 
 export default function BookAppointmentCard(props:{

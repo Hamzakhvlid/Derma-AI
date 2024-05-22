@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import Button from "../../doctors/Button";
+import Button from "../../Button";
 
 import BookAppointmentCard from "../components/BookAppointmentCard";
 import { useEffect, useState } from "react";

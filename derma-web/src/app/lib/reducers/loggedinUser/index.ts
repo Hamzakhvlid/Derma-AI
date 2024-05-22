@@ -1,18 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 type ProfileProps = {
-  _id?: string
-  first_name?: string
-  last_name?: string
- 
-imageUrl?: string
-  email?: string
-  username?: string
-  accessToken?: string
-  role?: string
-  scanCredits?: number
-  phoneNumber?: string
+  _id?: string;
+  first_name?: string;
+  last_name?: string;
 
+  imageUrl?: string;
+  image?: string;
+  email?: string;
+  username?: string;
+  accessToken?: string;
+  role?: string;
+  scanCredits?: number;
+  phoneNumber?: string;
 };
 
 type UserProps = {
@@ -28,13 +28,13 @@ export interface UserState {
 
 const initialState: UserState = {
   user: {},
-  profile: {  },
+  profile: {},
   roles: [],
   isAdmin: false,
 };
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     setUser: (state, action) => {
@@ -43,7 +43,7 @@ export const userSlice = createSlice({
     setProfile: (state, action) => {
       state.profile = action.payload;
     },
-   
+
     setIsAdmin: (state, action) => {
       state.isAdmin = action.payload;
     },
@@ -53,7 +53,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const {  setUser,setProfile,setIsAdmin, refreshUser } =
+export const { setUser, setProfile, setIsAdmin, refreshUser } =
   userSlice.actions;
 
 export default userSlice.reducer;
