@@ -24,8 +24,11 @@ export const forgotPassword = baseUrl + "forgotPassword";
 
 export const doctor = baseUrl + "getDoctors";
 export const uploadImage = baseUrl + "uploadScanImage";
+export const uploadSimpleImage = baseUrl + "uploadImage";
 export const scanNow = baseUrl + "scanNow";
 export const bookAppointment = baseUrl + "bookAppointment";
 
 export const getDoctorDetail = baseUrl + "getDetailedDoctor";
 export const googleSignin= baseUrl+"googleSignup"
+export const regitserDoctor = baseUrl + "regitserDoctor";
+export const getCompleteDoctorDetailsForDashboard = baseUrl + "getCompleteDoctor";

@@ -18,6 +18,7 @@ import { AlertDialog, Button, Flex } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { RootState } from "@/app/lib/store";
 import SidebarItems from "./component/sidebaritems";
+import { FaBlog } from "react-icons/fa6";
 
 //tailwind
 const textstyle =
@@ -95,6 +96,17 @@ export default function SideNavbar() {
                 <FaPerson
                   className={`${
                     activeItem === "Patient" ? "text-white" : ""
+                  } text-2xl text-gray-800 group-hover:text-white`}
+                />
+              }
+            />
+            <SidebarItems
+              title={"Blogs"}
+              activeItem={activeItem}
+              icon={
+                <FaBlog
+                  className={`${
+                    activeItem === "Blogs" ? "text-white" : ""
                   } text-2xl text-gray-800 group-hover:text-white`}
                 />
               }

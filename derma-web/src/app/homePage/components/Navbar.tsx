@@ -12,7 +12,7 @@ import Drawer from "./Drawer";
 import axios from "axios";
 import { useTheme } from "next-themes";
 
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { auth } from "../../../auth";
 import { login, logout } from "../../lib/authSlice";
 import { setProfile, setUser } from "../../lib/reducers/loggedinUser";
@@ -42,7 +42,7 @@ const Navbar = () => {
     if (session) {
       dispatch(login());
       dispatch(setProfile(session.user));
-      localStorage.setItem("auth_Token", session.user!.accessToken);
+      localStorage.setItem("accessToken", session.user!.accessToken);
       console.log(localStorage.getItem("accessToken"));
     }
   }, [session]);
@@ -79,8 +79,9 @@ const Navbar = () => {
     dispatch(setProfile(null));
     dispatch(setUser(null));
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("auth_Token");
+    localStorage.removeItem("accessToken");
     dispatch(logout());
+    signOut();
     
   }
 
@@ -93,40 +94,26 @@ const Navbar = () => {
     },
     {
       id: 2,
-      link: "/#service",
+      link: "#service",
       label: "Services",
     },
     {
       id: 3,
-      link: "/doctors",
+      link: "/skincare",
 
-      label: "Doctors",
-    },
-    {
-      id: 5,
-      link: "/#contact",
       label: "Skin Care",
     },
     {
       id: 4,
-      link: "/#team",
-      label: "Team",
-    },
-    {
-      id: 4,
-      link: "/buy-credits",
-      label: "Pricing",
+      link: "#contact",
+      label: "Contact us",
     },
     {
       id: 5,
-      link: "/#contact",
-      label: "Book Now",
-    },
-    {
-      id: 6,
       link: "/blogs",
       label: "Blogs",
     },
+    
   ];
 
   const mobilelink = [
@@ -278,6 +265,7 @@ const Navbar = () => {
                   >
                     Switch to doctor
                   </DropdownMenu.Item>
+                  <DropdownMenu.Item>{profile.status}</DropdownMenu.Item>
                   <DropdownMenu.Item onClick={() => setTheme(resolvedTheme === "dark" ? 'light':'dark')}>
                     Theme{" "}
                     {resolvedTheme === "dark" ? (

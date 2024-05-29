@@ -8,6 +8,9 @@ import { City } from "country-state-city";
 import "./style.css";
 import { Theme, Switch } from "@radix-ui/themes";
 import '@radix-ui/themes/styles.css';
+import { getCompleteDoctorDetailsForDashboard } from "@/app/api/baseUrl";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/lib/store";
 
 
 //initial values for form
@@ -57,6 +60,8 @@ interface OnlineAvailability{
 // Render the Counter component inside the SignUpPage component
 
 export default function DashboardProfile() {
+
+  
   const [showSuccess, setShowSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [count, setCount] = useState(1);
@@ -153,7 +158,7 @@ export default function DashboardProfile() {
     };
   }, []);
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit, setValues } =
     useFormik({
       initialValues: initialValues,
       onSubmit: (values, action) => {
@@ -179,6 +184,42 @@ export default function DashboardProfile() {
       },
     });
 
+    useEffect(() => {
+      async function getDoctorCompleteProfile(){
+        try{
+          await axios.get(`${getCompleteDoctorDetailsForDashboard}`, {
+            withCredentials: true,
+            headers: {
+              "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+            }
+          }).then((response) => {
+            const doctordata = response.data.doctor;
+            setValues({
+              nic: doctordata.nic || "",
+              phone: doctordata.phone || "",
+              hospital: doctordata.hospital || "",
+              role: doctordata.role || "",
+              services_offered: doctordata.services_offered || "",
+              special_services: doctordata.special_services || "",
+              specialization: doctordata.specialization || "",
+              description: doctordata.description || "",
+              qualification: doctordata.qualification || [],
+              experience: doctordata.experience || [],
+              city: doctordata.city || "",
+              years_exp: doctordata.years_exp || "",
+              promotional_headline: doctordata.promotional_headline || "",
+              availability: doctordata.availability || [],
+              onlineAvailability: doctordata.onlineAvailability || {}
+            });
+            console.log(response.data)
+          })
+        }catch(err){
+          console.log(err)
+        }
+      }
+      getDoctorCompleteProfile()
+    }, [])
+
   if (showSuccess && count > 4) {
     window.location.href = "/login";
   }
@@ -196,20 +237,7 @@ export default function DashboardProfile() {
           >
             {/* Basic Information */}
             <div className="flex flex-col  md:flex-row gap-1">
-              <div className=" flex-col w-[100%]">
-                <label className="label" htmlFor="nic">
-                  NIC
-                </label>
-                <input
-                  className="input"
-                  type="text"
-                  id="nic"
-                  name="nic"
-                  placeholder="Enter NIC"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-              </div>
+              
               <div className=" flex-col w-[100%]">
                 <label className="label" htmlFor="phone">
                   Phone

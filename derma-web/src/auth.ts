@@ -47,6 +47,9 @@ export const {
                 session.user.last_name=res.data.user.last_name;
                 session.user.imageUrl=res.data.user.imageUrl;
                 session.user.scanCredits=res.data.user.scanCredits;
+                session.user.status = res.data.user.status;
+                session.user.role = res.data.user.role;
+                session.user.doctorId = res.data.user.doctorId;
             }
        
           

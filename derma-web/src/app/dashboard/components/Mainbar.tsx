@@ -4,7 +4,7 @@ import DashBoard1 from "../@dashboard/page";
 import { RootState } from "@/app/lib/store";
 import DashboardProfile from "../@profile/page";
 import AppointmentsPage from '../@appointments/page';
-
+import BlogsDoctorPage from '../@blogs/page';
 export default function Mainbar() {
   const activeItem = useSelector((state:RootState) => state.sidebar.activeItem);
 
@@ -17,6 +17,8 @@ export default function Mainbar() {
       // Add cases for other components as needed
       case 'Appointments':
         return <AppointmentsPage />;
+      case 'Blogs':
+        return <BlogsDoctorPage />;
       default:
         return (
           <div>Not Found {activeItem}</div>

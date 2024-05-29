@@ -1,3 +1,5 @@
+"use client";
+import {useEffect} from   "react";
 import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
 import { AiOutlineSchedule } from "react-icons/ai";
@@ -5,6 +7,7 @@ import { Avatar, Card, Badge, ScrollArea } from "@radix-ui/themes";
 import { Button, DropdownMenu, Checkbox, Table } from "@radix-ui/themes";
 import React from "react";
 import { appointmentReq } from "./demo-data/sample";
+import io from 'socket.io-client';
 
 export default function DashBoard1() {
   return (

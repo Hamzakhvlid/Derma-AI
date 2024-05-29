@@ -4,7 +4,7 @@ type ProfileProps = {
   _id?: string;
   first_name?: string;
   last_name?: string;
-
+  status?: string;
   imageUrl?: string;
   image?: string;
   email?: string;
@@ -13,6 +13,7 @@ type ProfileProps = {
   role?: string;
   scanCredits?: number;
   phoneNumber?: string;
+  doctorId?: string;
 };
 
 type UserProps = {

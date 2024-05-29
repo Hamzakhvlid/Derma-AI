@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
-const withPWA  = require('next-pwa')
+const withPWA  = require('next-pwa');
+const { hostname } = require('os');
 
 
 const nextConfig = {
@@ -31,6 +32,10 @@ module.exports = {
         {
             protocol: 'https',
             hostname: 'img.freepik.com',
+        },
+        {
+            protocol: 'https',
+            hostname: 'res.cloudinary.com',
         }
       ]
     },

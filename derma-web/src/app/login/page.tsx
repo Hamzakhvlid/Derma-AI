@@ -34,7 +34,10 @@ export default function LoginPage() {
       onSubmit: async (values, action) => {
         try {
           setIsLoading(true);
-          const response = await axios.post(loginApi, values);
+          const response = await axios.post(loginApi, values, {
+            withCredentials: true,
+          });
+          
           console.log("request sent one time")
           const res_data = response.data;
          
@@ -47,7 +50,7 @@ export default function LoginPage() {
             localStorage.setItem("accessToken", response.data.data.accessToken);
  
            
-            dispatch(login(true));
+            dispatch(login());
             console.log(response);
             console.log(res_data.data);
             dispatch(setProfile(res_data.data));
