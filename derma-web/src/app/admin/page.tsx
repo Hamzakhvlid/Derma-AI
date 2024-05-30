@@ -56,7 +56,7 @@ export default function Component() {
     }, []);
     async function verifyDoctor(id:any){
         try{
-            await axios.put(`http://localhost:8080/api/v1/users/verifyDoctorByAdmin?id=${id}`, {}, {
+            await axios.put(`${baseUrl}verifyDoctorByAdmin?id=${id}`, {}, {
                 withCredentials: true,
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
