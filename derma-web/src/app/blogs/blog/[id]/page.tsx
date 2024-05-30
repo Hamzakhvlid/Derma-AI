@@ -5,6 +5,7 @@ import Image from "next/image";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { baseUrl } from "@/app/api/baseUrl";
 
 export default function DetailedBlog() {
   const { id } = useParams();
@@ -12,7 +13,7 @@ export default function DetailedBlog() {
   useEffect(() => {
     async function fetchSingleBlog(){
       try{
-        await axios.get(`http://localhost:8080/api/v1/users/blogs/getSingleBlogById?id=${id}`, {
+        await axios.get(`${baseUrl}blogs/getSingleBlogById?id=${id}`, {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",

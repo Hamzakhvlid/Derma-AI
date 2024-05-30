@@ -6,6 +6,7 @@ import Image from "next/image";
 import { StyledPagination } from "../doctors/styled";
 import axios from "axios";
 import Link from "next/link";
+import { baseUrl } from "../api/baseUrl";
 
 const Limit = 2;
 
@@ -34,14 +35,14 @@ export default function Blogs() {
   let config = {
     method: "get",
     maxBodyLength: Infinity,
-    url: `${"http://localhost:8080/api/v1/users/blogs/getAllBlogs"}?page=${currentPage}&limit=${Limit}`,
+    url: `${`${baseUrl}blogs/getAllBlogs`}?page=${currentPage}&limit=${Limit}`,
   };
 
   useEffect(() => {
     config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `${"http://localhost:8080/api/v1/users/blogs/getAllBlogs"}?page=${currentPage}&limit=${Limit}`,
+      url: `${`${baseUrl}blogs/getAllBlogs`}?page=${currentPage}&limit=${Limit}`,
     };
     const fetchData = async () => {
       const data = await fetchAllBlogs();

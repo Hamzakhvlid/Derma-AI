@@ -1,14 +1,21 @@
 "use client";
+import { baseUrl } from "@/app/api/baseUrl";
 import axios from "axios";
 import Link from "next/link"
 import {useEffect, useState} from 'react';
+import { toast } from "react-toastify";
+interface Blog {
+  _id: string;
+  title: string;
+  content: string;
+}
 
 export default function BlogsDoctorPage() {
-    const [blogs, setBlogs] = useState([]);
+    const [blogs, setBlogs] = useState<Blog[]>([]);
     useEffect(() => {
         async function fetchMyBlogs(){
             try{
-                await axios.get('http://localhost:8080/api/v1/users/blogs/getMyBlogs', {
+                await axios.get(`${baseUrl}blogs/getMyBlogs`, {
                     withCredentials: true,
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
@@ -21,7 +28,23 @@ export default function BlogsDoctorPage() {
             }
         }
         fetchMyBlogs();
-    }, [])
+    }, []);
+  
+    async function deleteABlog(id: string){
+      try{
+        await axios.delete(`${baseUrl}blogs/deleteBlog?id=${id}`, {
+          withCredentials: true,
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+          }
+        }).then((res) => {
+          toast(res.data.message)
+          setBlogs(blogs.filter(blog => blog._id !== id));
+        })
+      }catch(err){
+
+      }
+    }
   return (
     <div className="container mx-auto px-4 py-8 md:px-6 md:py-12">
       <div className="flex items-center justify-between mb-6">
@@ -50,12 +73,14 @@ export default function BlogsDoctorPage() {
             <div className="flex items-center justify-end">
               <Link
                 className="inline-flex items-center justify-center rounded-md bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 shadow transition-colors hover:bg-gray-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:focus-visible:ring-gray-300"
-                href="#"
+                href={`/blogs/editblog/${blog._id}`}
               >
                 {/* <EditIcon className="w-4 h-4 mr-2" /> */}
                 Edit
               </Link>
-              <button className="inline-flex items-center justify-center rounded-md bg-red-500 px-3 py-1 text-sm font-medium text-white shadow transition-colors hover:bg-red-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-red-700 disabled:pointer-events-none disabled:opacity-50 ml-2">
+              <button className="inline-flex items-center justify-center rounded-md bg-red-500 px-3 py-1 text-sm font-medium text-white shadow transition-colors hover:bg-red-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-red-700 disabled:pointer-events-none disabled:opacity-50 ml-2" 
+              onClick={() => deleteABlog(blog._id)}
+              >
                 <TrashIcon className="w-4 h-4 mr-2" />
                 Delete
               </button>

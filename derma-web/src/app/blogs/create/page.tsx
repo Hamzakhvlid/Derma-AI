@@ -1,5 +1,5 @@
 "use client";
-import { uploadSimpleImage } from '@/app/api/baseUrl';
+import { baseUrl, uploadSimpleImage } from '@/app/api/baseUrl';
 import {Theme, Button} from '@radix-ui/themes';
 import '@radix-ui/themes/styles.css';
 import axios from 'axios';
@@ -43,7 +43,7 @@ export default function CreateBlog() {
             data.append("title", title);
             data.append("content", content);
             data.append("cover", imgUrl);
-            await axios.post("http://localhost:8080/api/v1/users/blogs/create", data, {
+            await axios.post(`${baseUrl}blogs/create`, data, {
                 withCredentials: true,
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
