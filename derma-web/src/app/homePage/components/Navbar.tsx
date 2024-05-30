@@ -10,13 +10,11 @@ import { useRouter } from "next/navigation";
 import { TbDotsVertical } from "react-icons/tb";
 import Drawer from "./Drawer";
 import axios from "axios";
-import { useTheme } from "next-themes";
 
 import { useSession, signOut } from "next-auth/react";
 import { auth } from "../../../auth";
 import { login, logout } from "../../lib/authSlice";
 import { setProfile, setUser } from "../../lib/reducers/loggedinUser";
-import { FiSun, FiMoon } from "react-icons/fi";
 
 
 const Navbar = () => {
@@ -25,7 +23,6 @@ const Navbar = () => {
   const [drawer, setDrawer] = useState(false);
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
-  const { setTheme, resolvedTheme } = useTheme();
   useEffect(() => setMounted(true), []);
 
   const dispatch = useDispatch();
@@ -140,7 +137,7 @@ const Navbar = () => {
   return (
     <>
     <div
-      id={`${resolvedTheme === 'dark' ? 'darknavbar' : 'navbar'}`}
+      id="navbar"
       className={`fixed w-full flex items-center  justify-between px-4 py-3 text-blue-900 transition-all ${
         showNavbar ? "bg-white/50 shadow-md backdrop-blur-lg " : ""
       }`}
@@ -266,14 +263,6 @@ const Navbar = () => {
                     Switch to doctor
                   </DropdownMenu.Item>
                   <DropdownMenu.Item>{profile.status}</DropdownMenu.Item>
-                  <DropdownMenu.Item onClick={() => setTheme(resolvedTheme === "dark" ? 'light':'dark')}>
-                    Theme{" "}
-                    {resolvedTheme === "dark" ? (
-                      <FiSun onClick={() => setTheme("light")} />
-                    ) : (
-                      <FiMoon onClick={() => setTheme("dark")} />
-                    )}
-                  </DropdownMenu.Item>
                   <DropdownMenu.Separator />
                   <AlertDialog.Root>
                     <AlertDialog.Trigger>

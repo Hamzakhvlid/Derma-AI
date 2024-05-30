@@ -1,231 +1,200 @@
 "use client";
-import React, {useState, ChangeEvent } from "react";
-import { useFormik, FormikHelpers } from "formik";
+import React, { useState } from "react";
+import { Formik, Field, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { FormValues } from "../page";
 import "../style.css";
-
-interface Qualification {
-    institution: string;
-    program: string;
-    [key: string]: string; // Index signature
-  }
-  
-  interface Experience {
-    institution: string;
-    designation: string;
-    [key: string]: string; // Index signature
-  }
-  
+import { IoIosAddCircle } from "react-icons/io";
+import { IoIosRemoveCircle } from "react-icons/io";
 
 
+interface QualificationExperienceStepProps {
+  initialValues: FormValues;
+  onNext: (values: FormValues) => void;
+  onBack: () => void;
+}
 
-  interface QualificationExperienceStepProps {
-    initialValues: FormValues;
-    onNext: (values: FormValues) => void;
-    onBack: () => void;
-  }
+const QualificationExperienceStep: React.FC<QualificationExperienceStepProps> = ({
+  initialValues,
+  onNext,
+  onBack,
+}) => {
 
-  const QualificationExperienceStep: React.FC<QualificationExperienceStepProps> = ({ initialValues, onNext, onBack }) => {
-    const [qualifications, setQualifications] = useState<Qualification[]>([
-        { institution: "", program: "" },
-      ]);
-    
-      const handleAddQualification = () => {
-        setQualifications([...qualifications, { institution: "", program: "" }]);
-      };
-    
-      const handleRemoveQualification = (index: number) => {
-        const updatedQualifications = qualifications.filter((_, i) => i !== index);
-        setQualifications(updatedQualifications);
-      };
-    
-      const handleQualificationChange = (
-        index: number,
-        e: ChangeEvent<HTMLInputElement>
-      ) => {
-        const { name, value } = e.target;
-        const updatedQualifications = [...qualifications];
-        updatedQualifications[index][name] = value;
-        setQualifications(updatedQualifications);
-      };
-    
-      // handle experience
-      const [experience, setExperiece] = useState<Experience[]>([
-        { institution: "", designation: "" },
-      ]);
-    
-      const handleAddExperience = () => {
-        setExperiece([...experience, { institution: "", designation: "" }]);
-      };
-    
-      const handleRemoveExperience = (index: number) => {
-        const updatedExperience = experience.filter((_, i) => i !== index);
-        setExperiece(updatedExperience);
-      };
-    
-      const handleExperienceChange = (
-        index: number,
-        e: ChangeEvent<HTMLInputElement>
-      ) => {
-        const { name, value } = e.target;
-        const updatedExperience = [...experience];
-        updatedExperience[index][name] = value;
-        setExperiece(updatedExperience);
-      };
-    
-    const formik = useFormik<FormValues>({
-      initialValues,
-      validationSchema: Yup.object({
-        specialization: Yup.string().required("Specialization is required"),
-        // qualifications: Yup.array().of(
-        //   Yup.object({
-        //     institution: Yup.string().required("Institution is required"),
-        //     program: Yup.string().required("Program is required"),
-        //   })
-        // ).required("Qualifications are required"),
-        // experience: Yup.array().of(
-        //   Yup.object({
-        //     institution: Yup.string().required("Institution is required"),
-        //     designation: Yup.string().required("Designation is required"),
-        //   })
-        // ).required("Experience is required"),
-      }),
-      onSubmit: async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
-        try {
-            // Explicitly type 'values.availability' as an array of 'never' type
-          values.qualifications = qualifications as never[];
-          values.experience = experience as never[];
-          
-         console.log("Submitting qualifications", values);
-            onNext(values);
-          
-        } catch (error) {
-          console.error("Error submitting qualifications", error);
-        } finally {
-          setSubmitting(false);
-        }
-      },
-    });
-  
-    return (
-        <div className="   h-[100vh]">
-      <div className=" p-2   md:pt-0 flex justify-center ">
-        <div className="shadow w-[90%] flex-col flex pt-3 pb-3 pr-4 pl-4 bg-[#f1f5f9]  rounded-md drop-shadow-lg  md:w-[60%] lg-[50%] xl:w-[40%]">
-          <h1 className="font-bold text-[1.3rem]  text-blue-900 self-center ">
+
+  const validationSchema = Yup.object({
+    specialization: Yup.string().required("Specialization is required"),
+    experienceYears: Yup.string().required("Experience years is required"),
+    qualifications: Yup.array().of(
+      Yup.object().shape({
+        institution: Yup.string().required("Institution is required"),
+        program: Yup.string().required("Program is required"),
+      })
+    ).min(1, "Add at least one qualification"),
+    experience: Yup.array().of(
+      Yup.object().shape({
+        institution: Yup.string().required("Institution is required"),
+        designation: Yup.string().required("Designation is required"),
+      })
+    ).min(1, "Add at least one experience"),
+  });
+
+  return (
+    <div className="h-[100vh]">
+      <div className="p-2 md:pt-0 flex justify-center">
+        <div className="shadow w-[90%] flex-col flex pt-3 pb-3 pr-4 pl-4 bg-[#f1f5f9] rounded-md drop-shadow-lg md:w-[60%] lg-[50%] xl:w-[40%]">
+          <h1 className="font-bold text-[1.3rem] text-blue-900 self-center">
             Doctor Profile
           </h1>
           <hr className="border-[#f4581c] border-width-3px height-1px mt-[1%] w-[20%] self-center" />
-      <form onSubmit={formik.handleSubmit}>
-        <label className="label" htmlFor="specialization">
-              Specialization
-            </label>
-            <input
-              className="input"
-              type="text"
-              id="specialization"
-              name="specialization"
-              placeholder="Enter Specialization"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.specialization}
-            />
-            <label className="label" htmlFor="qualifications">
-              Qualifications
-            </label>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={(values, { setSubmitting }) => {
+              onNext(values);
+              setSubmitting(false)
+              console.log(values)
+            }}
+          >
+            {({ values, handleChange, handleBlur, touched, errors, handleSubmit, isSubmitting }) => (
+              <form onSubmit={handleSubmit}>
+                <label className="label" htmlFor="specialization">
+                  Specialization
+                </label>
+                <input
+                  className="input"
+                  type="text"
+                  id="specialization"
+                  name="specialization"
+                  placeholder="Enter Specialization"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.specialization}
+                />
+                {touched.specialization && errors.specialization ? (
+                  <div className="text-red-600 text-sm">{errors.specialization}</div>
+                ) : null}
 
-            <div>
-              {qualifications.map((qualification, index) => (
-                <div key={index} className="flex flex-col  md:flex-row gap-1">
-                  <input
-                    type="text"
-                    className="input"
-                    name="institution"
-                    value={qualification.institution}
-                    onChange={(e) => handleQualificationChange(index, e)}
-                    placeholder="Institution"
-                  />
-                  <input
-                    type="text"
-                    className="input"
-                    name="program"
-                    value={qualification.program}
-                    onChange={(e) => handleQualificationChange(index, e)}
-                    placeholder="Program"
-                  />
+                <label className="label" htmlFor="qualifications">
+                  Qualifications
+                </label>
+                <FieldArray name="qualifications">
+                  {({ push, remove }) => (
+                    <div>
+                      {values.qualifications.map((qualification, index) => (
+                        <div key={index} className="flex flex-col md:flex-row gap-1">
+                          <Field
+                            type="text"
+                            className="input"
+                            name={`qualifications[${index}].institution`}
+                            placeholder="Institution"
+                            value= {qualification.institution}
+                          />
+                          <ErrorMessage name={`qualifications[${index}].institution`} component="div" className="text-red-600 text-sm" />
+                          <Field
+                            type="text"
+                            className="input"
+                            name={`qualifications[${index}].program`}
+                            placeholder="Program"
+                            value= {qualification.program}
+                          />
+                          <ErrorMessage name={`qualifications[${index}].program`} component="div" className="text-red-600 text-sm" />
+                          <button type="button" onClick={() => remove(index)}>
+                          <IoIosRemoveCircle color="red" />
+                          </button>
+                        </div>
+                      ))}
+                      <button type="button" onClick={() => push({ institution: "", program: "" })}>
+                      <IoIosAddCircle color="blue" />
+                      </button>
+                    </div>
+                  )}
+                  
+                </FieldArray>
+                {values.qualifications.length === 0 ? (<div className="text-red-600 text-sm">Add Atleast One Qualification</div>) : (<></>)}
+
+                <label className="label" htmlFor="experience">
+                  Experience
+                </label>
+                <FieldArray name="experience">
+                  {({ push, remove }) => (
+                    <div>
+                      {values.experience.map((exp, index) => (
+                        <div key={index} className="flex flex-col md:flex-row gap-1">
+                          <Field
+                            type="text"
+                            className="input"
+                            name={`experience[${index}].institution`}
+                            placeholder="Institution"
+                            value={exp.institution}
+                          />
+                          <ErrorMessage name={`experience[${index}].institution`} component="div" className="text-red-600 text-sm" />
+                          <Field
+                            type="text"
+                            className="input"
+                            name={`experience[${index}].designation`}
+                            placeholder="Designation"
+                            value={exp.designation}
+                          />
+                          <ErrorMessage name={`experience[${index}].designation`} component="div" className="text-red-600 text-sm" />
+                          <button type="button" onClick={() => remove(index)}>
+                          <IoIosRemoveCircle color="red" />
+                          </button>
+                        </div>
+                      ))}
+                      <button type="button" onClick={() => push({ institution: "", designation: "" })}>
+                      <IoIosAddCircle color="blue" />
+                      </button>
+                    </div>
+                  )}
+                </FieldArray>
+                {values.experience.length === 0 ? (<div className="text-red-600 text-sm">Add Atleast One Experience</div>) : (<></>)}
+
+                <label className="label" htmlFor="experienceYears">
+                  Years of Experience
+                </label>
+                <input
+                  className="input"
+                  type="text"
+                  id="experienceYears"
+                  name="experienceYears"
+                  value={values.experienceYears}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                {touched.experienceYears && errors.experienceYears ? (
+                  <div className="text-red-600 text-sm">{errors.experienceYears}</div>
+                ) : null}
+
+                <div className="flex w-full justify-between items-center ">
                   <button
                     type="button"
-                    onClick={() => handleRemoveQualification(index)}
+                    className="mt-[4%] self-center px-4 py-2 bg-[#f4581c] rounded-lg hover:bg-opacity-90 text-white font-sans"
+                    onClick={onBack}
                   >
-                    Remove
+                    Back
                   </button>
-                </div>
-              ))}
-              <button type="button" onClick={handleAddQualification}>
-                Add Qualification
-              </button>
-            </div>
-
-            {/* Experience */}
-
-            <label className="label" htmlFor="experience">
-              Experience
-            </label>
-
-            <div>
-              {experience.map((exp, index) => (
-                <div key={index} className="flex flex-col  md:flex-row gap-1">
-                  <input
-                    type="text"
-                    className="input"
-                    name="institution"
-                    value={exp.institution}
-                    onChange={(e) => handleExperienceChange(index, e)}
-                    placeholder="Institution"
-                  />
-                  <input
-                    type="text"
-                    className="input"
-                    name="designation"
-                    value={exp.designation}
-                    onChange={(e) => handleExperienceChange(index, e)}
-                    placeholder="Designation"
-                  />
                   <button
-                    type="button"
-                    onClick={() => handleRemoveExperience(index)}
+                    type="submit"
+                    className="mt-[4%] self-center px-4 py-2 bg-[#f4581c] rounded-lg hover:bg-opacity-90 text-white font-sans"
+                    disabled={isSubmitting}
                   >
-                    Remove
+                    {isSubmitting ? (
+                      <div className="flex flex-row justify-center w-[100%]">
+                        <img className="w-[70px]" src="loader.gif" alt="Loading..." />
+                      </div>
+                    ) : (
+                      <>Next</>
+                    )}
                   </button>
                 </div>
-              ))}
-              <button type="button" onClick={handleAddExperience}>
-                Add Experience
-              </button>
-            </div>
-            <label className="label" htmlFor="experienceYears:">
-              Years of Experience
-            </label>
-            <input
-              className="input"
-              type="number"
-              id="experienceYears:"
-              name="experienceYears:"
-              placeholder="1"
-              min="0"
-              value={formik.values.experienceYears}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
+              </form>
+            )}
+          </Formik>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-        <button type="button" onClick={onBack}>Back</button>
-        <button type="submit">Next</button>
-      </form>
-      </div>
-      </div>
-      </div>
-    );
-  };
-  
-  export default QualificationExperienceStep;
+export default QualificationExperienceStep;

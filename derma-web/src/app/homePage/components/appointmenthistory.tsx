@@ -32,12 +32,12 @@ export default function AppointmentHistory() {
     <div className="wrapper hidden md:block">
     <div className="space-y-7">
         <h1 className="text-2xl font-bold  sm:text-3xl">Appointment History</h1>
-        <p className="text-gray-500 dark:text-white">View your recent appointments and their status.</p>
+        <p className="text-gray-500 ">View your recent appointments and their status.</p>
       </div>
     <div className="rounded-lg border shadow-sm ">
         
         <table className="w-full table-auto text-left">
-      <thead className="bg-gray-100 dark:text-white">
+      <thead className="bg-gray-100 ">
         <tr>
           <th className="px-4 py-3 font-medium text-gray-900 ">
             Date
@@ -56,7 +56,7 @@ export default function AppointmentHistory() {
       <tbody className="divide-y divide-gray-200 ">
         {
           appointmentshistory.map((appointment) => (
-            <tr className="text-gray-500 dark:text-white">
+            <tr className="text-gray-500 ">
               <td className="px-4 py-3 text-sm ">
                 {appointment.date}
               </td>

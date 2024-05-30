@@ -6,7 +6,7 @@ const Features = () => {
     <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
       <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
         <div>
-          <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400 dark:text-white">
+          <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400 ">
             Features
           </p>
         </div>
@@ -70,7 +70,7 @@ const Features = () => {
               <h6 className="mb-2 font-semibold leading-5">
                 Virtual Consultation{" "}
               </h6>
-              <p className="mb-3 text-sm text-gray-900 dark:text-white">
+              <p className="mb-3 text-sm text-gray-900 ">
                 Embracing Technology for your convenience, we understand that
                 your time is valuable, explore treatments where you are.
               </p>
@@ -102,7 +102,7 @@ const Features = () => {
                 </svg>
               </div>
               <h6 className="mb-2 font-semibold leading-5">Online Booking & AI Diagnosis</h6>
-              <p className="mb-3 text-sm text-gray-900 dark:text-white">
+              <p className="mb-3 text-sm text-gray-900 ">
                 Streamlining your skin care experience. We come to believe skin
                 care should be easily accessible everytime and hassle-free.We use AI to diagnose your skin condition and suggest the best treatment for you.
               </p>
@@ -134,7 +134,7 @@ const Features = () => {
                 </svg>
               </div>
               <h6 className="mb-2 font-semibold leading-5">Preventive Care</h6>
-              <p className="mb-3 text-sm text-gray-900 dark:text-white">
+              <p className="mb-3 text-sm text-gray-900 ">
                 Foundation for Lifelong Skin Wellness. We prioritize
                 preventive care as cornerstone of mantaining optimal skin
                 health using AI suggestions .
@@ -169,7 +169,7 @@ const Features = () => {
               <h6 className="mb-2 font-semibold leading-5">
                 Physical Treatment
               </h6>
-              <p className="mb-3 text-sm text-gray-900 dark:text-white">
+              <p className="mb-3 text-sm text-gray-900 ">
               Revitalize your skin with our dermatologist's expert care, offering personalized solutions for acne, anti-aging, and various skin conditions.
               </p>
             </div>

@@ -17,11 +17,11 @@ const Services = () => {
    
             <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
               <div>
-                <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 dark:text-white uppercase rounded-full bg-teal-accent-400">
+                <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900  uppercase rounded-full bg-teal-accent-400">
                   Services
                 </p>
               </div>
-              <h2 className="max-w-[40rem] mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 dark:text-white sm:text-4xl md:mx-auto">
+              <h2 className="max-w-[40rem] mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900  sm:text-4xl md:mx-auto">
                 <span className="relative inline-block">
                   <svg
                     viewBox="0 0 52 24"
@@ -45,13 +45,13 @@ const Services = () => {
                       height="24"
                     />
                   </svg>
-                  <span className="relative dark:text-white"> The </span>
+                  <span className="relative "> The </span>
                 </span>{" "}
                 Suite of Skin-care <span className="text-blue-500">Services</span>{" "}
                 we offers
               </h2>
 
-              <p className="max-w-[40rem] text-md mx-auto mt-4 text-gray-500 dark:text-white">
+              <p className="max-w-[40rem] text-md mx-auto mt-4 text-gray-500 ">
               Derma AI provides a comprehensive suite of dermatological services, including general dermatology, cosmetic dermatology, pediatric dermatology, and emergency dermatology. Our cutting-edge AI technology can help you detect and diagnose skin diseases with unparalleled accuracy and efficiency.
               </p>
             </div>

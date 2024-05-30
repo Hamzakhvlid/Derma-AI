@@ -30,7 +30,6 @@ interface Availability {
     city: string;
     location: string;
     price: string;
-    [key: string]: string | number;
 }
 
 export interface FormValues {
@@ -52,7 +51,7 @@ export interface FormValues {
 
 const initialValues: FormValues = {
   doctorName: "",
-  city: "",
+  city: "Lahore",
   imageUrl: "",
   phone: "",
   hospital: "",

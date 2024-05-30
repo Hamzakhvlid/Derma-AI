@@ -146,7 +146,7 @@ const Footer = () => {
 
         <div className="text-slate-400 grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
           <div className="space-y-3 ">
-            <h3 className="dark:text-gray-50 font-semibold">SERVICES</h3>
+            <h3 className=" font-semibold">SERVICES</h3>
             <ul className="space-y-1">
               <li>
                 <a
@@ -206,7 +206,7 @@ const Footer = () => {
             </ul>
           </div>
           <div className="space-y-3">
-            <h3 className="dark:text-gray-50 font-semibold">COMPANY</h3>
+            <h3 className=" font-semibold">COMPANY</h3>
             <ul className="space-y-1">
               <li>
                 <a
@@ -247,7 +247,7 @@ const Footer = () => {
             </ul>
           </div>
           <div className="space-y-3">
-            <h3 className="dark:text-gray-50 font-semibold">HELP DESK</h3>
+            <h3 className=" font-semibold">HELP DESK</h3>
             <ul className="space-y-1">
               <li>
                 <a
@@ -288,7 +288,7 @@ const Footer = () => {
             </ul>
           </div>
           <div className="space-y-3">
-            <div className="uppercase dark:dark:text-gray-50 font-semibold">
+            <div className="uppercase  font-semibold">
               Social media
             </div>
             <div className="flex justify-start space-x-3">
@@ -343,7 +343,7 @@ const Footer = () => {
 
         <div className="py-2 border-t text-sm px-1 flex justify-between">
 
-        <div className="text-left dark:text-gray-400">
+        <div className="text-left ">
           ©{year} - Derma AI
         </div>
         <div>
