@@ -5,6 +5,10 @@ import * as Yup from "yup";
 import axios from "axios";
 import "../style.css";
 import { City } from "country-state-city";
+import { Theme, Avatar } from "@radix-ui/themes";
+import "@radix-ui/themes/styles.css";
+import { baseUrl, uploadSimpleImage } from "@/app/api/baseUrl";
+import { toast } from "react-toastify";
 
 interface BasicInfoValues {
   doctorName: string;
@@ -24,6 +28,7 @@ const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
   initialValues,
   onNext,
 }) => {
+  const [disabled, setdisabled] = useState(false);
   const pakAllCities = City.getCitiesOfCountry("PK");
   const [isLoading, setisLoading] = useState(false);
   const formik = useFormik<BasicInfoValues>({
@@ -41,8 +46,27 @@ const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
       { setSubmitting }: FormikHelpers<BasicInfoValues>
     ) => {
       try {
+        const data = new FormData();
+        data.append("doctorName", values.doctorName);
+        data.append("city", values.city);
+        data.append("imageUrl", values.imageUrl);
+        data.append("phone", values.phone);
+        data.append("hospital", values.hospital);
+        data.append("desc", values.desc);
+
+        await axios.post(`${baseUrl}doctorDetail/addDoctorBasicDetail`, data, {
+          withCredentials: true,
+          headers: {
+            "Authorization": "Bearer " + localStorage.getItem("accessToken"),
+          }
+        }).then((res) => {
+          if(res.status === 200){
+            toast(res.data.message);
+            onNext(values);
+          }
+        } )
         console.log("Submitting basic info", values);
-        onNext(values);
+        
       } catch (error) {
         console.error("Error submitting basic info", error);
       } finally {
@@ -50,6 +74,28 @@ const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
       }
     },
   });
+  const handleUploadImage = async (e: any) => {
+    setdisabled(true);
+    try {
+      toast("Uploading Image");
+      const data = new FormData();
+      data.append("image", e.target.files![0]);
+      const response = await axios.post(uploadSimpleImage, data, {
+        withCredentials: true,
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("accessToken"),
+        },
+      });
+      if (response.data.success) {
+        formik.values.imageUrl = response.data.imageUrl;
+        toast("Image Uploaded");
+        setdisabled(false);
+      }
+    } catch (err) {
+      console.log(err);
+      toast("Error Uploading Image");
+    }
+  };
 
   return (
     <div className="   h-[100vh]">
@@ -60,6 +106,12 @@ const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
           </h1>
           <hr className="border-[#f4581c] border-width-3px height-1px mt-[1%] w-[20%] self-center" />
           <form onSubmit={formik.handleSubmit}>
+            <Theme>
+              <Avatar radius="full" size={"9"} src={formik.values.imageUrl} fallback={"FB"} />
+            </Theme>
+            <input type="file" onChange={(e) => {
+              handleUploadImage(e)
+            }}  />
             <div>
               <label className="label" htmlFor="doctorName">
                 Doctor Name
@@ -90,6 +142,7 @@ const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
                 className="input"
                 name="city"
                 id="city"
+                value={formik.values.city}
               >
                 {pakAllCities?.map((city, index) => (
                   <option id={`${index}`} className="input" value={city.name}>
@@ -161,18 +214,18 @@ const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
             </div>
 
             <div className="flex w-full justify-end items-center">
-            <button
-              type="submit"
-              className=" mt-[4%]  self-center px-4 py-2  bg-[#f4581c] rounded-lg hover:bg-opacity-90   text-white font-sans "
-            >
-              {isLoading ? (
-                <div className="flex flex-row  justify-center   w-[100%] ">
-                  <img className="w-[70px]   " src="loader.gif"></img>
-                </div>
-              ) : (
-                <>Next</>
-              )}
-            </button>
+              <button
+                type="submit"
+                className=" mt-[4%]  self-center px-4 py-2  bg-[#f4581c] rounded-lg hover:bg-opacity-90   text-white font-sans "
+              >
+                {isLoading ? (
+                  <div className="flex flex-row  justify-center   w-[100%] ">
+                    <img className="w-[70px]   " src="loader.gif"></img>
+                  </div>
+                ) : (
+                  <>Next</>
+                )}
+              </button>
             </div>
           </form>
         </div>

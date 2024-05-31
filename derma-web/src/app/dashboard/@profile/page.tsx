@@ -1,9 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BasicInfoStep from "./components/firststep";
 import QualificationExperienceStep from "./components/secondstep";
 import AvailabilityStep from "./components/thirdstep";
 import "./style.css";
+import axios from "axios";
+import { baseUrl } from "@/app/api/baseUrl";
 
 interface Qualification {
   institution: string;
@@ -23,13 +25,13 @@ interface OnlineAvailability {
 
 interface Availability {
   startTime: string; // Time in 24-hour format (e.g., "09:00")
-    endTime: string; // Time in 24-hour format (e.g., "17:00")
-    day: string;
-    lat: number;
-    lng: number;
-    city: string;
-    location: string;
-    price: string;
+  endTime: string; // Time in 24-hour format (e.g., "17:00")
+  day: string;
+  lat: number;
+  lng: number;
+  city: string;
+  location: string;
+  price: string;
 }
 
 export interface FormValues {
@@ -68,25 +70,65 @@ const initialValues: FormValues = {
 
 const DashboardProfile: React.FC = () => {
   const [step, setStep] = useState<number>(1);
-  const [formValues, setFormValues] = useState<FormValues>(initialValues);
+  const [formValues, setFormValues] = useState<FormValues | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  useEffect(() => {
+    async function fetchDoctorDetails() {
+      await axios
+        .get(`${baseUrl}getCompleteDoctor`, {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
+        .then((res) => {
+          console.log(res.data.doctor);
+          const doctorData = res.data.doctor;
+
+          const fetchedValues: FormValues = {
+            doctorName: doctorData.doctorName || "",
+            city: doctorData.city || "Lahore",
+            imageUrl: doctorData.imageUrl || "",
+            phone: doctorData.phone || "",
+            hospital: doctorData.hospital || "",
+            desc: doctorData.desc || "",
+            specialization: doctorData.specialization || "",
+            qualifications: doctorData.qualifications || [],
+            experience: doctorData.experience || [],
+            experienceYears: doctorData.experienceYears || "",
+            availability: doctorData.availability || [],
+            onlineAvailability: doctorData.onlineAvailability || {
+              from: "",
+              to: "",
+              price: "",
+            },
+            promotionalHeadline: doctorData.promotionalHeadline || "",
+            detailedRole: doctorData.detailedRole || "",
+          };
+
+          setFormValues(fetchedValues);
+        });
+    }
+    fetchDoctorDetails();
+    setLoading(false);
+  }, []);
+
+  const handleBack = () => {
+    setStep(step - 1);
+  };
+
+  if (!formValues) {
+    return <div>Loading...</div>; // Render a loading indicator while fetching data
+  }
 
   const handleNext = (values: Partial<FormValues>) => {
     setFormValues({ ...formValues, ...values });
     setStep(step + 1);
   };
 
-  const handleBack = () => {
-    setStep(step - 1);
-  };
-
   switch (step) {
     case 1:
-      return (
-        <BasicInfoStep
-          initialValues={formValues}
-          onNext={handleNext}
-        />
-      );
+      return <BasicInfoStep initialValues={formValues} onNext={handleNext} />;
     case 2:
       return (
         <QualificationExperienceStep
@@ -97,10 +139,7 @@ const DashboardProfile: React.FC = () => {
       );
     case 3:
       return (
-        <AvailabilityStep
-          initialValues={formValues}
-          onBack={handleBack}
-        />
+        <AvailabilityStep initialValues={formValues} onBack={handleBack} />
       );
     default:
       return null;

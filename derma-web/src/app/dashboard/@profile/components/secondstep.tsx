@@ -7,6 +7,8 @@ import { FormValues } from "../page";
 import "../style.css";
 import { IoIosAddCircle } from "react-icons/io";
 import { IoIosRemoveCircle } from "react-icons/io";
+import { toast } from "react-toastify";
+import { baseUrl } from "@/app/api/baseUrl";
 
 
 interface QualificationExperienceStepProps {
@@ -50,10 +52,27 @@ const QualificationExperienceStep: React.FC<QualificationExperienceStepProps> = 
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={(values, { setSubmitting }) => {
-              onNext(values);
-              setSubmitting(false)
-              console.log(values)
+            onSubmit={async (values, { setSubmitting }) => {
+              try{
+                
+                await axios.post(`${baseUrl}doctorDetail/addDoctorEducationAndExp`, values, {
+                  withCredentials: true,
+                  headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("accessToken"),
+                  }
+                }).then((res) => {
+                  if(res.status === 200){
+                    toast(res.data.message);
+                    onNext(values);
+                    setSubmitting(false)
+                  }
+                
+                })
+
+              }catch(err){
+                console.log(err)
+              
+              }
             }}
           >
             {({ values, handleChange, handleBlur, touched, errors, handleSubmit, isSubmitting }) => (

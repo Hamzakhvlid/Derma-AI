@@ -9,6 +9,8 @@ import "../style.css";
 import { FormValues } from "../page";
 import { IoIosAddCircle } from "react-icons/io";
 import { IoIosRemoveCircle } from "react-icons/io";
+import { toast } from "react-toastify";
+import { baseUrl } from "@/app/api/baseUrl";
 
 
 interface AvailabilityStepProps {
@@ -58,9 +60,22 @@ const AvailabilityStep: React.FC<AvailabilityStepProps> = ({
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={(values, { setSubmitting }) => {
-              setSubmitting(false);
-              console.log(values);
+            onSubmit={async (values, { setSubmitting }) => {
+              try{
+                await axios.post(`${baseUrl}doctorDetail/addDoctorAvailability`, values, {
+                  withCredentials: true,
+                  headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("accessToken"),
+                  }
+                }).then((res) => {
+                  if(res.status === 200){
+                    toast("Profile Setup complete")
+                    setSubmitting(false);
+                  }
+                })
+              }catch(err){
+
+              }
             }}
           >
             {({
