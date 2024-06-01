@@ -149,16 +149,10 @@ const Doctors = () => {
               isVerfied={id.isApproved}
               reviews={id.reviewsCount}
               speciality={id.specialization}
-              satisfaction={97}
               key={id._id}
               study={id.specialization}
-              isSergeon={true}
-              videoConsultation={
-                sampleDoctorData["doctors"][0].videoConsultation
-              }
-              otherConsultations={
-                sampleDoctorData["doctors"][0].otherConsultations
-              }
+              isSergeon={false}
+              
             />
           </div>
         ))}

@@ -26,8 +26,8 @@ export default function EditProfile() {
   const [selectedFile, setSelectedFile] = useState<File>();
 
   const initialValues = {
-    firstname: profile.firstname,
-    lastname: profile.lastname,
+    firstname: profile.first_name,
+    lastname: profile.last_name,
     phoneNumber: profile.phoneNumber,
     image: profile.image,
   };
@@ -44,31 +44,32 @@ export default function EditProfile() {
           .max(25, "Too Long!")
           .required(),
         image: Yup.string().url().required(),
-        phoneNumber: Yup.string()
-          .required(),
+        phoneNumber: Yup.string().required(),
       }),
       onSubmit: (values) => {
         console.log(values);
       },
     });
-    const handleUpload = async () => {
-        try {
-          if (!selectedFile) return;
-          const formData = new FormData();
-          formData.append("image", selectedFile);
-          const response = await axios.post(uploadImage, formData);
-          console.log(response.data.imageName);
-          console.log(response.data.imageUrl);
-    
-        setImageUrl(response.data.imageUrl);
-        
-        } catch (error: any) {
-          alert("error occured while uploading image please try again later")
-        }
-      };
+  const handleUpload = async () => {
+    try {
+      if (!selectedFile) return;
+      const formData = new FormData();
+      formData.append("image", selectedFile);
+      const response = await axios.post(uploadImage, formData);
+      console.log(response.data.imageName);
+      console.log(response.data.imageUrl);
+
+      setImageUrl(response.data.imageUrl);
+    } catch (error: any) {
+      alert("error occured while uploading image please try again later");
+    }
+  };
   return (
     <Theme>
-      <main className="mx-4 mt-20">
+      <main className="min-h-screen w-full">
+      <div className="flex flex-col  items-center justify-center h-screen bg-gray-100  px-10 ">
+      <div className="w-full max-w-3xl px-6 py-8 bg-white rounded-lg shadow-lg">
+        <div className="mb-8">
         <Card className="">
           <div>
             <Heading>Edit Profile</Heading>
@@ -124,7 +125,12 @@ export default function EditProfile() {
                       }
                     }}
                   />
-                  <Button onClick={handleUpload} type="button" size="2" variant="outline">
+                  <Button
+                    onClick={handleUpload}
+                    type="button"
+                    size="2"
+                    variant="outline"
+                  >
                     <MdOutlineFileUpload className="mr-2 h-4 w-4" />
                     Upload
                   </Button>
@@ -138,6 +144,9 @@ export default function EditProfile() {
             </div>
           </form>
         </Card>
+        </div>
+        </div>
+        </div>
       </main>
     </Theme>
   );

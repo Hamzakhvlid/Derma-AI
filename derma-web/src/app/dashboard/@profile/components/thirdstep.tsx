@@ -260,8 +260,8 @@ const AvailabilityStep: React.FC<AvailabilityStepProps> = ({
                 {touched.detailedRole && errors.detailedRole ? (
                   <div className="text-red-600 text-sm">{errors.detailedRole}</div>
                 ) : null}
-                <div className="flex w-full justify-end items-center">
-                  <button type="button" onClick={onBack}>
+                <div className="flex w-full justify-between items-center">
+                  <button className="mt-[4%] w-[100%] md:w-[30%] lg:-[20%] self-center  bg-[#f4581c] rounded-lg hover:bg-opacity-90  h-[3rem]  text-white font-sans " type="button" onClick={onBack}>
                     Back
                   </button>
                   <button

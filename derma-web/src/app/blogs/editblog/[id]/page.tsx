@@ -57,6 +57,12 @@ export default function EditBlog() {
     } catch (err) {
       console.log(err);
       toast("Error Uploading Image");
+      const fileInput = document.getElementById(
+        "file"
+      ) as HTMLInputElement;
+      if (fileInput) {
+        fileInput.value = ""; // Reset file input
+      }
     }
   };
   async function updateBlog(){
@@ -79,17 +85,17 @@ export default function EditBlog() {
     }
   }
   return (
-    <div>
-      <div className="space-y-6">
-        <div>
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100  px-10 ">
+      <div className="w-full max-w-3xl px-6 py-8 bg-white rounded-lg shadow-lg">
+        <div className="mb-8" >
           <label
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            className="block mb-2 text-sm font-medium text-gray-700 "
             htmlFor="title"
           >
             Title
           </label>
           <input
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 "
             id="title"
             placeholder="Enter your blog post title"
             type="text"
@@ -97,15 +103,15 @@ export default function EditBlog() {
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
-        <div>
+        <div className="mb-8" >
           <label
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            className="block mb-2 text-sm font-medium text-gray-700 "
             htmlFor="content"
           >
             Content
           </label>
           <textarea
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 "
             id="content"
             placeholder="Start writing your blog post content..."
             rows={10}
@@ -113,25 +119,52 @@ export default function EditBlog() {
             onChange={(e) => setContent(e.target.value)}
           />
         </div>
-        <div>
+        <div className="mb-8" >
           <label
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            className="block mb-2 text-sm font-medium text-gray-700 "
             htmlFor="content"
           >
-            Cover Image
+            Featured Image
           </label>
-          <img src={cover} />
-          <input
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
-            id="cover"
-            type="file"
-            onChange={(e) => {
-                handleUploadImage(e);
-            }}
-          />
+          <img src={cover} className="h-24 w-24"  />
+          <label htmlFor='file' className="flex items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-md cursor-pointer ">
+            <div className="text-center">
+              <UploadIcon className="w-8 h-8 mx-auto text-gray-400 " />
+              <p className="mt-2 text-sm font-medium text-gray-700 ">
+                Drag and drop your image here, or click to upload
+              </p>
+            </div>
+            <input hidden className="file"  id="file" type="file" onChange={(e) => {
+                  
+                  handleUploadImage(e);
+                }} />
+          </label>
         </div>
-        <button className="w-full" disabled={disabled} onClick={updateBlog} >Publish</button>
+        <button className="w-full text-white bg-red-500 rounded-xl py-3" disabled={disabled} onClick={updateBlog} >Publish</button>
       </div>
     </div>
   );
+}
+
+
+
+function UploadIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="17 8 12 3 7 8" />
+      <line x1="12" x2="12" y1="3" y2="15" />
+    </svg>
+  )
 }

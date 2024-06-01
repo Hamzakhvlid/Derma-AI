@@ -4,7 +4,7 @@ import "./styles.css";
 export default function PrivacyPolicy() {
   return (
     <div className="wrapper">
-      <div className="mt-20 drop-shadow-md rounded-md bg-white p-6">
+      <div className="mt-20 drop-shadow-md rounded-md bg-white p-6 mb-20">
         <h1>Introduction</h1>
         <p>{INTRODUCTION}</p> <br />
         <h1>Do you collect personal information from your users?</h1>
@@ -23,11 +23,11 @@ export default function PrivacyPolicy() {
         <br />
         <h1>How secure is my personal information?</h1>
         <p>{PERSONAL_INFO_SECURE}</p> <br />
-        <h1>How Marham Collects, Uses and Shares User's sensitive data?</h1>
+        <h1>How Derma AI Collects, Uses and Shares User's sensitive data?</h1>
         <p>
           Permissions we need: <br /> <br />
           <h1>1. Camera</h1> <br />
-          Marham will use your camera to enable you: <br />
+          Derma AI will use your camera to enable you: <br />
           - To have a video call with the doctor. <br />
           - Take pictures of reports/prescriptions and share them with the
           doctor. <br />
@@ -36,42 +36,42 @@ export default function PrivacyPolicy() {
           booking Lab Test. <br />
           - Take picture of the prescription and attach it for booking Medicine
           Delivery. <br />
-          - Post questions at the Marham health forum. <br />
+          - Post questions at the Derma AI health forum. <br />
           <h1>2. Gallery</h1> <br />
-          Marham will use your Gallery to enable you: <br />
+          Derma AI will use your Gallery to enable you: <br />
           - Share reports/prescription with Doctor & EMR. <br />
           - Save reports/prescription in your Medical Record. <br />
           - Attach prescription for booking Lab Test. <br />
           - Attach prescription for booking Medicine Delivery. <br />
-          - Post question at Marham health forum. <br />
+          - Post question at Derma AI health forum. <br />
           <h1>3. Storage</h1> <br />
-          Marham will use your storage to enable you: <br />
+          Derma AI will use your storage to enable you: <br />
           - Share reports/prescriptions with the doctor. <br />
           - Save reports/prescriptions in your medical record. <br />
           - Attach prescription for booking Lab Test. <br />
           - Attach prescription for booking Medicine Delivery. <br />
           <h1>4. Location</h1> <br />
-          Marham will use your location to enable you: <br />
+          Derma AI will use your location to enable you: <br />
           - To give a Lab Test home sample at your doorstep. <br />
           - Get medicines delivered to your doorstep. <br />
           <h1>5. Camera and Microphone</h1> <br />
-          Marham will use a Camera and Microphone to enable you: <br />
+          Derma AI will use a Camera and Microphone to enable you: <br />
           - To take video consultations from the doctor. <br />
           <h1>6. Microphone</h1> <br />
-          Marham will use a Microphone to enable you: <br />
+          Derma AI will use a Microphone to enable you: <br />
           - To send audio notes to the doctor in chat. <br />
           <h1>7. Access phone calls that help you to</h1> <br />
-          Marham will use your Phone Call permission to enable you: <br />
-          - To call Marham’s helpline for your assistance. <br />
+          Derma AI will use your Phone Call permission to enable you: <br />
+          - To call Derma AI’s helpline for your assistance. <br />
           <h1>8. Display over other apps</h1> <br />
-          Marham will use Display over other apps to enable you to: <br />
+          Derma AI will use Display over other apps to enable you to: <br />
           - To get notified when doctor calls you for video consultation. <br />
         </p>{" "}
         <br />
         <h1>Account Deletion</h1>
         <p>
           You can request to delete your account by emailing us at
-          info@marham.pk or calling our helpline 0311-1222398. Once the request
+          info@Derma AI.pk or calling our helpline 0311-1222398. Once the request
           is processed your account will be deleted and the data will be removed
           permanently.{" "}
         </p>
@@ -218,7 +218,7 @@ export default function PrivacyPolicy() {
         <h1>Coptrights</h1>
         <p>
           All the content, images, graphics, text, videos (Including YouTube
-          videos), material, structure and its arrangement is property of Marham
+          videos), material, structure and its arrangement is property of Derma AI
           and protected under the copy right laws. Reproducing or copying any of
           its part or whole of site is therefore illegal. Any person or
           organization found guilty will be dealt as per law. ALL RIGHTS
@@ -234,7 +234,7 @@ export default function PrivacyPolicy() {
         <h1>Data Theft</h1>
         <p>
           All data contained by the website and application is collected by Team
-          Marham. We own complete rights of this data and legal action would be
+          Derma AI. We own complete rights of this data and legal action would be
           taken if we found any instance of theft of data.
         </p>
         <br />
@@ -242,7 +242,7 @@ export default function PrivacyPolicy() {
         <p>
           Derma AI may update this Privacy Policy at any time, with or without
           advance notice. In the event there are significant changes in the way
-          Marham treats User's Personal Information, Marham will display a
+          Derma AI treats User's Personal Information, Derma AI will display a
           notice on the Website or send users an email. If a User uses the
           Service after notice of changes have been sent to such user or
           published on the website, such user hereby provides his/ her/ its
@@ -254,17 +254,17 @@ export default function PrivacyPolicy() {
           If there are any ambiguities or queries regarding this privacy policy,
           Contact us here:
           <br />
-          dermaai.pk, Gujrat, Punjab, Pakistan
+          dermaai.vercel.app, Gujrat, Punjab, Pakistan
           <br />
-          info@dermaai.pk
+          mmansar000@gmail.com
           <br />
           Account Deletion
         </p>{" "}
         <br />
         <h1>For account deletion, Contact us here:</h1>
-        Phone # :- 042-32591427
+        Phone # :- 0313-6030942
         <br />
-        Email:- info@marham.pk
+        Email:- mmansar000@gmail.com
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ export default function CreateBlog() {
           toast("Uploading Image");
           const data = new FormData();
           data.append("image", e.target.files![0]);
-          const response = await axios.post(uploadSimpleImage, data, {
+          const response = await axios.post("http://localhost:8080/api/v1/users/uploadImage", data, {
             withCredentials: true,
             headers: {
               authorization: "Bearer " + localStorage.getItem("accessToken"),
@@ -32,9 +32,16 @@ export default function CreateBlog() {
             toast("Image Uploaded");
             setdisabled(false);
           }
+          
         } catch (err) {
           console.log(err);
           toast("Error Uploading Image");
+          const fileInput = document.getElementById(
+            "file"
+          ) as HTMLInputElement;
+          if (fileInput) {
+            fileInput.value = ""; // Reset file input
+          }
         }
       };
     async function createBlog(){
@@ -61,14 +68,14 @@ export default function CreateBlog() {
         }
     }
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 dark:bg-gray-900">
-      <div className="w-full max-w-3xl px-6 py-8 bg-white rounded-lg shadow-lg dark:bg-gray-800">
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100  px-10 ">
+      <div className="w-full max-w-3xl px-6 py-8 bg-white rounded-lg shadow-lg">
         <div className="mb-8">
-          <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="title">
+          <label className="block mb-2 text-sm font-medium text-gray-700 " htmlFor="title">
             Title
           </label>
           <input
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 "
             id="title"
             placeholder="Enter a title for your blog post"
             onChange={(e) => {setTitle(e.target.value)}}
@@ -77,31 +84,31 @@ export default function CreateBlog() {
           />
         </div>
         <div className="mb-8">
-          <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="content">
+          <label className="block mb-2 text-sm font-medium text-gray-700 " htmlFor="content">
             Content
           </label>
-          <div className="border border-gray-300 rounded-md shadow-sm dark:border-gray-600">
-            <div className="px-3 py-2 bg-gray-100 rounded-t-md dark:bg-gray-700">
+          <div className="border border-gray-300 rounded-md shadow-sm ">
+            <div className="px-3 py-2 bg-gray-100 rounded-t-md ">
               <div className="flex items-center space-x-2">
-                <button className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-600">
+                <button className="p-1 rounded hover:bg-gray-200 ">
                   <BoldIcon className="w-4 h-4" />
                 </button>
-                <button className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-600">
+                <button className="p-1 rounded hover:bg-gray-200 ">
                   <ItalicIcon className="w-4 h-4" />
                 </button>
-                <button className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-600">
+                <button className="p-1 rounded hover:bg-gray-200 ">
                   <UnderlineIcon className="w-4 h-4" />
                 </button>
-                <button className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-600">
+                <button className="p-1 rounded hover:bg-gray-200 ">
                   <HeadingIcon className="w-4 h-4" />
                 </button>
-                <button className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-600">
+                <button className="p-1 rounded hover:bg-gray-200 ">
                   <ListIcon className="w-4 h-4" />
                 </button>
               </div>
             </div>
             <textarea
-              className="w-full px-3 py-2 border-t border-gray-300 rounded-b-md resize-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
+              className="w-full px-3 py-2 border-t border-gray-300 rounded-b-md resize-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 "
               id="content"
               placeholder="Start writing your blog post content here..."
               rows={10}
@@ -111,22 +118,23 @@ export default function CreateBlog() {
           </div>
         </div>
         <div>
-          <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="image">
+          <label className="block mb-2 text-sm font-medium text-gray-700 " htmlFor="image">
             Featured Image
           </label>
-          <div className="flex items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-md cursor-pointer dark:border-gray-600">
+          <label htmlFor='file' className="flex items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-md cursor-pointer ">
             <div className="text-center">
-              <UploadIcon className="w-8 h-8 mx-auto text-gray-400 dark:text-gray-500" />
-              <p className="mt-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+              <UploadIcon className="w-8 h-8 mx-auto text-gray-400 " />
+              <p className="mt-2 text-sm font-medium text-gray-700 ">
                 Drag and drop your image here, or click to upload
               </p>
             </div>
-            <input className="" id="image" type="file" onChange={(e) => {
+            <input hidden className="file"  id="file" type="file" onChange={(e) => {
                   setImgFile(e.target.files![0]);
                   handleUploadImage(e);
                 }} />
-          </div>
+          </label>
         </div>
+        
         <Theme>
         <div className="flex justify-end mt-8">
           <Button className="ml-4" onClick={createBlog} disabled={disabled} >

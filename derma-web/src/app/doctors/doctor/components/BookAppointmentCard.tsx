@@ -7,32 +7,32 @@ import Link from "next/link";
 import sampleDoctorData from "../../../homePage/components/sampleDoctorData";
 import { useState } from "react";
 
-export default function BookAppointmentCard(props:{
-  docID: string,
+export default function BookAppointmentCard(props: {
+  docID: string;
   availabilites: Array<{
-    id: number,
-    price:string,
-    from: string,
-    to: string,
-    location: string,
+    _id: string;
+    startTime: string;
+    endTime: string;
+    city: string;
+    day: string;
+    location: string;
   }>;
   onlineAvailability: {
-    id: number,
-    price: string,
-    from: string,
-    to: string,
-  }
-
+    _id: string;
+    price: string;
+    from: string;
+    to: string;
+  };
 }) {
   const [selectedConsultant, setSelectedConsultant] = useState<string>(null!);
-  const [selectedConsultantData, setSelectedConsultantData] = useState<any>(null);
+  const [selectedConsultantData, setSelectedConsultantData] =
+    useState<any>(null);
+   
 
   const handleConsultantSelect = (consultant: string, data: any) => {
     setSelectedConsultant(consultant);
     setSelectedConsultantData(data);
   };
-
-  
 
   return (
     <div className="drop-shadow-md p-4 bg-[#eef4f6] rounded-lg w-full">
@@ -49,7 +49,9 @@ export default function BookAppointmentCard(props:{
             ? "border-blue-900"
             : "border-gray-300"
         }`}
-        onClick={() => handleConsultantSelect("videoConsultant", props.onlineAvailability)}
+        onClick={() =>
+          handleConsultantSelect("videoConsultant", props.onlineAvailability)
+        }
       >
         <div className="px-4 bg-white space-y-1 py-2 text-sm">
           <div className=" text-sm font-semibold underline">
@@ -58,7 +60,6 @@ export default function BookAppointmentCard(props:{
           <div>Rs. {`${props.onlineAvailability.price}`}</div>
           <div className="flex">
             <img src="/greendot.svg" alt="" />
-            
 
             {`${props.onlineAvailability.from} - ${props.onlineAvailability.to}`}
           </div>
@@ -70,30 +71,41 @@ export default function BookAppointmentCard(props:{
       {props.availabilites.map((id) => (
         <div
           className={`rounded-md bg-white text-sm mb-2 border-solid cursor-pointer border-2 ${
-            selectedConsultant === `otherConsultant-${id.id}`
+            selectedConsultant === `otherConsultant-${id._id}`
               ? "border-blue-900"
               : "border-gray-300"
           }`}
-          onClick={() => handleConsultantSelect(`otherConsultant-${id.id}`, id)}
+          onClick={() =>
+            handleConsultantSelect(`otherConsultant-${id._id}`, id)
+          }
         >
           <div className="px-4 sm:space-y-1 py-2">
             <div className="text-sm font-semibold underline">{`${id.location}`}</div>
-            <div>{`Rs. ${id.price}`}</div>
+            <div>{`${id.city}`}</div>
             <div className="flex">
               <img src="/greendot.svg" alt="" />
-              {`${id.from} - ${id.to}`}
+              {`${id.startTime} - ${id.endTime}`}
             </div>
           </div>
         </div>
       ))}
 
       {/* Select Date & Time */}
-      {selectedConsultantData && <div className="flex">
-        <img src={"/2.svg"} alt="" />
-        Select Date & Time
-      </div>}
+      {selectedConsultantData && (
+        <div className="flex">
+          <img src={"/2.svg"} alt="" />
+          Select Date & Time
+        </div>
+      )}
 
-      {selectedConsultantData && <BookAppointmentCardContactInfo location={selectedConsultantData.location} doctorID={props.docID} from={selectedConsultantData.from} to={selectedConsultantData.to}/>}
+      {selectedConsultantData && (
+        <BookAppointmentCardContactInfo
+          location={selectedConsultantData.location}
+          doctorID={props.docID}
+          from={selectedConsultantData.from || selectedConsultantData.startTime}
+          to={selectedConsultantData.to || selectedConsultantData.endTime}
+        />
+      )}
     </div>
   );
 }

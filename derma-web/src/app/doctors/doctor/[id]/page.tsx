@@ -12,18 +12,6 @@ import { Avatar } from "@radix-ui/themes";
 import DoctorDetailScreenLoading from "./loading";
 import { getDoctorDetail } from "@/app/api/baseUrl";
 
-const dummyAvailability = [
-  { id: 1, from: "09:00", to: "12:00", location: "Hospital A", price:"1500" },
-  { id: 2, from: "14:00", to: "17:00", location: "Hospital B", price: "2832" },
-  { id: 3, from: "08:30", to: "11:30", location: "Clinic C", price: "2983" }
-];
-
-const dummyOnlineAvailability = {
-  id: 1,
-  from: "09:50",
-  to: "10:50",
-  price: "3903"
-}
 
 interface DoctorData {
   doctorName: string;
@@ -37,6 +25,7 @@ interface DoctorData {
   imageUrl: string;
   experience: { institution: string; designation: string }[];
   appointmentDetails: string;
+  satisfaction: string;
   reviews: {
     name: string;
     hospital: string;
@@ -44,6 +33,8 @@ interface DoctorData {
     time: string;
   }[];
   faqs: { question: string; answer: string }[];
+  availability: [];
+  onlineAvailability: { from: string; to: string; price: string, _id: string };
 
   // Define other properties here
 }
@@ -286,15 +277,15 @@ export default function DoctorDetailScreen({
           </div>
         </div>
         <div id="bookappointment" className="right">
-          <BookAppointmentCard docID={params.id} availabilites={dummyAvailability} onlineAvailability={dummyOnlineAvailability}/>
+          <BookAppointmentCard docID={params.id} availabilites={doctor.availability} onlineAvailability={doctor.onlineAvailability}/>
         </div>
       </div>
-      <div className="text-sm m-3">
+      <div className="text-sm m-3 mb-40">
         <h1 className="font-bold my-5">
           Professional Statement By {doctor?.doctorName}
         </h1>
-        <h1 className="font-semibold my-5">Appointment Details:</h1>
-        <h1>{doctor?.appointmentDetails}</h1>
+        {doctor?.appointmentDetails  && (<><h1 className="font-semibold my-5">Appointment Details:</h1>
+        <h1>{doctor?.appointmentDetails}</h1></>)}
         <h1 className="font-semibold my-5">Role of Dermatologist:</h1>
         {doctor?.detailedRole}
         {doctor?.appointmentDetails}
@@ -316,19 +307,16 @@ export default function DoctorDetailScreen({
           ))}
         </div>
 
-        {/* <div className="flex-col my-5">
+        {doctor?.satisfaction && (<><div className="flex-col my-5">
                 <h1 className="font-semibold ">Patient Satisfaction Score: </h1>
-                {props.satisfaction}
-            </div> */}
+                {doctor?.satisfaction}
+            </div></>)}
 
-        <h1 className="font-semibold my-5">
+        {doctor?.servicesoffered && (<><h1 className="font-semibold my-5">
           Services offered by {doctor?.doctorName}:{" "}
         </h1>
-        {doctor?.servicesoffered}
-        <h1 className="font-semibold my-5">
-          Special Interest by {doctor?.doctorName}:{" "}
-        </h1>
-        {doctor?.specialServices}
+        {doctor?.servicesoffered}</>)}
+        
       </div>
     </div>
   );

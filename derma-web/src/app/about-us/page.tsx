@@ -63,7 +63,7 @@ export default function AboutUs() {
       <Services />
 
       <h1 className="my-10 text-[1.1rem] font-bold text-[#014e78] text-center">Interested in Partnership?</h1>
-      <div className="flex justify-center mb-10">
+      <div className="flex justify-center mb-20">
         <a href="/#contact-us" className="bg-red-800 text-white text-[0.9rem] py-2 px-4 rounded-lg">
           Partner with Derma-AI
         </a>

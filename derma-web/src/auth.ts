@@ -50,6 +50,7 @@ export const {
                 session.user.status = res.data.user.status;
                 session.user.role = res.data.user.role;
                 session.user.doctorId = res.data.user.doctorId;
+                session.user._id = res.data.user._id;
             }
        
           

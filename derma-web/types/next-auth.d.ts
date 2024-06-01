@@ -18,6 +18,7 @@ declare module 'next-auth' {
         status: string,
         role: string
         doctorId: string
+        _id: string
       };
     }
     interface Jwt extends DefaultJWT {

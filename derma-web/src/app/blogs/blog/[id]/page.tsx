@@ -74,7 +74,28 @@ export default function DetailedBlog() {
             </div>
           </div>
           <h1 className="mb-4 text-4xl font-bold">{blog.title}</h1>
-          <p>{blog.content}</p>
+          {/* <p>{blog.content}</p> */}
+          <h1>Your Skin's Best Friend: The Dermatologist</h1>
+  <p>Our skin is our largest organ, protecting us from the outside world and regulating our temperature. But with all it does for us, sometimes our skin needs a little TLC. That's where dermatologists come in!</p>
+  <h2>Who is a Dermatologist?</h2>
+  <p>A dermatologist is a medical doctor who specializes in diagnosing and treating conditions related to the skin, hair, and nails. They've gone through years of schooling and training to become experts in this vital area of health.</p>
+  <h2>What can a Dermatologist Help With?</h2>
+  <p>Dermatologists can help with a wide range of issues, from common concerns like acne and eczema to more serious conditions like psoriasis and skin cancer. They can also perform cosmetic procedures like mole removal and Botox injections.</p>
+  <h3>Reasons to Visit a Dermatologist</h3>
+  <ul>
+    <li>Acne breakouts</li>
+    <li>Rashes and allergies</li>
+    <li>Eczema or psoriasis</li>
+    <li>Hair loss</li>
+    <li>Skin cancer screening</li>
+    <li>Warts and moles</li>
+    <li>Concerns about wrinkles or aging skin</li>
+  </ul>
+  <h2>Why See a Dermatologist?</h2>
+  <p>While there are many over-the-counter products available for skin concerns, a dermatologist can provide personalized advice and treatment plans. They can also perform biopsies to diagnose skin conditions accurately. Early diagnosis and treatment are crucial for many skin problems.</p>
+  <h2>Finding a Dermatologist</h2>
+  <p>Most insurance plans cover dermatologist visits, so don't hesitate to schedule an appointment if you have any concerns about your skin, hair, or nails. You can ask your primary care physician for a referral or search online for board-certified dermatologists in your area.</p>
+  <p>Taking care of your skin is an important part of overall health. By working with a dermatologist, you can keep your skin healthy and glowing for years to come.</p>
         </article>
       </div>
     </div>

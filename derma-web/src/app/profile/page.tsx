@@ -1,62 +1,103 @@
 "use client";
-import React from "react";
-import { Avatar, Button, Switch, Theme } from "@radix-ui/themes";
+import React, {useEffect} from "react";
+import { Avatar, Theme, AlertDialog, Flex, Button, Text } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../lib/store";
-import { MdEdit } from "react-icons/md";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
+import { login, logout } from "../lib/authSlice";
+import { setProfile, setUser } from "../lib/reducers/loggedinUser";
+import { redirect } from "next/navigation";
+import {useRouter} from "next/router";
+
 
 const Profile = () => {
+  
   const userState = useSelector((state: RootState) => state.user);
+  const authState = useSelector((state: RootState) => state.auth);
+  const {isLogin } = authState;
   const { user, profile, roles, isAdmin } = userState;
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(login());
+    dispatch(setProfile(null));
+    dispatch(setUser(null));
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("accessToken");
+    dispatch(logout());
+    signOut();
+    
+  };
+  
+  
+  
   return (
-    <Theme>
-      <main className="flex flex-col  bg-gray-100 mt-20 ">
-        <header className="bg-white  shadow-sm p-4 flex items-center justify-between ">
-          <div className="flex items-center space-x-4">
+    <Theme className="wrapper">
+      <main className="flex flex-col  bg-gray-100 mt-20">
+        <header className="bg-white  shadow-sm p-4 ">
+          <div className="flex flex-col justify-center items-center space-x-4">
             <Avatar
-              className="h-10 w-10"
+              size={"9"}
               radius="full"
               fallback={
                 (profile.first_name ?? "")[0] + (profile.last_name ?? "")[0]
               }
               src={profile?.image ?? profile?.imageUrl ?? ""}
             />
-
-            <div>
-              <h2 className="font-medium text-gray-900 ">
-                {profile.first_name} {profile.last_name}
-              </h2>
-              <p className="text-gray-500  text-sm">{profile.email}</p>
-            </div>
+            <Link
+              href={`/editprofile/${profile._id}`}
+              className="underline text-blue-400 text-sm "
+            >
+              Edit Profile
+            </Link>
           </div>
-          <Link href={`/editprofile/${profile._id}`}>
-          <Button className="rounded-full" size="2" variant="outline">
-            <MdEdit />
-          </Button>
-          </Link>
+          <div className="flex justify-between items-center mt-10">
+            <h2 className="font-medium text-gray-900 ">Name:</h2>
+            <p className="text-gray-500  text-sm">
+              {profile.first_name} {profile.last_name}
+            </p>
+          </div>
+          <div className="flex justify-between items-center">
+            <h2 className="font-medium text-gray-900 ">Email:</h2>
+            <p className="text-gray-500  text-sm">{profile.email}</p>
+          </div>
         </header>
+
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          <MedicalHistory />
           <UpcomingAppointments />
-          <UserSettings />
+        </div>
+        <div className="overflow-y-auto p-4 space-y-4 flex justify-center items-center">
+          <AlertDialog.Root>
+            <AlertDialog.Trigger>
+              <Text className="cursor-pointer" color="red">Logout</Text>
+            </AlertDialog.Trigger>
+            <AlertDialog.Content>
+              <AlertDialog.Title>Logout</AlertDialog.Title>
+              <AlertDialog.Description size="2">
+                Are you sure? This application will no longer be accessible and
+                any existing sessions will be expired.
+              </AlertDialog.Description>
+
+              <Flex gap="3" mt="4" justify="end">
+                <AlertDialog.Cancel>
+                  <Button variant="soft" color="gray">
+                    Cancel
+                  </Button>
+                </AlertDialog.Cancel>
+                <AlertDialog.Action>
+                  <Button onClick={handleLogout} variant="solid" color="red">
+                    Logout
+                  </Button>
+                </AlertDialog.Action>
+              </Flex>
+            </AlertDialog.Content>
+          </AlertDialog.Root>
         </div>
       </main>
     </Theme>
   );
 };
-
-const MedicalHistory = () => (
-  <section>
-    <h3 className="text-lg font-medium text-gray-900 ">Medical History</h3>
-    <div className="bg-white  rounded-lg shadow-sm p-4 space-y-2">
-      <DataPair label="Blood Type" value="O+" />
-      <DataPair label="Allergies" value="Pollen, Latex" />
-      <DataPair label="Medications" value="Ibuprofen, Aspirin" />
-    </div>
-  </section>
-);
 
 const UpcomingAppointments = () => (
   <section>
@@ -74,23 +115,6 @@ const UpcomingAppointments = () => (
       <Appointment
         data={{ type: "Dermatology", date: "June 1, 2023", time: "2:30 PM" }}
       />
-    </div>
-  </section>
-);
-
-const UserSettings = () => (
-  <section>
-    <h3 className="text-lg font-medium text-gray-900 ">Settings</h3>
-    <div className="bg-white  rounded-lg shadow-sm p-4 space-y-4">
-      <Setting label="Notifications" value="Enabled" />
-      <Setting label="Dark Mode" value="Enabled" />
-      <div className="flex items-center justify-between">
-        <DataPair label="Language" value="English" />
-        <Button className="rounded-full" size="2" variant="outline">
-          {/* <ChevronRightIcon className="h-5 w-5" /> */}
-          <span className="sr-only">Change Language</span>
-        </Button>
-      </div>
     </div>
   </section>
 );
@@ -118,18 +142,6 @@ const Appointment: React.FC<{ data: AppointmentData }> = ({ data }) => (
     <DataPair label="Appointment" value={data.type} />
     <DataPair label="Date" value={data.date} />
     <DataPair label="Time" value={data.time} />
-  </div>
-);
-
-interface SettingProps {
-  label: string;
-  value: string;
-}
-
-const Setting: React.FC<SettingProps> = ({ label, value }) => (
-  <div className="flex items-center justify-between">
-    <DataPair label={label} value={value} />
-    <Switch />
   </div>
 );
 

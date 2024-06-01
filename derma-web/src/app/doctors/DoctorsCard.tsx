@@ -17,30 +17,8 @@ const DoctorsCard = (props: {
     study: String;
     reviews: Number;
     experience: String;
-    satisfaction: Number;
-    videoConsultation: {
-        isAvailable: Boolean;
-        available: String;
-        price: Number;
-        timeFrom: String;
-        timeTo: String;
-    };
-    otherConsultations: Array<{
-        id: Number;
-        place: string;
-        area: string;
-        timeFrom: string;
-        timeTo: String;
-        available: string;
-        price: Number;
-        isAvailable: Boolean;
-        phone: string
-    }>;
-}) => {
-    const { isAvailable, available, price, timeFrom, timeTo } =
-        props.videoConsultation;
-    const users = sampleDoctorData.users[0];
     
+}) => {
     return (
         <>
             <div className="w-full drop-shadow-md px-[2rem] bg-white py-5 rounded-lg">
@@ -54,7 +32,7 @@ const DoctorsCard = (props: {
                         <div className="sm:pb-0 pb-4">
                             <div className="space-y-2">
                                 <div className="flex">
-                                    <Link href={`/doctor/${props._id}`} className="text-blue-900 underline font-bold ">
+                                    <Link href={`/doctors/doctor/${props._id}`} className="text-blue-900 underline font-bold ">
                                         {props.name}
                                     </Link>
                                     {props.isVerfied && (
@@ -88,7 +66,8 @@ const DoctorsCard = (props: {
                                 </div>
                                 <div className="sm:pl-4 pl-0">
                                     <h1>Satisfaction</h1>
-                                    <h1 className="font-bold">{`${props.satisfaction}`}%</h1>
+                                    {/* <h1 className="font-bold">{`${props.satisfaction}`}%</h1> */}
+                                    <h1 className="font-bold">{`${0}`}%</h1>
                                 </div>
                             </div>
                         </div>
@@ -98,70 +77,14 @@ const DoctorsCard = (props: {
                         <Button
                             title={"Video Call"}
                             color={"bg-[#4CA585]"}
-                            href={"/doctordetailscreen#bookappointment"}
+                            href={`/doctors/doctor/${props._id}#bookappointment`}
                         />
-                        <Link href="/doctordetailscreen#bookappointment" className={`bg-[#004D71] rounded-lg px-4 py-2 text-center text-sm  text-white `}>
+                        <Link href={`/doctors/doctor/${props._id}#bookappointment`} className={`bg-[#004D71] rounded-lg px-4 py-2 text-center text-sm  text-white `}>
                             Book Appointment
                         </Link>
 
                     </div>
                 </div>
-                <Swiper
-                    className="flex flex-row mt-6 space-x-5"
-                    spaceBetween={50}
-                    // install Swiper modules
-                    breakpoints={{
-                        576: {
-                            width: 576,
-                            slidesPerView: 2,
-                        },
-                        600: {
-                            width: 600,
-                            slidesPerView: 1,
-                        },
-                        1700: {
-                            width: 1700,
-                            slidesPerView: 3,
-                        }
-
-                    }}
-
-                >
-                    <SwiperSlide className="rounded-md border-blue-900 border-solid border-2">
-                        <Link href= "/doctordetailscreen#bookappointment" className="px-4 block sm:space-y-0 space-y-3 py-2">
-                            <div className="flex text-sm font-bold">
-                                Video Consultant
-                            </div>
-                            <div className="flex">
-                                    <img src="/greendot.svg" alt="" />
-                                    <h1 className="text-sm text-green-800">Available Tomorrow</h1>
-                                </div>
-                                <div>Rs. {`${price}`}</div>
-                            
-                        </Link>
-                    </SwiperSlide>
-                    {props.otherConsultations.map((id) => (
-
-                        <SwiperSlide className="rounded-md border-gray-300 border-solid border-2 ">
-                            <Link
-                            href={"/doctor#bookappointment"}
-                                className="cursor-pointer">
-                                <div className="px-4 sm:space-y-0 space-y-3 py-2">
-                                    <div className="flex text-sm font-bold">
-
-                                        {`${id.area}, ${id.place}`}
-                                    </div>
-                                    <div className="flex">
-                                            <img src="/greendot.svg" alt="" />
-                                            <h1 className="text-sm text-green-800">{id.available}</h1>
-                                        </div>
-                                        <div>Rs. {`${id.price}`}</div>
-                                </div>
-                            </Link>
-                        </SwiperSlide>
-
-                    ))}
-                </Swiper>
             </div>
         </>
     );

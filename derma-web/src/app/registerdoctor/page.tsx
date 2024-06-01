@@ -20,6 +20,10 @@ const initialValues = {
 };
 
 export default function RegisterDoctor() {
+
+  
+
+
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [idFile, setIDFile] = useState<File>();

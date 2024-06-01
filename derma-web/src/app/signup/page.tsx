@@ -12,12 +12,13 @@ import "./style.css";
 import SucessMessage from "../forgotPassword/sucessMessage";
 import { toast } from "react-toastify";
 import {signIn} from 'next-auth/react'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setProfile,  } from "../lib/reducers/loggedinUser";
 import { auth } from "@/auth";
 import { login } from "../lib/authSlice";
 import { GoogleLogin } from '@react-oauth/google';
 import { redirect } from "next/navigation";
+
 interface Values {
   firstName: string;
   lastName: string;
@@ -37,6 +38,7 @@ const initialValues = {
 };
 
 import {doSocialLogin} from "../actions/index";
+import { RootState } from "../lib/store";
 
 
 
@@ -48,6 +50,8 @@ export default function SignUpPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [count, setCount] = useState(1);
  const dispatch = useDispatch();
+ const authState = useSelector((state: RootState) => state.auth);
+  const {isLogin } = authState;
 
   const signInWithGoogle = async () => {
 
@@ -65,19 +69,6 @@ export default function SignUpPage() {
 
   
   };
-  
-  
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setCount((prevCount) => prevCount + 1);
-      }, 1000);
-  
-      return () => {
-        clearInterval(interval);
-      };
-    }, []);
-  
-   
   
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -102,9 +93,15 @@ export default function SignUpPage() {
       },
     });
 
-    if (showSuccess&&count > 4) {
-      window.location.href = "/login";
-    }
+    
+    useEffect(() => {
+      if(isLogin){
+        redirect("/");
+      }
+    }, [])
+    if(isLogin){
+      redirect("/");
+     }
 
   return (
     <div className="fancybackground wrapper  h-[100vh]">

@@ -9,10 +9,7 @@ import { RootState } from "../../lib/store";
 import { useRouter } from "next/navigation";
 import { TbDotsVertical } from "react-icons/tb";
 import Drawer from "./Drawer";
-import axios from "axios";
-
 import { useSession, signOut } from "next-auth/react";
-import { auth } from "../../../auth";
 import { login, logout } from "../../lib/authSlice";
 import { setProfile, setUser } from "../../lib/reducers/loggedinUser";
 
@@ -28,11 +25,6 @@ const Navbar = () => {
   const dispatch = useDispatch();
  console.log("Session token is added ");
  const { data: session } = useSession();
-//  const data = async  ()=>{
-//   const newdata= await auth();
-//   console.log(newdata);
-//  }
-//  data();
 
   console.log(session)
   useEffect(() => {
@@ -143,7 +135,7 @@ const Navbar = () => {
       }`}
       style={{ zIndex: showMenu ? 999 : "10" }}
     >
-      {profile?.role === "patient" && (
+      
         <div className="md:hidden">
           <button onClick={showDrawer}>
             <svg
@@ -164,7 +156,7 @@ const Navbar = () => {
           </button>
           {drawer && <Drawer close={showDrawer} key={"1"} />}
         </div>
-      )}
+      
       <Link
         href="/"
         className={`flex items-center whitespace-nowrap   cursor-pointer text-2xl font-bold  ${
@@ -219,7 +211,7 @@ const Navbar = () => {
                     className={`cursor-pointer self-center justify-center  text-white ${
                       profile?.role === "patient" ? "" : ""
                     }`}
-                    src={profile?.imageUrl ?? profile?.image ?? ""}
+                    src={profile?.image ?? profile?.imageUrl ?? ""}
                     fallback={
                       (profile.first_name ?? "")[0] + (profile.last_name ?? "")[0]
                     }

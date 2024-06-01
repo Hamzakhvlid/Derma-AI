@@ -50,7 +50,7 @@ export default function BlogsDoctorPage() {
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Your Blog Posts</h1>
         <Link
-          className="inline-flex items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+          className="inline-flex items-center justify-center rounded-md  px-4 py-2 text-sm font-medium  shadow transition-colors  focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
           href="/blogs/create"
         >
           <PlusIcon className="w-4 h-4 mr-2" />
@@ -61,13 +61,13 @@ export default function BlogsDoctorPage() {
         {
             blogs ? (
                 blogs && blogs.map((blog:any, index) => (
-                    <div className="bg-white rounded-lg shadow-md dark:bg-gray-800" key={index}>
+                    <div className="bg-white rounded-lg shadow-md " key={index}>
           <div className="p-6">
             <h2 className="text-xl font-bold mb-2">
               <Link href="#">{blog.title}</Link>
             </h2>
-            <p className="text-gray-500 dark:text-gray-400 mb-4">May 1, 2023</p>
-            <p className="text-gray-700 dark:text-gray-300 mb-4">
+            <p className="text-gray-500  mb-4">May 1, 2024</p>
+            <p className="text-gray-700 text-base  mb-4">
               {blog.content}
             </p>
             <div className="flex items-center justify-end">
