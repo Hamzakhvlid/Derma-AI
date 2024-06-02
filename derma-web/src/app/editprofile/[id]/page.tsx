@@ -67,85 +67,86 @@ export default function EditProfile() {
   return (
     <Theme>
       <main className="min-h-screen w-full">
-      <div className="flex flex-col  items-center justify-center h-screen bg-gray-100  px-10 ">
-      <div className="w-full max-w-3xl px-6 py-8 bg-white rounded-lg shadow-lg">
-        <div className="mb-8">
-        <Card className="">
-          <div>
-            <Heading>Edit Profile</Heading>
-            <Text>Update your profile information.</Text>
-          </div>
-          <form onSubmit={handleSubmit}>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <label htmlFor="firstname">First Name</label>
-                <TextFieldInput
-                  defaultValue={values.firstname}
-                  id="firstname"
-                  placeholder="Enter your firstname"
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="lastname">Last Name</label>
-                <TextFieldInput
-                  defaultValue={values.lastname}
-                  id="lastname"
-                  placeholder="Enter your lastname"
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="phoneNumber">Phone Number</label>
-                <TextFieldInput
-                  defaultValue={values?.phoneNumber}
-                  id="phoneNumber"
-                  placeholder="Enter your phoneNumber"
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="profile-picture">Profile Picture</label>
-                <div className="flex items-center gap-4">
-                  <Avatar
-                    src={values?.image ?? ""}
-                    fallback={
-                      (values.firstname ?? "")[0] + (values.lastname ?? "")[0]
-                    }
-                  />
-                  <input
-                    id="image"
-                    type="file"
-                    onChange={({ target }) => {
-                      if (target.files) {
-                        const file = target.files[0];
-                        console.log(target.files);
-                        setSelectedImage(URL.createObjectURL(file));
-                        setSelectedFile(file);
-                      }
-                    }}
-                  />
-                  <Button
-                    onClick={handleUpload}
-                    type="button"
-                    size="2"
-                    variant="outline"
-                  >
-                    <MdOutlineFileUpload className="mr-2 h-4 w-4" />
-                    Upload
-                  </Button>
+        <div className="flex flex-col  items-center justify-center h-screen bg-gray-100  px-10 ">
+          <div className="w-full max-w-3xl px-6 py-8 bg-white rounded-lg shadow-lg">
+            <div className="mb-8">
+              <Card className="">
+                <div>
+                  <Heading>Edit Profile</Heading>
+                  <Text>Update your profile information.</Text>
                 </div>
-              </div>
+                <form onSubmit={handleSubmit}>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label htmlFor="firstname">First Name</label>
+                      <TextFieldInput
+                        defaultValue={values.firstname}
+                        id="firstname"
+                        placeholder="Enter your firstname"
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="lastname">Last Name</label>
+                      <TextFieldInput
+                        defaultValue={values.lastname}
+                        id="lastname"
+                        placeholder="Enter your lastname"
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="phoneNumber">Phone Number</label>
+                      <TextFieldInput
+                        defaultValue={values?.phoneNumber}
+                        id="phoneNumber"
+                        placeholder="Enter your phoneNumber"
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="profile-picture">Profile Picture</label>
+                      <div className="flex items-center gap-4">
+                        <Avatar
+                          src={values?.image ?? ""}
+                          fallback={
+                            (values.firstname ?? "")[0] +
+                            (values.lastname ?? "")[0]
+                          }
+                        />
+                        <input
+                          id="image"
+                          type="file"
+                          onChange={({ target }) => {
+                            if (target.files) {
+                              const file = target.files[0];
+                              console.log(target.files);
+                              setSelectedImage(URL.createObjectURL(file));
+                              setSelectedFile(file);
+                            }
+                          }}
+                        />
+                        <Button
+                          onClick={handleUpload}
+                          type="button"
+                          size="2"
+                          variant="outline"
+                        >
+                          <MdOutlineFileUpload className="mr-2 h-4 w-4" />
+                          Upload
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <Button type="submit" className="ml-auto">
+                      Save Changes
+                    </Button>
+                  </div>
+                </form>
+              </Card>
             </div>
-            <div>
-              <Button type="submit" className="ml-auto">
-                Save Changes
-              </Button>
-            </div>
-          </form>
-        </Card>
-        </div>
-        </div>
+          </div>
         </div>
       </main>
     </Theme>

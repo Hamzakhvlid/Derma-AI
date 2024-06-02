@@ -13,6 +13,8 @@ const BookAppointmentCardContactInfo = (props: {
   location: string;
   from: string;
   to: string;
+  lat: number;
+  lng: number;
 }) => {
   const generateTimeSlots = (from:any, to:any) => {
     const slots = [];
@@ -34,9 +36,6 @@ const BookAppointmentCardContactInfo = (props: {
   };
   const [selectedSlot, setSelectedSlot] = useState("");
 
-  const handleSlotChange = (e:any) => {
-    setSelectedSlot(e.target.value);
-  };
   const today = new Date();
 
   // Calculate the date 20 days from today
@@ -59,9 +58,11 @@ const BookAppointmentCardContactInfo = (props: {
       promo_code: e.target.promo_code.value,
       aiDiagnosis: aiResponse,
       title : aiResponse["title"] ? aiResponse["title"] : "No title",
-      description: aiResponse["description"],
+      description: aiResponse["description"] ? aiResponse["description"] : "NO DESCRIPTION",
       location: props.location,
-      duration:20
+      duration:20,
+      lat: props.lat,
+      lng: props.lng
 
      
     };
@@ -81,10 +82,10 @@ const BookAppointmentCardContactInfo = (props: {
         toast.success("Appointment booked successfully");
         dispatch(setResponse({}));
       }
-      else{ 
+      // else{ 
         
-        throw new Error("Failed to book appointment");
-      }
+      //   throw new Error("Failed to book appointment");
+      // }
       setLoading(false);
     
     }catch(e){
@@ -192,7 +193,7 @@ const BookAppointmentCardContactInfo = (props: {
                   id="slot"
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                   value={selectedSlot}
-                  onChange={(e)=>handleSlotChange(e)}
+                  onChange={(e)=>setSelectedSlot(e.target.value)}
                 >
                   <option value="">Select a time slot</option>
                   {generateTimeSlots(

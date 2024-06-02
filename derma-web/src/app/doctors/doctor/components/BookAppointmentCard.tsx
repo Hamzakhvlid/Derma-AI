@@ -16,6 +16,8 @@ export default function BookAppointmentCard(props: {
     city: string;
     day: string;
     location: string;
+    lat: string;
+    lng: string;
   }>;
   onlineAvailability: {
     _id: string;
@@ -100,10 +102,12 @@ export default function BookAppointmentCard(props: {
 
       {selectedConsultantData && (
         <BookAppointmentCardContactInfo
-          location={selectedConsultantData.location}
+          location={selectedConsultantData.location || "Online"}
           doctorID={props.docID}
           from={selectedConsultantData.from || selectedConsultantData.startTime}
           to={selectedConsultantData.to || selectedConsultantData.endTime}
+          lat={selectedConsultantData.lat || 0}
+          lng={selectedConsultantData.lng || 0}
         />
       )}
     </div>
