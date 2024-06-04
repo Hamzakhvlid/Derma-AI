@@ -16,7 +16,8 @@ import { MdOutlineFileUpload } from "react-icons/md";
 import { useSelector } from "react-redux";
 import * as Yup from "yup";
 import axios from "axios";
-import { uploadImage } from "@/app/api/baseUrl";
+import { updateProfile, uploadImage } from "@/app/api/baseUrl";
+import { toast } from "react-toastify";
 
 export default function EditProfile() {
   const userState = useSelector((state: RootState) => state.user);
@@ -24,12 +25,13 @@ export default function EditProfile() {
   const [image, setImageUrl] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedFile, setSelectedFile] = useState<File>();
+  const [disabled, setdisabled] = useState(false);
 
   const initialValues = {
     firstname: profile.first_name,
     lastname: profile.last_name,
     phoneNumber: profile.phoneNumber,
-    image: profile.image,
+    imageUrl: profile.image,
   };
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -43,25 +45,57 @@ export default function EditProfile() {
           .min(2, "Too Short!")
           .max(25, "Too Long!")
           .required(),
-        image: Yup.string().url().required(),
+        imageUrl: Yup.string().url().required(),
         phoneNumber: Yup.string().required(),
       }),
-      onSubmit: (values) => {
-        console.log(values);
+      onSubmit: async (values) => {
+        try {
+          console.log(localStorage)
+          values.imageUrl = image;
+          const response = await axios.post("http://localhost:8080/api/v1/users/updateProfile", values, {
+            withCredentials: true,
+            headers: {
+              authorization: "Bearer " + localStorage.getItem("accessToken"),
+            },
+          })
+            .then((res) => {
+              if (res.status === 200) {
+                toast.success("Profile Updated Successfully");
+              }
+            });
+        } catch (err) {
+          toast.error("Error Updating Profile");
+        }
       },
     });
-  const handleUpload = async () => {
+  const handleUploadImage = async (e: any) => {
+    setdisabled(true);
     try {
-      if (!selectedFile) return;
-      const formData = new FormData();
-      formData.append("image", selectedFile);
-      const response = await axios.post(uploadImage, formData);
-      console.log(response.data.imageName);
-      console.log(response.data.imageUrl);
-
-      setImageUrl(response.data.imageUrl);
-    } catch (error: any) {
-      alert("error occured while uploading image please try again later");
+      toast("Uploading Image");
+      const data = new FormData();
+      data.append("image", e.target.files![0]);
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/users/uploadImage",
+        data,
+        {
+          withCredentials: true,
+          headers: {
+            authorization: "Bearer " + localStorage.getItem("accessToken"),
+          },
+        }
+      );
+      if (response.data.success) {
+        setImageUrl(response.data.imageUrl);
+        toast.success("Image Uploaded");
+        setdisabled(false);
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error("Error Uploading Image");
+      const fileInput = document.getElementById("file") as HTMLInputElement;
+      if (fileInput) {
+        fileInput.value = ""; // Reset file input
+      }
     }
   };
   return (
@@ -108,7 +142,7 @@ export default function EditProfile() {
                       <label htmlFor="profile-picture">Profile Picture</label>
                       <div className="flex items-center gap-4">
                         <Avatar
-                          src={values?.image ?? ""}
+                          src={values?.imageUrl ?? image ?? ""}
                           fallback={
                             (values.firstname ?? "")[0] +
                             (values.lastname ?? "")[0]
@@ -117,29 +151,15 @@ export default function EditProfile() {
                         <input
                           id="image"
                           type="file"
-                          onChange={({ target }) => {
-                            if (target.files) {
-                              const file = target.files[0];
-                              console.log(target.files);
-                              setSelectedImage(URL.createObjectURL(file));
-                              setSelectedFile(file);
-                            }
+                          onChange={(e) => {
+                            handleUploadImage(e);
                           }}
                         />
-                        <Button
-                          onClick={handleUpload}
-                          type="button"
-                          size="2"
-                          variant="outline"
-                        >
-                          <MdOutlineFileUpload className="mr-2 h-4 w-4" />
-                          Upload
-                        </Button>
                       </div>
                     </div>
                   </div>
                   <div>
-                    <Button type="submit" className="ml-auto">
+                    <Button type="submit" disabled={disabled} className="ml-auto">
                       Save Changes
                     </Button>
                   </div>

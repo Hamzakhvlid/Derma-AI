@@ -32,3 +32,4 @@ export const getDoctorDetail = baseUrl + "getDetailedDoctor";
 export const googleSignin= baseUrl+"googleSignup"
 export const regitserDoctor = baseUrl + "regitserDoctor";
 export const getCompleteDoctorDetailsForDashboard = baseUrl + "getCompleteDoctor";
+export const updateProfile = baseUrl + "updateProfile";

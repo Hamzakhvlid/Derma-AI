@@ -247,7 +247,7 @@ const Navbar = () => {
                     </h4>
                   </div>
 
-                  <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
+                  <Link href={"/profile"}><DropdownMenu.Item>Edit</DropdownMenu.Item></Link>
                   <DropdownMenu.Item
                     shortcut="🩺"
                     onClick={() => router.push("/registerdoctor")}

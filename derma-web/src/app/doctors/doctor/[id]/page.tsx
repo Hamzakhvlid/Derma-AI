@@ -59,7 +59,7 @@ export default function DoctorDetailScreen({
     async function fetchSingleDoctor() {
       try {
         await axios
-          .get(`http://localhost:8080/api/v1/users/getDetailedDoctor?id=${params.id}`)
+          .get(`${getDoctorDetail}?id=${params.id}`)
           .then((response) => {
             console.log(response.data);
             setDoctor(response.data);

@@ -21,7 +21,7 @@ export default function CreateBlog() {
           toast("Uploading Image");
           const data = new FormData();
           data.append("image", e.target.files![0]);
-          const response = await axios.post("http://localhost:8080/api/v1/users/uploadImage", data, {
+          const response = await axios.post(uploadSimpleImage, data, {
             withCredentials: true,
             headers: {
               authorization: "Bearer " + localStorage.getItem("accessToken"),
