@@ -23,6 +23,7 @@ interface DoctorData {
   servicesoffered: string;
   specialServices: string;
   imageUrl: string;
+  isPublic: boolean;
   experience: { institution: string; designation: string }[];
   appointmentDetails: string;
   satisfaction: string;
@@ -58,7 +59,7 @@ export default function DoctorDetailScreen({
     async function fetchSingleDoctor() {
       try {
         await axios
-          .get(`${getDoctorDetail}?id=${params.id}`)
+          .get(`http://localhost:8080/api/v1/users/getDetailedDoctor?id=${params.id}`)
           .then((response) => {
             console.log(response.data);
             setDoctor(response.data);
@@ -99,16 +100,14 @@ export default function DoctorDetailScreen({
             </Theme>
             <div className="sm:pb-0 pb-4">
               <div className="space-y-2">
-                <div className="flex">
+                <div className="flex justify-center items-start">
                   <h1 className="text-blue-900 underline font-bold ">
                     <div>{doctor?.doctorName}</div>
                   </h1>
-                  {true && (
-                    <img
-                      className="h-6 w-6"
-                      src="https://cdn-icons-png.flaticon.com/256/6784/6784655.png"
-                      alt=""
-                    />
+                  {doctor?.isPublic ? (
+                    <h1 className="ml-2 text-sm text-green-800 font-bold">(Online)</h1>
+                  ) : (
+                    <h1 className="ml-2 text-sm text-red-800 font-bold">(Offline)</h1>
                   )}
                 </div>
                 <div className="flex ">
@@ -277,7 +276,7 @@ export default function DoctorDetailScreen({
           </div>
         </div>
         <div id="bookappointment" className="right">
-          <BookAppointmentCard docID={params.id} availabilites={doctor.availability} onlineAvailability={doctor.onlineAvailability}/>
+          <BookAppointmentCard docID={params.id} availabilites={doctor.availability} onlineAvailability={doctor.onlineAvailability} isPublic={doctor.isPublic} />
         </div>
       </div>
       <div className="text-sm m-3 mb-40">

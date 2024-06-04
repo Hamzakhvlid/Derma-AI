@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/lib/store";
 import { setResponse } from "@/app/lib/reducers/scanNow";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const BookAppointmentCardContactInfo = (props: {
   doctorID: string;
@@ -15,8 +17,10 @@ const BookAppointmentCardContactInfo = (props: {
   to: string;
   lat: number;
   lng: number;
+  city: string;
+  isPublic: boolean;
 }) => {
-  const generateTimeSlots = (from:any, to:any) => {
+  const generateTimeSlots = (from: any, to: any) => {
     const slots = [];
     const currentDate = new Date();
     const startTime = new Date(`${currentDate.toDateString()} ${from}`);
@@ -37,16 +41,17 @@ const BookAppointmentCardContactInfo = (props: {
   const [selectedSlot, setSelectedSlot] = useState("");
 
   const today = new Date();
+  const router = useRouter();
 
   // Calculate the date 20 days from today
-  const aiResponse= useSelector((state:RootState)=>state.scanNow.response);
+  const aiResponse = useSelector((state: RootState) => state.scanNow.response);
   const nextTwentyDays = new Date(today);
   nextTwentyDays.setDate(nextTwentyDays.getDate() + 20);
-  const todayString = today.toISOString().split('T')[0];
-  const nextTwentyDaysString = nextTwentyDays.toISOString().split('T')[0];
-  const [loading,setLoading] = useState(false);
+  const todayString = today.toISOString().split("T")[0];
+  const nextTwentyDaysString = nextTwentyDays.toISOString().split("T")[0];
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     setLoading(true);
     e.preventDefault();
     const formData = {
@@ -57,39 +62,50 @@ const BookAppointmentCardContactInfo = (props: {
       startTime: e.target.slot.value,
       promo_code: e.target.promo_code.value,
       aiDiagnosis: aiResponse,
-      title : aiResponse["title"] ? aiResponse["title"] : "No title",
-      description: aiResponse["description"] ? aiResponse["description"] : "NO DESCRIPTION",
-      location: props.location,
-      duration:20,
+      title: aiResponse["title"] ? aiResponse["title"] : "No title",
+      description: aiResponse["description"]
+        ? aiResponse["description"]
+        : "NO DESCRIPTION",
+      location: props.city,
+      duration: 20,
       lat: props.lat,
-      lng: props.lng
-
-     
+      lng: props.lng,
+      hospital: props.location,
+      doctorID: props.doctorID,
     };
 
-    
+    try {
+      await axios
+        .post(bookAppointment, formData, {
+          withCredentials: true,
+          headers: {
+            authorization: "Bearer " + localStorage.getItem("accessToken"),
+            "Content-Type": "application/json",
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            console.log(res.data);
+            toast.success("Appointment booked successfully");
+            dispatch(setResponse({}));
+            const queryObject = {
+              appointmentTime: res.data.appointmentData.startTime,
+              date: res.data.appointmentData.date,
+              doctorname: res.data.appointmentData.doctorID.doctorName,
+              hospital: res.data.appointmentData.hospital,
+              place: res.data.appointmentData.location,
+              hospitalPhone: res.data.appointmentData.doctorID.phone,
+            };
+            const queryString = new URLSearchParams(queryObject).toString();
+            const url = `/appointmentdone?${queryString}`;
+            router.push(url);
+          }
+        });
 
-    try{
-      const response = await fetch(bookAppointment, {
-        method: "POST",
-        headers: {
-          "authorization": "Bearer " + localStorage.getItem("accessToken"),
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      if (response.status == 200) {
-        toast.success("Appointment booked successfully");
-        dispatch(setResponse({}));
-      }
-      // else{ 
-        
-      //   throw new Error("Failed to book appointment");
-      // }
       setLoading(false);
-    
-    }catch(e){
+    } catch (e) {
       toast.error("Failed to book appointment");
+      console.log(e);
       setLoading(false);
     }
 
@@ -101,8 +117,7 @@ const BookAppointmentCardContactInfo = (props: {
     <div className="mx-auto p-2">
       <div className=" border rounded-md">
         <form
-        method="POST"
-        
+          method="POST"
           onSubmit={handleSubmit}
           className="md:col-span-8 px-4 pt-4 pb-3"
         >
@@ -193,17 +208,16 @@ const BookAppointmentCardContactInfo = (props: {
                   id="slot"
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                   value={selectedSlot}
-                  onChange={(e)=>setSelectedSlot(e.target.value)}
+                  onChange={(e) => setSelectedSlot(e.target.value)}
                 >
                   <option value="">Select a time slot</option>
-                  {generateTimeSlots(
-                    props.from,
-                    props.to,
-                  ).map((slot, index) => (
-                    <option key={index} value={slot}>
-                      {slot}
-                    </option>
-                  ))}
+                  {generateTimeSlots(props.from, props.to).map(
+                    (slot, index) => (
+                      <option key={index} value={slot}>
+                        {slot}
+                      </option>
+                    )
+                  )}
                 </select>
               </div>
             </div>
@@ -225,13 +239,10 @@ const BookAppointmentCardContactInfo = (props: {
             ></input>
           </div>
 
-          <button type="submit"  className="mt-4">
-            <Fade  className="hover:shadow-form hover:opacity-90 w-full cursor-pointer rounded-md bg-blue-600 py-3 px-8 text-center text-base font-semibold text-white outline-none">
-             
-                {loading ? "Booking..." : "Book Appointment"}
-              
+          <button disabled={props.isPublic} type="submit" className="mt-4">
+            <Fade className="hover:shadow-form hover:opacity-90 w-full cursor-pointer rounded-md bg-blue-600 py-3 px-8 text-center text-base font-semibold text-white outline-none">
+              {loading ? "Booking..." : "Book Appointment"}
             </Fade>
-            
           </button>
         </form>
       </div>
