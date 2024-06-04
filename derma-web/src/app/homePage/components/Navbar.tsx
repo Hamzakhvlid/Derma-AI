@@ -12,6 +12,7 @@ import Drawer from "./Drawer";
 import { useSession, signOut } from "next-auth/react";
 import { login, logout } from "../../lib/authSlice";
 import { setProfile, setUser } from "../../lib/reducers/loggedinUser";
+import axios from "axios";
 
 
 const Navbar = () => {
@@ -22,9 +23,54 @@ const Navbar = () => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
+
+
+const addDoctorEducationAndExp = async () => {
+    const education = [
+        {
+            "degree": "MBBS",
+            "institution": "XYZ University",
+            "year": "2005"
+        },
+        {
+            "degree": "MD",
+            "institution": "ABC University",
+            "year": "2010"
+        }
+    ];
+
+    const experience = [
+        {
+            "hospital": "Hospital 1",
+            "position": "Resident",
+            "year": "2010-2015"
+        },
+        {
+            "hospital": "Hospital 2",
+            "position": "Consultant",
+            "year": "2015-2020"
+        }
+    ];
+
+    try {
+        const response = await axios.post('http://localhost:5000/api/doctors/education-experience', { education, experience });
+
+        console.log(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+
+
   const dispatch = useDispatch();
  console.log("Session token is added ");
  const { data: session } = useSession();
+ const data = async  ()=>{
+
+
+ }
+ data();
 
   console.log(session)
   useEffect(() => {

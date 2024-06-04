@@ -6,8 +6,47 @@ import Link  from "next/link";
 import MemoizedCena from "../../imageMoving";
 
 import Image from "next/image";
+import axios from "axios";
 
 const Hero = () => {
+
+  const addDoctorEducationAndExp = async () => {
+    const education = [
+        {
+            "program": "MBBS",
+            "institution": "XYZ University",
+           
+        },
+        {
+            "program": "MD",
+            "institution": "ABC University",
+           
+        }
+    ];
+
+    const experience = [
+        {
+            "institution": "Hospital 1",
+            "designation": "Resident",
+        },
+        {
+            "institution": "Hospital 2",
+            "designation": "Consultant",
+        }
+    ];
+
+    try {
+        const response = await axios.post('http://localhost:4001/api/v1/users/addDoctorEducationAndExp', {  education, experience }, {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+          }
+        });
+
+        console.log(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+};
   return (
     <main>
       <div className=" wrapper " id="home">
@@ -130,6 +169,9 @@ const Hero = () => {
                 </div>
               </div>
             </div>
+            <button onClick={addDoctorEducationAndExp}>
+              Send req
+            </button>
           </div>
         </div>
       </div>
