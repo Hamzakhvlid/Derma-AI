@@ -14,7 +14,7 @@ export default function DetailedBlog() {
     async function fetchSingleBlog(){
       try{
         await axios.get(`${baseUrl}blogs/getSingleBlogById?id=${id}`, {
-          withCredentials: true,
+      
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${localStorage.getItem("accessToken")}`

@@ -19,6 +19,9 @@ const BookAppointmentCardContactInfo = (props: {
   lng: number;
   city: string;
   isPublic: boolean;
+  doctorName: string;
+  doctorImage: string;
+  doctorEmail: string;
 }) => {
   const generateTimeSlots = (from: any, to: any) => {
     const slots = [];
@@ -43,6 +46,7 @@ const BookAppointmentCardContactInfo = (props: {
   const today = new Date();
   const router = useRouter();
 
+
   // Calculate the date 20 days from today
   const aiResponse = useSelector((state: RootState) => state.scanNow.response);
   const nextTwentyDays = new Date(today);
@@ -50,11 +54,15 @@ const BookAppointmentCardContactInfo = (props: {
   const todayString = today.toISOString().split("T")[0];
   const nextTwentyDaysString = nextTwentyDays.toISOString().split("T")[0];
   const [loading, setLoading] = useState(false);
+  const user = useSelector((state: RootState) => state.user.profile);
+  const token = useSelector((state: RootState) => state.user.profile.accessToken);
   const dispatch = useDispatch();
   const handleSubmit = async (e: any) => {
+    console.log("submitting");
     setLoading(true);
     e.preventDefault();
     const formData = {
+
       name: e.target.user_name.value,
       phone: e.target.user_phone.value,
       email: e.target.user_email.value,
@@ -62,46 +70,42 @@ const BookAppointmentCardContactInfo = (props: {
       startTime: e.target.slot.value,
       promo_code: e.target.promo_code.value,
       aiDiagnosis: aiResponse,
-      title: aiResponse["title"] ? aiResponse["title"] : "No title",
-      description: aiResponse["description"]
-        ? aiResponse["description"]
-        : "NO DESCRIPTION",
-      location: props.city,
-      duration: 20,
-      lat: props.lat,
-      lng: props.lng,
-      hospital: props.location,
-      doctorID: props.doctorID,
+      title : aiResponse["title"] ? aiResponse["title"] : "No title",
+      description: aiResponse["description"],
+      location: props.location,
+      duration:20,
+
+      doctorId:props.doctorID,
+      patientImage:user.imageUrl,
+      doctorImage:props.doctorImage,
+      doctorName:props.doctorName,
+      doctorEmail:props.doctorEmail,
+      hospital:props.location,
+
+     
     };
 
-    try {
-      await axios
-        .post(bookAppointment, formData, {
-          withCredentials: true,
-          headers: {
-            authorization: "Bearer " + localStorage.getItem("accessToken"),
-            "Content-Type": "application/json",
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            console.log(res.data);
-            toast.success("Appointment booked successfully");
-            dispatch(setResponse({}));
-            const queryObject = {
-              appointmentTime: res.data.appointmentData.startTime,
-              date: res.data.appointmentData.date,
-              doctorname: res.data.appointmentData.doctorID.doctorName,
-              hospital: res.data.appointmentData.hospital,
-              place: res.data.appointmentData.location,
-              hospitalPhone: res.data.appointmentData.doctorID.phone,
-            };
-            const queryString = new URLSearchParams(queryObject).toString();
-            const url = `/appointmentdone?${queryString}`;
-            router.push(url);
-          }
-        });
+    
 
+    try{
+      const response = await fetch(bookAppointment, {
+        method: "POST",
+        headers: {
+          "authorization": "Bearer " + token,
+          "Content-Type": "application/json",
+          
+        },
+     
+        body: JSON.stringify(formData),
+      });
+      if (response.status == 200) {
+        toast.success("Appointment booked successfully");
+        dispatch(setResponse({}));
+      }
+      else{ 
+        
+        throw new Error("Failed to book appointment");
+      }
       setLoading(false);
     } catch (e) {
       toast.error("Failed to book appointment");
@@ -239,7 +243,7 @@ const BookAppointmentCardContactInfo = (props: {
             ></input>
           </div>
 
-          <button disabled={props.isPublic} type="submit" className="mt-4">
+          <button disabled={!props.isPublic} type="submit" className="mt-4">
             <Fade className="hover:shadow-form hover:opacity-90 w-full cursor-pointer rounded-md bg-blue-600 py-3 px-8 text-center text-base font-semibold text-white outline-none">
               {loading ? "Booking..." : "Book Appointment"}
             </Fade>

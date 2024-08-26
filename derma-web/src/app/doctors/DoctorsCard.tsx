@@ -74,12 +74,9 @@ const DoctorsCard = (props: {
                     </div>
                     <div className="flex sm:flex-col flex-row space-x-2 sm:space-x-0 sm:space-y-2">
                         
-                        <Button
-                            title={"Video Call"}
-                            color={"bg-[#4CA585]"}
-                            href={`/doctors/doctor/${props._id}#bookappointment`}
-                        />
-                        <Link href={`/doctors/doctor/${props._id}#bookappointment`} className={`bg-[#004D71] rounded-lg px-4 py-2 text-center text-sm  text-white `}>
+               
+                 
+                        <Link href={`/doctors/doctor/${props._id}`} className={`bg-[#004D71] rounded-lg px-4 py-2 text-center text-sm  text-white `}>
                             Book Appointment
                         </Link>
 

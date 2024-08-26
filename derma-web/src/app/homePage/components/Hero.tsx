@@ -68,7 +68,7 @@ const Hero = () => {
               </div>
               <div className="mt-10 flex flex-col items-center md:flex-row">
                 <Link
-                  href="contact"
+                  href="/doctors"
                  
                  
                  
@@ -169,9 +169,7 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-            <button onClick={addDoctorEducationAndExp}>
-              Send req
-            </button>
+            
           </div>
         </div>
       </div>

@@ -22,7 +22,7 @@ export default function CreateBlog() {
           const data = new FormData();
           data.append("image", e.target.files![0]);
           const response = await axios.post(uploadSimpleImage, data, {
-            withCredentials: true,
+       
             headers: {
               authorization: "Bearer " + localStorage.getItem("accessToken"),
             },
@@ -51,7 +51,7 @@ export default function CreateBlog() {
             data.append("content", content);
             data.append("cover", imgUrl);
             await axios.post(`${baseUrl}blogs/create`, data, {
-                withCredentials: true,
+         
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
                 }

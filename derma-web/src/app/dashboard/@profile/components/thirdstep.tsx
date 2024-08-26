@@ -63,7 +63,7 @@ const AvailabilityStep: React.FC<AvailabilityStepProps> = ({
             onSubmit={async (values, { setSubmitting }) => {
               try{
                 await axios.post(`${baseUrl}doctorDetail/addDoctorAvailability`, values, {
-                  withCredentials: true,
+           
                   headers: {
                     "Authorization": "Bearer " + localStorage.getItem("accessToken"),
                   }
@@ -98,7 +98,7 @@ const AvailabilityStep: React.FC<AvailabilityStepProps> = ({
                       {values.availability.map((availability, index) => (
                         <div
                           key={index}
-                          className="flex flex-col  md:flex-row gap-1 flex-wrap "
+                          className="flex flex-col   gap-1  "
                         >
                           <Field
                             type="time"

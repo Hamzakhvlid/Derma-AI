@@ -45,11 +45,12 @@ const FileUploadComponent = () => {
   const reqImageName = useSelector(
     (state: RootState) => state.scanNow.imageName
   );
-  const reqImageUrl = useSelector((state: RootState) => state.scanNow.imageUrl);
-  const type = useSelector((state: RootState) => state.scanNow.type);
-  const analysis = useSelector((state: RootState) => state.scanNow.response);
-  const success = useSelector((state: RootState) => state.scanNow.success);
+  const reqImageUrl = useSelector((state: RootState) => state.scanNow?.imageUrl);
+  const type = useSelector((state: RootState) => state.scanNow?.type);
+  const analysis = useSelector((state: RootState) => state.scanNow?.response);
+  const success = useSelector((state: RootState) => state.scanNow?.success);
   const [loading, setLoading] = useState(false);
+  const token= useSelector((state:RootState)=>state.user.profile?.accessToken)
   const handleUpload = async () => {
     try {
       if (!selectedFile) return;
@@ -80,7 +81,12 @@ const FileUploadComponent = () => {
       formData.append("imageName", reqImageName ?? "");
       formData.append("imageUrl", reqImageUrl ?? "");
       formData.append("type", type ?? "");
-      const response = await axios.post(scanNow, formData);
+   
+      const response = await axios.post(scanNow, formData,{
+        headers:{
+          authorization:"Bearer "+token
+        }
+      });
 
       console.log(response.data);
       if (response.data.success) {

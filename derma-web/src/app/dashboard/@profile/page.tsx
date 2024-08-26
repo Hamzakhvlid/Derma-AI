@@ -76,7 +76,7 @@ const DashboardProfile: React.FC = () => {
     async function fetchDoctorDetails() {
       await axios
         .get(`${baseUrl}getCompleteDoctor`, {
-          withCredentials: true,
+
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },

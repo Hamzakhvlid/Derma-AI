@@ -94,7 +94,7 @@ export default function Blogs() {
                   </div>
                 </div>
                 <Link href={`/blogs/blog/${item._id}`} className="text-lg font-bold mb-2 cursor-pointer">{item.title}</Link>
-                <p className="text-sm text-gray-600">{item.content}</p>
+                <p className="text-sm text-gray-600">{item.content.slice(0, 100)}</p>
               </div>
             ))}
         </div>

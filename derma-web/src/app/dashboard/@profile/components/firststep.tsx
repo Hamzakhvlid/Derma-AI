@@ -55,7 +55,7 @@ const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
         data.append("desc", values.desc);
 
         await axios.post(`${baseUrl}doctorDetail/addDoctorBasicDetail`, data, {
-          withCredentials: true,
+
           headers: {
             "Authorization": "Bearer " + localStorage.getItem("accessToken"),
           }
@@ -81,7 +81,7 @@ const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
       const data = new FormData();
       data.append("image", e.target.files![0]);
       const response = await axios.post(uploadSimpleImage, data, {
-        withCredentials: true,
+   
         headers: {
           authorization: "Bearer " + localStorage.getItem("accessToken"),
         },

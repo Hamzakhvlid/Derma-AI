@@ -56,7 +56,7 @@ const QualificationExperienceStep: React.FC<QualificationExperienceStepProps> = 
               try{
                 
                 await axios.post(`${baseUrl}doctorDetail/addDoctorEducationAndExp`, values, {
-                  withCredentials: true,
+             
                   headers: {
                     "Authorization": "Bearer " + localStorage.getItem("accessToken"),
                   }

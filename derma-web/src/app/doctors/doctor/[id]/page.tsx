@@ -14,6 +14,7 @@ import { getDoctorDetail } from "@/app/api/baseUrl";
 
 
 interface DoctorData {
+ baseUser:{email:string},
   doctorName: string;
   detailedRole: string;
   specialization: string;
@@ -104,11 +105,12 @@ export default function DoctorDetailScreen({
                   <h1 className="text-blue-900 underline font-bold ">
                     <div>{doctor?.doctorName}</div>
                   </h1>
-                  {doctor?.isPublic ? (
-                    <h1 className="ml-2 text-sm text-green-800 font-bold">(Online)</h1>
-                  ) : (
-                    <h1 className="ml-2 text-sm text-red-800 font-bold">(Offline)</h1>
-                  )}
+                  {doctor?.isPublic ?
+
+                    <h1 className="ml-2 text-sm text-green-800 font-bold">Online</h1>
+                  : 
+                    <h1 className="ml-2 text-sm text-red-800 font-bold">Offline</h1>
+                  }
                 </div>
                 <div className="flex ">
                   <p className="sm:text-sm text-xs text-gray-600">
@@ -137,17 +139,7 @@ export default function DoctorDetailScreen({
           </div>
           <div className="flex sm:flex-col flex-row space-x-3 sm:space-x-0 sm:space-y-2">
             <p></p>
-            <Button
-              title={"Consult Online"}
-              color={"bg-[#004D71]"}
-              href={"#bookappointment"}
-            />
-            <Link
-              href="#bookappointment"
-              className={`bg-[#4CA585] rounded-lg px-4 py-2 text-center text-sm  text-white `}
-            >
-              Visit in Clinic
-            </Link>
+            
           </div>
         </div>
       </div>
@@ -276,7 +268,7 @@ export default function DoctorDetailScreen({
           </div>
         </div>
         <div id="bookappointment" className="right">
-          <BookAppointmentCard docID={params.id} availabilites={doctor.availability} onlineAvailability={doctor.onlineAvailability} isPublic={doctor.isPublic} />
+          <BookAppointmentCard doctorEmail={doctor.baseUser.email} doctorImage={doctor.imageUrl} doctorName={doctor.doctorName} docID={params.id} availabilites={doctor.availability} onlineAvailability={doctor.onlineAvailability} isPublic={doctor.isPublic} />
         </div>
       </div>
       <div className="text-sm m-3 mb-40">

@@ -10,6 +10,9 @@ import { useState } from "react";
 export default function BookAppointmentCard(props: {
   docID: string;
   isPublic: boolean;
+  doctorName: string;
+  doctorImage: string;  
+  doctorEmail: string;
   availabilites: Array<{
     _id: string;
     startTime: string;
@@ -111,6 +114,9 @@ export default function BookAppointmentCard(props: {
           lng={selectedConsultantData.lng || 0}
           location= {selectedConsultantData.location || "Online"}
           isPublic={props.isPublic}
+          doctorEmail={props.doctorEmail}
+          doctorName={props.doctorName}
+          doctorImage={props.doctorImage}
         />
       )}
     </div>

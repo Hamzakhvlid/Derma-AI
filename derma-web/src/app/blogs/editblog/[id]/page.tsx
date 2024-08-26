@@ -19,7 +19,7 @@ export default function EditBlog() {
       try {
         await axios
           .get(`${baseUrl}blogs/getSingleBlogById?id=${id}`, {
-            withCredentials: true,
+        
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -44,7 +44,7 @@ export default function EditBlog() {
       const data = new FormData();
       data.append("image", e.target.files![0]);
       const response = await axios.post(uploadSimpleImage, data, {
-        withCredentials: true,
+
         headers: {
           authorization: "Bearer " + localStorage.getItem("accessToken"),
         },
@@ -72,7 +72,7 @@ export default function EditBlog() {
         data.append("content", content);
         data.append("cover", cover);
         await axios.post(`${baseUrl}blogs/editBlog?id=${id}`,data, {
-            withCredentials: true,
+       
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

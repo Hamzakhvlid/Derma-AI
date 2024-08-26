@@ -1,56 +1,176 @@
 "use client";
-import {useEffect} from   "react";
 import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
 import { AiOutlineSchedule } from "react-icons/ai";
 import { Avatar, Card, Badge, ScrollArea } from "@radix-ui/themes";
 import { Button, DropdownMenu, Checkbox, Table } from "@radix-ui/themes";
-import React from "react";
-import { appointmentReq } from "./demo-data/sample";
+
+
 import io from 'socket.io-client';
+import React, { useEffect, useState } from 'react';
+
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/app/lib/store";
+import { toast } from "react-toastify";
+
+import { access } from "fs";
+import axios from "axios";
+import { AppointmentModel, setAppointmnets } from "@/app/lib/reducers/appointmnets";
+
+import { StyledPagination } from "./style.js";
+import ReactPaginate from 'react-paginate';
+
+
 
 export default function DashBoard1() {
+
+ const docID= useSelector((state:RootState)=>state.user.profile.doctorId);
+const docName= useSelector((state:RootState)=>state.user.profile.first_name);
+ const token = useSelector((state: RootState) => state.user.profile.accessToken);
+ const appoinntment = useSelector((state:RootState)=>state.appointements);
+ const [currentPage, setCurrentPage] = useState(1);
+ const [totalCount, setTotalCount] = useState(0);
+ const [showPopup, setShowPopup] = useState(false);
+  const [selectedAppointment, setSelectedAppointment] = useState<AppointmentModel | null>(null);
+  const [loading,isLoading] = useState(true);
+  const [error,isError] = useState(false);
+  const [totalAppointmnets,setTotalAppointemnets] = useState(0);
+
+
+
+ const dispatch = useDispatch();
+
+
+ const fetchData = async () => {
+  isError(false);
+  isLoading(true);
+  try {
+    const response = await axios.get(`http://localhost:8080/api/v1/users/getAppointment?page=${currentPage}`, {
+      headers: {
+        'Authorization': 'Bearer ' + token,
+      },
+    });
+    const docs = response.data.docs;
+    dispatch(setAppointmnets(docs));
+    setTotalCount(response.data.totalPages);
+    setTotalAppointemnets(response.data.totalDocs);
+    setNewAppointment(docs);
+    console.log("appointments",docs);
+    isLoading(false);
+  } catch (error) {
+    isLoading(false);
+    isError(true);
+    console.error('Error fetching appointments:', error);
+    toast.error('Failed to fetch appointments');
+  }
+};
+const handlePageClick = (event: any) => {
+  setCurrentPage(event.selected + 1);
+
+  console.log(event.selected);
+};
+
+
+useEffect(() => {
+
+  
+
+  fetchData();
+
+
+  
+
+  
+  }, [currentPage]);
+
+
+  useEffect(()=>{
+
+    setShowPopup(true);
+
+  },[selectedAppointment])
+
+
+  const [newAppointment, setNewAppointment] = useState<AppointmentModel[]>([]);
+
+  useEffect(() => {
+    const socket = io('http://localhost:8080', {
+     
+    });
+    
+    socket.emit('doctor-connected', docID );
+    socket.on('connected', (data: any) => {
+      console.log('Connected to socket');
+    });
+    socket.emit('setup', docID ); // Replace with actual patient ID
+
+    socket.on('new-appointment', (appointment: AppointmentModel) => {
+      console.log("appointmentRequest",appointment);
+      setNewAppointment([appointment, ...newAppointment]);
+      setTotalAppointemnets(totalAppointmnets+1);
+     
+  
+    });
+  })
+
+
+  const handleInfo = (appointment:any) => {
+    console.log("appointment",appointment);
+    setSelectedAppointment(appointment);
+
+   
+  };
+
+  const   handleappointment = async (appointment:any) => {
+   
+
+    try {
+      const response = await fetch("http://localhost:8080/api/v1/users/apppointment/updateAppointmentStatus", {
+        method: "POST",
+        headers: {
+          "authorization": "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(appointment),
+      });
+      toast.success(`Appointment ${appointment.status}  successfully`);
+      fetchData();
+      setShowPopup(false);
+    } catch (error) {
+    toast.error("Failed to update appointment");
+
+    setShowPopup(false);
+      console.error('Error fetching appointments:', error);
+      toast.error('Failed to fetch appointments');
+    }
+
+   
+  };
+
+
+
+
   return (
-    <Theme>
-      <h1 className="font-bold text-lg">Welcome, Dr. Stephan</h1>
-      <h1>Have a nice day at great work</h1>
+    <> 
+    <Theme className="">
+      <h1 className="font-bold ml-3  text-lg">Welcome, Dr. {docName} </h1>
+      <h1 className="ml-3">Have a nice day at great work</h1>
+      <div className="flex pr-5 pt-4 pb-20 justify-end  align-bottom">
+               
+              </div>
+     
       <div className="flex justify-center items-center text-white gap-10 flex-wrap">
         <div className="bg-[#7a6efe] flex justify-center items-center rounded-lg">
           <div className="px-10 py-4 flex justify-between items-center gap-5">
             <AiOutlineSchedule className="h-6 w-6" />
             <div>
-              <h1 className="font-bold text-2xl">24.4k</h1>
-              <h1 className="text-sm">Appointment</h1>
+              <h1 className="font-bold text-2xl">{totalAppointmnets}</h1>
+              <h1 className="text-sm">Appointments</h1>
             </div>
           </div>
         </div>
-        <div className="bg-[#FF5363] flex justify-center items-center rounded-lg">
-          <div className="px-10 py-4 flex justify-between items-center gap-5">
-            <AiOutlineSchedule className="h-6 w-6" />
-            <div>
-              <h1 className="font-bold text-2xl">24.4k</h1>
-              <h1 className="text-sm">Appointment</h1>
-            </div>
-          </div>
-        </div>
-        <div className="bg-[#FFA901] flex justify-center items-center rounded-lg">
-          <div className="px-10 py-4 flex justify-between items-center gap-5">
-            <AiOutlineSchedule className="h-6 w-6" />
-            <div>
-              <h1 className="font-bold text-2xl">24.4k</h1>
-              <h1 className="text-sm">Appointment</h1>
-            </div>
-          </div>
-        </div>
-        <div className="bg-[#24A8FA] flex justify-center items-center rounded-lg">
-          <div className="px-10 py-4 flex justify-between items-center gap-5">
-            <AiOutlineSchedule className="h-6 w-6" />
-            <div>
-              <h1 className="font-bold text-2xl">24.4k</h1>
-              <h1 className="text-sm">Appointment</h1>
-            </div>
-          </div>
-        </div>
+      
+       
       </div>
 
       <div className="pb-20">
@@ -61,31 +181,7 @@ export default function DashBoard1() {
                 Appointment Requests
               </h1>
               <div className="ml-auto flex items-center gap-2">
-                <DropdownMenu.Root>
-                  <DropdownMenu.Trigger>
-                    <Button
-                      className="w-[200px] justify-start text-left font-normal"
-                      variant="outline"
-                    >
-                      <FilterIcon className="mr-2 h-4 w-4" />
-                      Filter by Status
-                    </Button>
-                  </DropdownMenu.Trigger>
-                  <DropdownMenu.Content align="end" className="w-auto p-0">
-                    <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
-                    <DropdownMenu.Item shortcut="⌘ D">
-                      Duplicate
-                    </DropdownMenu.Item>
-                    <DropdownMenu.Separator />
-                    <DropdownMenu.Item shortcut="⌘ N">
-                      Archive
-                    </DropdownMenu.Item>
-                  </DropdownMenu.Content>
-                </DropdownMenu.Root>
-                <Button variant="outline">
-                  <RefreshCwIcon className="h-4 w-4" />
-                  <span className="sr-only">Refresh</span>
-                </Button>
+           
               </div>
             </div>
             <div className="gap-2 lg:gap-6">
@@ -93,35 +189,37 @@ export default function DashBoard1() {
                 <Table.Root>
                   <Table.Header>
                     <Table.Row>
-                      <Table.ColumnHeaderCell className="w-[32px]">
-                        <Checkbox id="select-all" />
-                      </Table.ColumnHeaderCell>
-                      <Table.ColumnHeaderCell>Patient</Table.ColumnHeaderCell>
-                      <Table.ColumnHeaderCell>Date</Table.ColumnHeaderCell>
-                      <Table.ColumnHeaderCell>Time</Table.ColumnHeaderCell>
-                      <Table.ColumnHeaderCell>Reason</Table.ColumnHeaderCell>
-                      <Table.ColumnHeaderCell className="text-right">
-                        Status
-                      </Table.ColumnHeaderCell>
-                      <Table.ColumnHeaderCell className="text-right">
-                        Actions
-                      </Table.ColumnHeaderCell>
+                      {/* Rest of the code */}
                     </Table.Row>
                   </Table.Header>
                   <Table.Body>
-                    {appointmentReq.map((app) => (
-                      <Table.Row align={"center"}>
+                    {loading?<>
+                    <div className="flex justify-center align-middle "> <img className=" w-[4rem]" src="loader.gif"></img></div>
+                     
+                    </>:<>
+                    {error?<div>
+                      <div className="flex  justify-center align-middle">
+    <div className="flex flex-col gap-2">  <h1 className="text-[#ff5362] ">Opps!! Error occured</h1>
+                      <button onClick={fetchData} className="px-4 py-2 border mb-2 border-gray-300 rounded-md hover:text-white bg-orange-400 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        Try Again
+        </button></div>
+                    
+                      </div>
+                    
+                    
+                    </div>:<>         {newAppointment.map((app:AppointmentModel ) => (
+                      <Table.Row id={app._id} align={"center"}>
                         <Table.Cell>
                           <Checkbox id="select-1" />
                         </Table.Cell>
                         <Table.Cell>
                           <div className="flex items-center gap-2">
                             <Avatar
-                              src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-                              fallback={`MA`}
+                              src={app.patientImage}
+                              fallback={app.name==undefined?"":app.name[0]}
                             />
                             <div>
-                              <div className="font-medium">{`${app.firstname} ${app.lastname}`}</div>
+                              <div className="font-medium">{`${app.name}`}</div>
                               <div className="text-sm text-gray-500 dark:text-gray-400">
                                 {app.email}
                               </div>
@@ -129,8 +227,8 @@ export default function DashBoard1() {
                           </div>
                         </Table.Cell>
                         <Table.Cell>{app.date}</Table.Cell>
-                        <Table.Cell>{app.time}</Table.Cell>
-                        <Table.Cell>{app.reason}</Table.Cell>
+                        <Table.Cell>{app.duration}</Table.Cell>
+                        <Table.Cell>{app.description}</Table.Cell>
                         <Table.Cell className="text-right">
                           <Badge
                             color={`${
@@ -148,11 +246,11 @@ export default function DashBoard1() {
                           <div className="flex items-center justify-end gap-2">
                             {app.status === "pending" ? (
                               <>
-                                <Button variant="outline" color="green">
+                                <Button  onClick={()=>handleappointment({  appId:app._id,status:"approved"})}  variant="outline" color="green">
                                   <CheckIcon className="h-4 w-4" />
                                   <span className="sr-only">Accept</span>
                                 </Button>
-                                <Button variant="outline" color="red">
+                                <Button onClick={()=>handleappointment({  appId:app._id,status:"rejected"})}  variant="outline" color="red">
                                   <XIcon className="h-4 w-4" />
                                   <span className="sr-only">Reject</span>
                                 </Button>
@@ -161,22 +259,112 @@ export default function DashBoard1() {
                               <></>
                             )}
 
-                            <Button variant="outline">
+
+{showPopup && selectedAppointment && (
+  
+  
+  <div id={selectedAppointment._id} className="fixed top-0 left-0 w-full h-full bg-white bg-opacity-20 flex justify-center items-center z-50">
+    <div className="bg-white rounded-lg shadow-lg p-6 max-w-lg">
+    <button
+            className="text-gray-500 hover:text-gray-700 focus:outline-none"
+            onClick={() => setShowPopup(false)}
+          >
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+          <div className="w-full max-w-md p-6 bg-white rounded-lg ">
+      <div>
+        <h2 className="text-2xl font-semibold">Dermatology Consultation</h2>
+        <p className="text-gray-500 dark:text-gray-400">
+        {selectedAppointment.description}
+        </p>
+      </div>
+      <div className="grid gap-4 text-sm mt-4">
+        <div className="flex items-center justify-between">
+          <span className="font-medium">Date:</span>
+          <span className="text-gray-500 dark:text-gray-400">{selectedAppointment.date}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="font-medium">Duration:</span>
+          <span className="text-gray-500 dark:text-gray-400">{selectedAppointment.duration}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="font-medium">Start Time:</span>
+          <span className="text-gray-500 dark:text-gray-400">{selectedAppointment.startTime}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="font-medium">Location:</span>
+          <span className="text-gray-500 dark:text-gray-400">
+           {selectedAppointment.location}
+          </span>
+        </div>
+      </div>
+      {selectedAppointment.status === "pending" ?  <div className="flex justify-end mt-4">
+      
+      <button onClick={()=>handleappointment({  appId:selectedAppointment._id,status:"approved"})} className="px-4 py-2 border border-gray-300 rounded-md hover:text-white hover:bg-orange-600 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        Approve 
+      </button>
+      <button onClick={()=>handleappointment({  appId:selectedAppointment._id,status:"rejected"})} className="px-4 py-2 ml-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300">
+        Cancel Appointment
+      </button>
+    </div>:<></>}
+     
+    </div>
+    </div>
+  </div>
+)}
+                            <Button onClick={ ()=>handleInfo(app)} variant="outline">
                               <CalendarIcon className="h-4 w-4" />
                               <span className="sr-only">Reschedule</span>
                             </Button>
                           </div>
                         </Table.Cell>
                       </Table.Row>
-                    ))}
+                    ))}</>}
+                    </>}
+         
                   </Table.Body>
                 </Table.Root>
               </Card>
+              
             </div>
+            {loading?<></>: <div className="flex pr-5 pt-4 pb-20 justify-end align-bottom">
+          
+          <StyledPagination
+            breakLabel="..."
+           
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={4}
+            pageCount={totalCount}
+         
+    
+          />
+ 
+</div>}
+      
           </main>
+       
+
+                  
         </div>
+       
       </div>
+     
     </Theme>
+    
+    </>
   );
 }
 

@@ -17,13 +17,19 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseUrl } from "../api/baseUrl";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { login, logout } from "../lib/authSlice";
+import { setPriority } from "os";
+import { setProfile, setUser } from "../lib/reducers/loggedinUser";
+import {  signOut } from "@/auth";
 
 type Doctors = {
     _id:string;
     idUrl: string;
     legalid: string;
     medicalCollege: string;
-    pmdcNo: string;
+    registration_no: string;
     pmdcUrl: string;
     baseUser: {
         first_name: string;
@@ -35,12 +41,17 @@ type Doctors = {
 }
 
 export default function Component() {
+  const token = useSelector((state: any) => state.user.profile?.accessToken);
+  const router = useRouter();
     const [doctors, setDoctors] = useState<Doctors[]>([]);
+    const dispatch= useDispatch();
+    const login = useSelector((state: any) => state.auth.isLogin);
+
     useEffect(()=> {
         async function getAllDoctors(){
             try{
                 await axios.get(`${baseUrl}/getAlldoctorsforadmin`, {
-                    withCredentials: true,
+                   
                     headers:{
                         "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
                     }
@@ -54,10 +65,14 @@ export default function Component() {
         }
         getAllDoctors()
     }, []);
-    async function verifyDoctor(id:any){
+
+
+    async function verifyDoctor(obj:any){
         try{
-            await axios.put(`${baseUrl}verifyDoctorByAdmin?id=${id}`, {}, {
-                withCredentials: true,
+            await axios.post(`${baseUrl}verifyDoctorByAdmin`, {
+            id:  obj.id ,status:obj.status,comment: obj.comment
+            }, {
+      
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
                 }
@@ -68,29 +83,32 @@ export default function Component() {
             console.log(err)
         }
     }
+
+
+
+  const handleLogout = () => {
+
+
+  
+    dispatch(setProfile(null));
+  
+    dispatch(setUser(null));
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("accessToken");
+    
+    dispatch(logout());
+    
+    signOut();
+
+    router.push("/login");
+    
+  }
   return (
     <Theme>
-      <div className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[280px_1fr] mt-20">
-        <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
-          <div className="flex flex-col gap-2">
-            <div className="flex h-[60px] items-center px-6">
-              <Link className="flex items-center gap-2 font-semibold" href="#">
-                <HospitalIcon className="h-6 w-6" />
-                <span className="">Derma AI</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col">
-          <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
-            <Link className="lg:hidden" href="#">
-              <HospitalIcon className="h-6 w-6" />
-              <span className="sr-only">Home</span>
-            </Link>
-            <div className="flex-1">
-              <h1 className="font-semibold text-lg">Verify Doctors</h1>
-            </div>
-          </header>
+      <div className="grid mt-[4rem] min-h-screen w-full overflow-hidden  bg-[#f1f5f9]">
+       
+        <div className="w-full">
+         
           <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
             <div className="border shadow-sm rounded-lg p-2">
               <Table.Root>
@@ -105,16 +123,15 @@ export default function Component() {
                     <Table.ColumnHeaderCell>PMDC NO</Table.ColumnHeaderCell>
                     <Table.ColumnHeaderCell>PMDC URL</Table.ColumnHeaderCell>
                     <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell className="text-right">
-                      Actions
-                    </Table.ColumnHeaderCell>
+                    
                   </Table.Row>
                 </TableHeader>
                 <TableBody>
                     {
                         doctors &&
+                        doctors.length > 0 ?
                         doctors.map((doctor) => (
-                            <TableRow>
+                            <TableRow onClick={()=>router.push(`/admin/${doctor._id}`)} className="hover:bg-[#cdd4dc]">
                     <TableCell>
                       <div className="flex items-center gap-4">
                         <Avatar
@@ -131,7 +148,7 @@ export default function Component() {
                     <TableCell>{doctor.medicalCollege}</TableCell>
                     <TableCell>{doctor.legalid}</TableCell>
                     <TableCell><a target="_blank" href={doctor.idUrl}>ID URL</a></TableCell>
-                    <TableCell>{doctor.pmdcNo}</TableCell>
+                    <TableCell>{doctor.registration_no}</TableCell>
                     <TableCell><a target="_blank" href={doctor.pmdcUrl}>PMDC URL</a></TableCell>
                     <TableCell>
                       <Badge
@@ -140,25 +157,11 @@ export default function Component() {
                       >
                         {doctor.baseUser.status}
                       </Badge>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <DropdownMenu.Root>
-                        <DropdownMenu.Trigger>
-                          <Button variant="ghost">
-                            <MoveHorizontalIcon className="w-4 h-4" />
-                            <span className="sr-only">Actions</span>
-                          </Button>
-                        </DropdownMenu.Trigger>
-                        <DropdownMenu.Content align="end">
-                          <DropdownMenu.Item onClick={() => verifyDoctor(doctor._id)}>Verify</DropdownMenu.Item>
-                          <DropdownMenu.Item className="text-red-600">
-                            Reject
-                          </DropdownMenu.Item>
-                        </DropdownMenu.Content>
-                      </DropdownMenu.Root>
+                 
+                     
                     </TableCell>
                   </TableRow>
-                        ))
+                        )):<div className="flex justify-center items-center"><h1 className="text-black items-center align-middle pl-[40rem] py-[5rem] text-center">Nothing to show</h1></div>
                     }
                   
                 </TableBody>

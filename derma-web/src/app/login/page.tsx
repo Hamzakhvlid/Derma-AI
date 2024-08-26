@@ -13,6 +13,7 @@ import type { RootState } from "../lib/store";
 import { useRouter } from "next/navigation";
 import "./style.css";
 import { toast } from "react-toastify";
+import { doSocialLogin } from "../actions";
 //initial values for form
 const initialValues = {
   identifier: "",
@@ -35,7 +36,7 @@ export default function LoginPage() {
         try {
           setIsLoading(true);
           const response = await axios.post(loginApi, values, {
-            withCredentials: true,
+       
           });
           
           console.log("request sent one time")
@@ -54,7 +55,14 @@ export default function LoginPage() {
             console.log(response);
             console.log(res_data.data);
             dispatch(setProfile(res_data.data));
+            console.log(res_data.data.role);
+            if(res_data.data.role=="admin"){
+              router.push("/admin");
+            }
+            else 
             router.push("/");
+         
+          
            
            }
           else{
@@ -150,17 +158,13 @@ export default function LoginPage() {
             Or login with
           </h1>
 
-          <div className="flex w-full  justify-center">
+          <div onClick={()=>doSocialLogin("google")} className="flex w-full  justify-center">
             <img
               className="inline w-[2.4rem] h-[2.4rem] "
               src="googleLogo.png"
               alt=""
             />
-            <img
-              className="inline w-[2rem] h-[2rem] "
-              src="appleLogo.png"
-              alt=""
-            />
+           
           </div>
         </div>
       </div>

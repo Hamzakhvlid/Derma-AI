@@ -53,7 +53,7 @@ export default function EditProfile() {
           console.log(localStorage)
           values.imageUrl = image;
           const response = await axios.post("http://localhost:8080/api/v1/users/updateProfile", values, {
-            withCredentials: true,
+      
             headers: {
               authorization: "Bearer " + localStorage.getItem("accessToken"),
             },
@@ -78,7 +78,7 @@ export default function EditProfile() {
         "http://localhost:8080/api/v1/users/uploadImage",
         data,
         {
-          withCredentials: true,
+        
           headers: {
             authorization: "Bearer " + localStorage.getItem("accessToken"),
           },

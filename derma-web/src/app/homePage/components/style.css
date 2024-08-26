@@ -1,0 +1,224 @@
+.images{
+    width: 50%;
+
+    
+   
+}
+
+
+.image-box{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.label{
+  font-size: .8rem;
+  color: #1f3a8a;
+
+ 
+ 
+}
+
+.error-message{
+  color: red;
+  padding: .3rem;
+}
+
+/* Basic table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px; /* Add spacing below the table */
+  }
+  
+  th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  /* Optional: Zebra striping for visual clarity */
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Optional: Header styling */
+  th {
+    background-color: #eee;
+    font-weight: bold;
+  }
+
+  body {
+    font-family: sans-serif;
+  }
+  
+  h1, h2, h3 {
+    color: #333;
+  }
+  
+  .section {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+  }
+  
+  .section h2 {
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon {
+    margin-right: 10px;
+    font-size: 20px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 5px;
+  }
+  
+  .frequency {
+    font-size: 12px;
+    color: #666;
+  }
+
+  .vertical-table {
+    display: flex;
+    flex-direction: column; /* Stack rows vertically */
+  }
+  
+  .row {
+    display: flex;
+  }
+  
+  .cell {
+    flex: 1; /* Make cells grow equally within a row */
+    padding: 5px; /* Add some padding for readability */
+    border-bottom: 1px solid #ddd; /* Add a subtle border between rows */
+  }
+  
+  .cell:first-child { /* Style the first cell (header) */
+    font-weight: bold;
+  }
+  
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+
+.label{
+    font-size: .8rem;
+    color: #1f3a8a;
+
+   
+   
+}
+.error-message{
+    color: red;
+    padding: .3rem;
+}
+.fancybackground{
+    font-family: "Inter", sans-serif;
+    background-color: #fefefe;
+    opacity: 1;
+    background-image:  linear-gradient(#f5f5f5 0.8px, transparent 0.8px), linear-gradient(90deg, #f5f5f5 0.8px, transparent 0.8px), linear-gradient(#f5f5f5 0.4px, transparent 0.4px), linear-gradient(90deg, #f5f5f5 0.4px, #fefefe 0.4px);
+    background-size: 20px 20px, 20px 20px, 4px 4px, 4px 4px;
+    background-position: -0.8px -0.8px, -0.8px -0.8px, -0.4px -0.4px, -0.4px -0.4px;
+}
+.shadow{
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.input{
+    width: 100%;
+    font-family: "Inter", sans-serif;
+   padding: .6rem;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 2px solid #eaebec;
+    border-radius: .8rem;
+    color: black;
+  
+   
+}
+textarea{
+    width: 100%;
+    font-family: "Inter", sans-serif;
+   padding: .6rem;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 2px solid #eaebec;
+    border-radius: .8rem;
+    color: black;
+}
+input::placeholder{
+    color: #9a9ba1;
+    font-size: .8rem;
+    font-style: italic;
+}
+
+p{
+    color: #fff;
+    font-size: .5rem;
+    padding: 0%;
+    margin: 0%;
+}
+.additional-info-container {
+  display: flex; /* Make the container a flexbox */
+  align-items: center; /* Center the items vertically */
+
+}
+
+.input {
+  flex: 1; /* Allow the input to fill most of the space */
+  margin-right: 10px; /* Add some margin to the right */
+}
+
+.word-count {
+  color: #aaa; /* Adjust color as needed */
+  font-size: 0.8rem; /* Adjust font size as needed */
+}
+
+
+
+  @media (max-width: 768px) {
+    .signupbg {
+   
+    background-image: none;
+
+    
+    }
+
+  
+
+
+input{
+
+    padding: .4em;
+
+}
+label{
+    font-size: .5rem;
+    color: #fff;
+    margin-bottom: 0.5em;
+}
+
+
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 991px) {
+    /* Styles for tablets in portrait mode */
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    /* Styles for tablets in landscape mode */
+}

@@ -78,28 +78,7 @@ export default function SideNavbar() {
                 />
               }
             />
-            <SidebarItems
-              title={"Analytics"}
-              activeItem={activeItem}
-              icon={
-                <MdOutlineAnalytics
-                  className={`${
-                    activeItem === "Analytics" ? "text-white" : ""
-                  } text-2xl text-gray-800 group-hover:text-white`}
-                />
-              }
-            />
-            <SidebarItems
-              title={"Patient"}
-              activeItem={activeItem}
-              icon={
-                <FaPerson
-                  className={`${
-                    activeItem === "Patient" ? "text-white" : ""
-                  } text-2xl text-gray-800 group-hover:text-white`}
-                />
-              }
-            />
+          
             <SidebarItems
               title={"Blogs"}
               activeItem={activeItem}
@@ -126,17 +105,7 @@ export default function SideNavbar() {
                 />
               }
             />
-            <SidebarItems
-              title={"Finance"}
-              activeItem={activeItem}
-              icon={
-                <RiBankFill
-                  className={`${
-                    activeItem === "Finance" ? "text-white" : ""
-                  } text-2xl text-gray-800 group-hover:text-white`}
-                />
-              }
-            />
+        
           </div>
           {/* logout */}
           <Theme>

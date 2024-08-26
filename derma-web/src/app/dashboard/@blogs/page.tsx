@@ -16,7 +16,7 @@ export default function BlogsDoctorPage() {
         async function fetchMyBlogs(){
             try{
                 await axios.get(`${baseUrl}blogs/getMyBlogs`, {
-                    withCredentials: true,
+       
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
                     }
@@ -33,7 +33,7 @@ export default function BlogsDoctorPage() {
     async function deleteABlog(id: string){
       try{
         await axios.delete(`${baseUrl}blogs/deleteBlog?id=${id}`, {
-          withCredentials: true,
+        
           headers: {
             "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
           }
@@ -67,8 +67,8 @@ export default function BlogsDoctorPage() {
               <Link href="#">{blog.title}</Link>
             </h2>
             <p className="text-gray-500  mb-4">May 1, 2024</p>
-            <p className="text-gray-700 text-base  mb-4">
-              {blog.content}
+            <p className="text-gray-700 text-base  mb-4 h-20">
+              {blog.content.slice(0, 40)}...
             </p>
             <div className="flex items-center justify-end">
               <Link

@@ -60,7 +60,7 @@ const Eyeball = styled.div`
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    z-index: 2;
+    z-index: 1;
   }
 
   ::after {
@@ -74,7 +74,7 @@ const Eyeball = styled.div`
     left: 25%;
     top: 25%;
     transform: translate(-50%, -50%);
-    z-index: 1;
+    z-index: 0;
   }
 `;
 
@@ -88,19 +88,19 @@ const LeftEyeball = styled(Eyeball)`
 
   top: 185px;
   left: 185px;
-  z-index: 1;
+  z-index: 0;
 `;
 
 const leftwhite=styled(Eyeball)`
 top: 185px;
   left: 185px;
-  z-index: 1;
+  z-index: 0;
 `;
 
 const RightEyeball = styled(Eyeball)`
   top: 185px;
   left: 295px;
-  z-index: 1;
+  z-index: 0;
 `;
 function Cena() {
   return (

@@ -9,8 +9,8 @@ export class API_ROUTES {
     RESET_FORGOT_PASSWORD: "/users/resetForgotPassword",
   };
 }
-
-export const baseUrl = "https://derma-ai-test-7888054d78d5.herokuapp.com/api/v1/users/";
+export const backendUrl="http://localhost:8080";
+export const baseUrl = "http://localhost:8080/api/v1/users/";
 
 export const signup = baseUrl + "register";
 
@@ -29,7 +29,10 @@ export const scanNow = baseUrl + "scanNow";
 export const bookAppointment = baseUrl + "bookAppointment";
 
 export const getDoctorDetail = baseUrl + "getDetailedDoctor";
+export const getAdminDoctor= baseUrl + "getAdminDoctor";
 export const googleSignin= baseUrl+"googleSignup"
 export const regitserDoctor = baseUrl + "regitserDoctor";
 export const getCompleteDoctorDetailsForDashboard = baseUrl + "getCompleteDoctor";
 export const updateProfile = baseUrl + "updateProfile";
+export const getProfile = baseUrl + "getProfile";
+export const getAppointments = baseUrl + "getAppointment";

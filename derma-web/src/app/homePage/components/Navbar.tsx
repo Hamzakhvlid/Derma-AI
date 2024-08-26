@@ -25,42 +25,6 @@ const Navbar = () => {
 
 
 
-const addDoctorEducationAndExp = async () => {
-    const education = [
-        {
-            "degree": "MBBS",
-            "institution": "XYZ University",
-            "year": "2005"
-        },
-        {
-            "degree": "MD",
-            "institution": "ABC University",
-            "year": "2010"
-        }
-    ];
-
-    const experience = [
-        {
-            "hospital": "Hospital 1",
-            "position": "Resident",
-            "year": "2010-2015"
-        },
-        {
-            "hospital": "Hospital 2",
-            "position": "Consultant",
-            "year": "2015-2020"
-        }
-    ];
-
-    try {
-        const response = await axios.post('http://localhost:5000/api/doctors/education-experience', { education, experience });
-
-        console.log(response.data);
-    } catch (error) {
-        console.error(error);
-    }
-};
-
 
 
   const dispatch = useDispatch();
@@ -110,7 +74,7 @@ const addDoctorEducationAndExp = async () => {
   }, []);
 
   const handleLogout = () => {
-    dispatch(login());
+
     dispatch(setProfile(null));
     dispatch(setUser(null));
     localStorage.removeItem("accessToken");
@@ -148,6 +112,11 @@ const addDoctorEducationAndExp = async () => {
       link: "/blogs",
       label: "Blogs",
     },
+    {
+      id: 5,
+      link: "/buy-credits",
+      label: "pricing",
+    },
     
   ];
 
@@ -171,6 +140,19 @@ const addDoctorEducationAndExp = async () => {
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+
+  const handleSwicth = (props:any) => {
+
+    if(props==="not registered")
+      router.push("/registerdoctor")
+    else if(props==="pending")
+      router.push("/pending")
+    else if(props==="approved")
+      router.push("/dashboard")
+    else
+      router.push("/registerdoctor")
+
+  }
 
   return (
     <>
@@ -292,15 +274,23 @@ const addDoctorEducationAndExp = async () => {
                       {profile.scanCredits}
                     </h4>
                   </div>
-
-                  <Link href={"/profile"}><DropdownMenu.Item>Edit</DropdownMenu.Item></Link>
-                  <DropdownMenu.Item
-                    shortcut="🩺"
-                    onClick={() => router.push("/registerdoctor")}
+                    <div className="flex flex-col justify-center items-center">
+                    <Link href={"/profile"}><button className="hover:bg-[#c7d4e1] bg-[#f1f5f9] w-full px-[8rem] py-2 mt-1 rounded-lg">Edit</button></Link>
+                  <button   className="hover:bg-[#c4d2df] bg-[#f1f5f9] w-full px-1 py-2 mt-1 rounded-lg"
+                   
+                    onClick={() =>handleSwicth(profile.status)}
                   >
-                    Switch to doctor
-                  </DropdownMenu.Item>
-                  <DropdownMenu.Item>{profile.status}</DropdownMenu.Item>
+                    Switch to doctor 🩺
+                    <h1
+                    className={`${profile.status === "not registerd" ? "text-red-600" :
+                     `${profile.status === "pending" ? " text-[#f4581c]" : `${profile.status === "approved" ? "text-[#2463eb]" : "text-green-600"}`}`
+                    
+                    }`}
+                    >{profile.status}</h1>
+                  </button>
+                 
+                    </div>
+                  
                   <DropdownMenu.Separator />
                   <AlertDialog.Root>
                     <AlertDialog.Trigger>
@@ -309,20 +299,21 @@ const addDoctorEducationAndExp = async () => {
                     <AlertDialog.Content>
                       <AlertDialog.Title>Logout</AlertDialog.Title>
                       <AlertDialog.Description size="2" >
-                        Are you sure? This application will no longer be
-                        accessible and any existing sessions will be expired.
+                        <h1 className="text-black">  Are you sure? This application will no longer be
+                        accessible and any existing sessions will be expired.</h1>
+                      
                       </AlertDialog.Description>
 
                       <Flex gap="3" mt="4" justify="end">
                         <AlertDialog.Cancel>
-                          <Button variant="soft" color="gray">
+                          <button className="border-grey border-2  px-4 rounded-xl py-2 bg-white" >
                             Cancel
-                          </Button>
+                          </button>
                         </AlertDialog.Cancel>
                         <AlertDialog.Action>
-                          <Button variant="solid" color="red" onClick={handleLogout}>
+                          <button className="bg-red-600 px-4 rounded-xl text-white py-2" onClick={handleLogout}>
                             Logout
-                          </Button>
+                          </button>
                         </AlertDialog.Action>
                       </Flex>
                     </AlertDialog.Content>

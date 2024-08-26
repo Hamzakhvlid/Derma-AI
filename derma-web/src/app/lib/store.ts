@@ -8,6 +8,8 @@ import { userSlice } from "./reducers/loggedinUser";
 import { doctorSlice } from "./reducers/doctors";
 import { scanNowSlice } from "./reducers/scanNow";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+import { appointmentSlice } from "./reducers/appointmnets";
+import { selectedAppointmentSlice } from "./reducers/selectedAppointment";
 const createNoopStorage=()=>{
   return {
     getItem(_key:string){
@@ -39,6 +41,9 @@ const allReducers = combineReducers({
   doctor: doctorSlice.reducer,
   sidebar: sidebarReducer,
   scanNow: scanNowSlice.reducer,
+  appointements: appointmentSlice.reducer,
+activeAppointments
+  : selectedAppointmentSlice.reducer,
 });
 const persistedReducer = persistReducer(persistConfig, allReducers);
 export const store = configureStore({
